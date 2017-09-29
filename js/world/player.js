@@ -5,7 +5,10 @@ function Player() {
 	this.dragY = 70000000;
 	this.maxVelocityY = 20000;
     this.up = this.down = this.left = this.right = false;
-    this.collisionBounds = new Bounds(-15, -5, 15, 0);
+    this.collisionBounds = new Bounds(-15, -3, 15, 0);
+	
+	this.sprite = new Sprite(Resources.images['res/img/player.png'], null, new Vector2(0, 0), 32, 32, -32);
+	this.animForward = 0;
 }
 
 Player.prototype.update = function() {
@@ -28,6 +31,8 @@ Player.prototype.update = function() {
 			if(collision)
 				gameScreen.gameOver();
 		}
+		
+		this.animForward = (this.animForward+Time.delta*1500)%4;
 	}else{
 		this.velocity = new Vector2();
 	}
@@ -42,15 +47,21 @@ Player.prototype.update = function() {
         this.location.y = 0;
 }
 
-Player.prototype.draw = function() {
+Player.prototype.draw = function(_stage) {
     ctx.fillStyle = "#3fce3f";
     ctx.save();
     ctx.translate(this.location.x, this.location.y);
-    ctx.fillRect(-15,-30, 30, 30);
+    //ctx.fillRect(-15,-30, 30, 30);
     
     ctx.fillStyle = "#ff1c1c";
     ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);
     
+	this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
+	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
+	_stage.addSprite(this.sprite);
+	var sprite2 = new Sprite(Resources.images['res/img/roads.png'], new Vector2(40, -World.roadHeight/2), new Vector2(0, 0), 26, 26, -26);
+	_stage.addSprite(sprite2);
+	
     ctx.restore();
 }
 

@@ -1,5 +1,5 @@
 function ObstacleBase() {
-    this.location = new Vector2(canvas.width, 0);
+    this.location = new Vector2(500, 0);
     this.collisionBounds = new Bounds(-5, -5, 5, 5);
     this.dead = false;
 } 

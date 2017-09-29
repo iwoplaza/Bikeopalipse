@@ -44,11 +44,13 @@ World.draw = function() {
     
 	this.road.draw();
 	
+	this.stage.clear();
     Player.player.draw(this.stage);
     
     for(var key in this.obstacles) {
         this.obstacles[key].draw(this.stage);
     }
+	this.stage.draw();
     
     ctx.restore();
 }

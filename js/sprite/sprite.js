@@ -1,9 +1,16 @@
-function Sprite(_x, _y, _tx, _ty, _w, _h, _yo) {
-	this.x = _x ? _x : 0;
-	this.y = _y ? _y : 0;
-	this.tx = _tx ? _tx : 0;
-	this.ty = _ty ? _ty : 0;
+function Sprite(_image, _loc, _tex, _w, _h, _yo) {
+	this.image = _image;
+	this.location = _loc ? _loc : new Vector2();
+	this.textureCoords  = _tex ? _tex : new Vector2();
 	this.width = _w ? _w : 0;
 	this.height = _h ? _h : 0;
+	this.yOffset = _yo;
 }
 
+Sprite.prototype.moveTo = function(_vec) {
+	this.location = _vec;
+}
+
+Sprite.prototype.draw = function() {
+	ctx.drawImage(this.image, this.textureCoords.x, this.textureCoords.y, this.width, this.height, this.location.x, this.location.y+this.yOffset, this.width, this.height);
+}

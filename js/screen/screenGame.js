@@ -18,7 +18,10 @@ ScreenGame.prototype.draw = function() {
     ctx.fillStyle = "#ffae3f";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
+	ctx.save();
+	ctx.translate(0, -20);
     World.draw();
+	ctx.restore();
 	
 	if(!this.isGameOver) {
 		ctx.fillStyle = "#fff";

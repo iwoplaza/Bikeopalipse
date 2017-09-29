@@ -1,5 +1,9 @@
 var Resources = {
-	imagesToLoad: ['res/img/roads.png', 'res/img/obstacles.png'],
+	imagesToLoad: [
+		'res/img/roads.png',
+		'res/img/obstacles.png',
+		'res/img/player.png'
+	],
 	images: [],
 	
 	callback: null

@@ -11,14 +11,14 @@ Stage.prototype.addSprite = function(_sprite) {
 	
 	var i = 0;
 	for(;i < this.sprites.length; i++) {
-		if(this.sprites[i].distance < _sprite.distance)
+		if(this.sprites[i].location.y < _sprite.location.y)
 			break;
 	}
 	this.sprites.splice(i, 0, _sprite);
 }
 
 Stage.prototype.draw = function() {
-	for(var i = 0; i < this.sprites.length; i++) {
-		this.sprites[i];
+	for(var i = this.sprites.length-1; i >= 0; i--) {
+		this.sprites[i].draw();
 	}
 }
