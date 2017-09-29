@@ -24,7 +24,15 @@ ScreenHandler = {
     keyUp: function(e) {
         if(this.current && this.current.keyUp)
             this.current.keyUp(e);
-    }
+    },
+	
+	getWidth: function() {
+		return canvas.width/camera.scale();
+	},
+	
+	getHeight: function() {
+		return canvas.height/camera.scale();
+	}
 };
 
 function enterFullscreen(e) {

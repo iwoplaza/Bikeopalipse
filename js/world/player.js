@@ -1,37 +1,52 @@
 function Player() {
     this.location = new Vector2(60, -World.roadHeight/2);
     console.log("Init");
+	this.velocity = new Vector2(0, 0);
+	this.dragY = 70000000;
+	this.maxVelocityY = 20000;
     this.up = this.down = this.left = this.right = false;
-    this.collisionBounds = new Bounds(-30, -10, 30, 0);
+    this.collisionBounds = new Bounds(-15, -5, 15, 0);
 }
 
 Player.prototype.update = function() {
-    if(this.left) this.goLeft();
-    if(this.right) this.goRight();
-    if(this.up) this.goUp();
-    if(this.down) this.goDown();
+	var gameScreen = ScreenHandler.current;
+	if(!gameScreen) return;
+	
+	this.velocity.x = 0;
+	
+	if(!gameScreen.isGameOver) {
+		if(this.left) this.goLeft();
+		if(this.right) this.goRight();
+		if(this.up) this.goUp();
+		else if(this.down) this.goDown();
+		else this.applyDrag();
+		
+		for(var i in World.obstacles) {
+			var obstacle = World.obstacles[i];
+			var collision = obstacle.collidesWith(this.collisionBounds.offset(this.location));
+
+			if(collision)
+				gameScreen.gameOver();
+		}
+	}else{
+		this.velocity = new Vector2();
+	}
     
-    if(this.location.x < 0)
-        this.location.x = 0;
+	this.location = this.location.addVec(this.velocity.multiply(Time.delta));
+	
+    if(this.location.x < 20)
+        gameScreen.gameOver();
     if(this.location.y < -World.roadHeight)
         this.location.y = -World.roadHeight;
     if(this.location.y > 0)
         this.location.y = 0;
-    
-    for(var i in World.obstacles) {
-        var obstacle = World.obstacles[i];
-        var collision = obstacle.collidesWith(this.collisionBounds.offset(this.location));
-        
-        if(collision)
-            console.log("KOLIZJA");
-    }
 }
 
 Player.prototype.draw = function() {
     ctx.fillStyle = "#3fce3f";
     ctx.save();
     ctx.translate(this.location.x, this.location.y);
-    ctx.fillRect(-30,-60, 60, 60);
+    ctx.fillRect(-15,-30, 30, 30);
     
     ctx.fillStyle = "#ff1c1c";
     ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);
@@ -66,19 +81,29 @@ Player.prototype.keyUp = function(e) {
 }
 
 Player.prototype.goLeft = function() {
-    this.location.x -= 4;
+    this.velocity.x = -20000;
 }
 
 Player.prototype.goRight = function() {
-    this.location.x += 4;
+    this.velocity.x = 20000;
 }
 
 Player.prototype.goUp = function() {
-    this.location.y -= 4;
+    this.velocity.y = Math.max(this.velocity.y-2500, -this.maxVelocityY);
 }
 
 Player.prototype.goDown = function() {
-    this.location.y += 4;
+    this.velocity.y = Math.min(this.velocity.y+2500, this.maxVelocityY);
+}
+
+Player.prototype.applyDrag = function() {
+	if(this.velocity.y > 0) {
+		this.velocity.y -= this.dragY*Time.delta;
+		if(this.velocity.y < 0) this.velocity.y = 0;
+	}else if(this.velocity.y < 0) {
+		this.velocity.y += this.dragY*Time.delta;
+		if(this.velocity.y > 0) this.velocity.y = 0;
+	}
 }
 
 Player.prototype.getOffsetCollisionBounds = function() {

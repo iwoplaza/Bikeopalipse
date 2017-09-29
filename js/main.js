@@ -3,9 +3,15 @@ var canvas, ctx;
 function main() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
-    
-    ScreenHandler.open(new ScreenGame());
-    tick();
+	ctx.imageSmoothingEnabled = false;
+	
+    Resources.loadAll(onResourcesLoaded);
+}
+
+function onResourcesLoaded() {
+	Obstacle.init();
+	ScreenHandler.open(new ScreenGame());
+	tick();
 }
 
 function tick() {

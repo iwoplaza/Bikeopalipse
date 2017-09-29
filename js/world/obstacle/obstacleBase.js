@@ -1,6 +1,6 @@
 function ObstacleBase() {
     this.location = new Vector2(canvas.width, 0);
-    this.collisionBounds = new Bounds(-10, -10, 10, 10);
+    this.collisionBounds = new Bounds(-5, -5, 5, 5);
     this.dead = false;
 } 
 
@@ -11,12 +11,15 @@ ObstacleBase.prototype.update = function() {
     }
 }
 
+ObstacleBase.prototype.draw = function() {}
+ObstacleBase.prototype.drawSorted = function() {}
+
 ObstacleBase.prototype.getSpeed = function() {
     return World.getDriveSpeed();
 }
 
 ObstacleBase.prototype.getGap = function() {
-    return 150;
+    return 75;
 }
 
 ObstacleBase.prototype.getOffsetCollisionBounds = function() {
