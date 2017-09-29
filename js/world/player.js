@@ -42,6 +42,16 @@ Player.prototype.update = function() {
 				this.trip();
 		}
 		
+		for(var i in World.coins) {
+			var coin = World.coins[i];
+			var collision = coin.collidesWith(this.collisionBounds.offset(this.location));
+
+			if(collision) {
+				Stats.coins++;
+				coin.dead = true;
+			}
+		}
+		
 		this.animForward = (this.animForward+Time.delta*15)%4;
 	}else{
 		this.velocity = new Vector2();
@@ -104,7 +114,7 @@ Player.prototype.goLeft = function() {
 }
 
 Player.prototype.goRight = function() {
-    this.velocity.x = 150;
+    this.velocity.x = 110;
 }
 
 Player.prototype.goUp = function() {
@@ -117,6 +127,7 @@ Player.prototype.goDown = function() {
 
 Player.prototype.trip = function() {
 	this.tripCooldown = 0.6;
+	AudioManager.play('res/sfx/Hurt.ogg');
 }
 
 Player.prototype.applyDrag = function() {

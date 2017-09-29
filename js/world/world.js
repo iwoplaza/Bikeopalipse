@@ -5,6 +5,8 @@ var World = {
 World.init = function() {
     this.obstacles = [];
     this.obstacleDelay = 10;
+	this.coins = [];
+	this.coinSpawnCooldown = 1;
 	this.road = new Road();
 	this.stage = new Stage();
 }
@@ -24,10 +26,22 @@ World.update = function() {
 			this.obstacleDelay = obstacle.getGap();
 		}
 
+		if(this.coinSpawnCooldown > 0) {
+			this.coinSpawnCooldown -= Time.delta;
+		} else {
+			this.spawnCoin();
+		}
+		
 		for(var i = this.obstacles.length-1; i >= 0; i--) {
 			this.obstacles[i].update();
 			if(this.obstacles[i].dead)
 				this.obstacles.splice(i, 1);
+		}
+		
+		for(var i = this.coins.length-1; i >= 0; i--) {
+			this.coins[i].update();
+			if(this.coins[i].dead)
+				this.coins.splice(i, 1);
 		}
 		
 		this.road.update();
@@ -50,9 +64,17 @@ World.draw = function() {
     for(var key in this.obstacles) {
         this.obstacles[key].draw(this.stage);
     }
+	for(var key in this.coins) {
+        this.coins[key].draw(this.stage);
+    }
 	this.stage.draw();
     
     ctx.restore();
+}
+
+World.spawnCoin = function() {
+	this.coins.push(new Coin(new Vector2(400, 20+Math.floor(Math.random()*-(this.roadHeight-40)))));
+	this.coinSpawnCooldown = 1;
 }
 
 World.getDriveSpeed = function() {

@@ -9,8 +9,9 @@ function main() {
 }
 
 function onResourcesLoaded() {
+	Fonts.init();
 	Obstacle.init();
-	ScreenHandler.open(new ScreenGame());
+	ScreenHandler.open(new ScreenTitle());
 	tick();
 }
 

@@ -2,22 +2,30 @@ var Resources = {
 	imagesToLoad: [
 		'res/img/roads.png',
 		'res/img/obstacles.png',
-		'res/img/player.png'
+		'res/img/player.png',
+		'res/font/font.png'
 	],
+	soundsToLoad: [
+		'res/sfx/Apoca.ogg',
+		'res/sfx/Hurt.ogg',
+		'res/sfx/ReadyGo.ogg'
+	],
+	
 	images: [],
+	sounds: [],
 	
 	callback: null
 };
 
 Resources.loadAll = function(_callback) {
 	this.callback = _callback;
-	Resources.loadNext();
+	Resources.loadNextImage();
 }
 
-Resources.loadNext = function() {
+Resources.loadNextImage = function() {
 	if(this.imagesToLoad.length == 0) {
-		console.log("Resources loaded!");
-		this.callback();
+		console.log("Images loaded!");
+		this.loadNextSound();
 		return;
 	}
 	var imagePath = this.imagesToLoad.pop();
@@ -25,6 +33,17 @@ Resources.loadNext = function() {
 	image.src = imagePath;
 	image.onload = function(e) {
 		Resources.images[imagePath] = this;
-		Resources.loadNext();
+		Resources.loadNextImage();
 	}
+}
+
+Resources.loadNextSound = function() {
+	if(this.soundsToLoad.length == 0) {
+		console.log("Resources loaded!");
+		this.callback();
+		return;
+	}
+	var soundPath = this.soundsToLoad.pop();
+	Resources.sounds[soundPath] = new Audio(soundPath);
+	Resources.loadNextSound();
 }
