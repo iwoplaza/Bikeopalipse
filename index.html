@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bikeopalipse</title>
+        <style>
+            body {
+                background-color: #555;
+                margin: 0 0;
+            }
+            
+            canvas {
+                display: block;
+                margin: 50px auto 0px auto;
+            }
+            
+            button {
+                display: block;
+                width: 140px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <button onclick="enterFullscreen()">Go Fullscreen!</button>
+        <script src="js/screen/screen.js"></script>
+        <script src="js/screen/screenTitle.js"></script>
+        <script src="js/screen/screenGame.js"></script>
+        <script src="js/world/world.js"></script>
+        <script src="js/world/player.js"></script>
+        <script src="js/world/obstacle/obstacle.js"></script>
+        <script src="js/world/obstacle/obstacleBase.js"></script>
+        <script src="js/world/obstacle/obstacleSmallRock.js"></script>
+        <script src="js/world/obstacle/obstacleGapPlank.js"></script>
+        <script src="js/util/vector.js"></script>
+        <script src="js/util/bounds.js"></script>
+        <script src="js/time.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
