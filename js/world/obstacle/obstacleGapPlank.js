@@ -24,8 +24,8 @@ ObstacleGapPlank.prototype.getGap = function() {
 }
 
 ObstacleGapPlank.prototype.collidesWith = function(bounds) {
-    return this.collisionBoundsTop.offset(this.location).overlaps(bounds) ||
-            this.collisionBoundsBottom.offset(this.location).overlaps(bounds);
+    return (this.collisionBoundsTop.offset(this.location).overlaps(bounds) ||
+            this.collisionBoundsBottom.offset(this.location).overlaps(bounds)) ? Obstacle.COLLISION_FATAL : 0;
 }
 
 Obstacle.register(ObstacleGapPlank);

@@ -2,10 +2,11 @@ function Player() {
     this.location = new Vector2(60, -World.roadHeight/2);
     console.log("Init");
 	this.velocity = new Vector2(0, 0);
-	this.dragY = 70000000;
-	this.maxVelocityY = 20000;
+	this.dragY = 700000;
+	this.maxVelocityY = 120;
     this.up = this.down = this.left = this.right = false;
     this.collisionBounds = new Bounds(-15, -3, 15, 0);
+	this.tripCooldown = 0;
 	
 	this.sprite = new Sprite(Resources.images['res/img/player.png'], null, new Vector2(0, 0), 32, 32, -32);
 	this.animForward = 0;
@@ -16,10 +17,17 @@ Player.prototype.update = function() {
 	if(!gameScreen) return;
 	
 	this.velocity.x = 0;
+	if(this.tripCooldown > 0) {
+		this.tripCooldown-=Time.delta;
+	}
 	
 	if(!gameScreen.isGameOver) {
-		if(this.left) this.goLeft();
-		if(this.right) this.goRight();
+		if(this.tripCooldown <= 0) {
+			if(this.left) this.goLeft();
+			if(this.right) this.goRight();
+		}else{
+			this.velocity.x = -60;
+		}
 		if(this.up) this.goUp();
 		else if(this.down) this.goDown();
 		else this.applyDrag();
@@ -28,11 +36,13 @@ Player.prototype.update = function() {
 			var obstacle = World.obstacles[i];
 			var collision = obstacle.collidesWith(this.collisionBounds.offset(this.location));
 
-			if(collision)
+			if(collision == Obstacle.COLLISION_FATAL)
 				gameScreen.gameOver();
+			else if(collision == Obstacle.COLLISION_TRIP)
+				this.trip();
 		}
 		
-		this.animForward = (this.animForward+Time.delta*1500)%4;
+		this.animForward = (this.animForward+Time.delta*15)%4;
 	}else{
 		this.velocity = new Vector2();
 	}
@@ -59,8 +69,6 @@ Player.prototype.draw = function(_stage) {
 	this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
 	_stage.addSprite(this.sprite);
-	var sprite2 = new Sprite(Resources.images['res/img/roads.png'], new Vector2(40, -World.roadHeight/2), new Vector2(0, 0), 26, 26, -26);
-	_stage.addSprite(sprite2);
 	
     ctx.restore();
 }
@@ -92,19 +100,23 @@ Player.prototype.keyUp = function(e) {
 }
 
 Player.prototype.goLeft = function() {
-    this.velocity.x = -20000;
+    this.velocity.x = -150;
 }
 
 Player.prototype.goRight = function() {
-    this.velocity.x = 20000;
+    this.velocity.x = 150;
 }
 
 Player.prototype.goUp = function() {
-    this.velocity.y = Math.max(this.velocity.y-2500, -this.maxVelocityY);
+    this.velocity.y = Math.max(this.velocity.y-25, -this.maxVelocityY);
 }
 
 Player.prototype.goDown = function() {
-    this.velocity.y = Math.min(this.velocity.y+2500, this.maxVelocityY);
+    this.velocity.y = Math.min(this.velocity.y+25, this.maxVelocityY);
+}
+
+Player.prototype.trip = function() {
+	this.tripCooldown = 0.6;
 }
 
 Player.prototype.applyDrag = function() {

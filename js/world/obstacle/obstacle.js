@@ -1,5 +1,7 @@
 Obstacle = {
     registry: [],
+	COLLISION_FATAL: 1,
+	COLLISION_TRIP: 2
 };
 
 Obstacle.init = function() {

@@ -27,5 +27,8 @@ ObstacleBase.prototype.getOffsetCollisionBounds = function() {
 }
 
 ObstacleBase.prototype.collidesWith = function(bounds) {
-    return this.getOffsetCollisionBounds().overlaps(bounds);
+    if(this.getOffsetCollisionBounds().overlaps(bounds)) {
+		return Obstacle.COLLISION_FATAL;
+	}
+	return 0;
 }

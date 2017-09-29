@@ -1,6 +1,6 @@
 var Time = {
     delta: 0,
-    deltaCap: 0.1,
+    deltaCap: 100,
     lastTime: Date.now(),
     
     update: function() {

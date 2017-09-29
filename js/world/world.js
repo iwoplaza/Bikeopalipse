@@ -56,5 +56,5 @@ World.draw = function() {
 }
 
 World.getDriveSpeed = function() {
-    return 20000;
+    return 150;
 }

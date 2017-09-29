@@ -19,7 +19,7 @@ ScreenGame.prototype.draw = function() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
 	ctx.save();
-	ctx.translate(0, -20);
+	ctx.translate(0, -HUD.barHeight);
     World.draw();
 	ctx.restore();
 	
@@ -34,6 +34,8 @@ ScreenGame.prototype.draw = function() {
 		ctx.textAlign = "center";
 		ctx.fillText("Game Over", canvas.width/2, 160);
 	}
+	
+	HUD.draw();
 }
 
 ScreenGame.prototype.keyDown = function(e) {
