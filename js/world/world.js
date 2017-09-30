@@ -10,6 +10,7 @@ World.init = function() {
 	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
 	this.road = new Road();
 	this.stage = new Stage();
+    this.structure = new Structure();
 	this.skyline = new Skyline(Resources.images['res/img/skyline_dawn.png']);
 }
 
@@ -48,6 +49,7 @@ World.update = function() {
 		
 		this.skyline.update();
 		this.road.update();
+        this.structure.update();
 	}
 }
 
@@ -59,6 +61,8 @@ World.draw = function() {
 	ctx.drawImage(this.backgroundImage, -56, -300, 512, 512);
 	this.skyline.draw();
 	
+    this.structure.draw();
+    
 	this.road.draw();
 	
 	this.stage.clear();
