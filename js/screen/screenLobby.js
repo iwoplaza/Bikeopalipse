@@ -5,7 +5,7 @@ function ScreenLobby() {
 	this.characterSelect.addOption(new CharacterOption("vance spark", 0, 0));
 	this.characterSelect.addOption(new CharacterOption("christopher", 0, 0));
 	
-	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 40));
+	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 20));
 	this.select.addOption(this.characterSelect);
 	this.select.addOption(new Option('go'));
 	this.select.addOption(new Option('back'));
@@ -31,6 +31,12 @@ ScreenLobby.prototype.draw = function() {
 	ctx.save();
 	ctx.scale(Camera.scale, Camera.scale);
 	this.select.draw();
+	
+	Fonts.regular.setAlignment("center");
+	Fonts.regular.drawText("select your hero", ScreenHandler.getWidth()/2, 15);
+	
+	Fonts.regular.setAlignment("center");
+	Fonts.regular.drawText("highscore: "+Stats.highScore, ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+100);
 	
 	ctx.restore();
 }
@@ -72,7 +78,7 @@ ScreenLobby.prototype.keyDown = function(e) {
 ScreenLobby.prototype.flash = function() {
 	this.flashing = true;
 	this.flashProgress = 0;
-	AudioManager.stopAndPlay('res/sfx/Start.ogg');
+	AudioManager.playSFX('res/sfx/Start.ogg');
 }
 
 ScreenLobby.prototype.keyUp = function(e) {

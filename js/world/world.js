@@ -80,7 +80,6 @@ World.draw = function() {
 	this.road.draw();
 	
 	this.stage.clear();
-    Player.player.draw(this.stage);
     
     for(var key in this.obstacles) {
         this.obstacles[key].draw(this.stage);
@@ -91,6 +90,7 @@ World.draw = function() {
 	for(var key in this.powerups) {
         this.powerups[key].draw(this.stage);
     }
+	Player.player.draw(this.stage);
 	this.stage.draw();
     
     ctx.restore();

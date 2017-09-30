@@ -19,15 +19,11 @@ CharacterSelect.prototype.draw = function() {
 	ctx.translate(this.location.x, this.location.y);
 	
 	var width = 200;
-	ctx.fillStyle = "#343448";
-	ctx.fillRect(-width/2, 0, width, 30);
 	ctx.fillStyle = selected ? "#ff8a01" : "#343448";
 	ctx.fillRect(-width/2, 32, width, 90);
 	ctx.fillStyle = "#343448";
 	ctx.fillRect(-width/2+1, 33, width-2, 88);
 	
-	Fonts.regular.setAlignment("center");
-	Fonts.regular.drawText("select your hero", 0, 10);
 	
 	ctx.save();
 	var offset = this.selectedIndex*85;

@@ -66,6 +66,14 @@ Player.prototype.update = function() {
 		this.velocity = new Vector2();
 	}
     
+	if(this.powerup != null) {
+		this.powerup.update();
+		if(this.powerup.dead) {
+			this.powerup.enabled = false;
+			this.powerup = null;
+		}
+	}
+	
 	this.location = this.location.addVec(this.velocity.multiply(Time.delta));
 	
     if(this.location.x < 20)
@@ -88,6 +96,9 @@ Player.prototype.draw = function(_stage) {
 	this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
 	_stage.addSprite(this.sprite);
+	
+	if(this.powerup != null)
+		this.powerup.drawPlayerOverlay();
 	
     ctx.restore();
 }
@@ -140,7 +151,8 @@ Player.prototype.trip = function() {
 
 Player.prototype.getPowerup = function(_index) {
 	var powerup = Powerups.registry[_index];
-	this.powerup = powerup.index;
+	this.powerup = powerup;
+	this.powerup.onObtained();
 	Powerups.selectPowerup(powerup.index);
 }
 

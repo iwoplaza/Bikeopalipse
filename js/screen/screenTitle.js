@@ -7,7 +7,7 @@ function ScreenTitle() {
 
 ScreenTitle.prototype.init = function() {
     this.image = Resources.images['res/img/title.png'];
-	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.1);
+	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.3);
 }
 
 ScreenTitle.prototype.update = function() {
@@ -51,6 +51,7 @@ ScreenTitle.prototype.keyDown = function(e) {
 				this.flash();
 			}
 			if(option.index == 1) { //Controls
+				ScreenHandler.open(new ScreenControls());
 			}
 			if(option.index == 2) { //Settings
 				ScreenHandler.open(new ScreenOptions());
