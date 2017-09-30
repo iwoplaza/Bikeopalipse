@@ -12,18 +12,22 @@ function Structure() {
 
 Structure.prototype.update = function() {
 	this.offset += World.getDriveSpeed()*Time.delta;
-	if(Math.floor(this.offset) >= this.segments[0].textureWidth) {
+	if(this.offset >= this.segments[0].textureWidth) {
+		this.offset -= this.segments[0].textureWidth;
 		this.segments.splice(0, 1);
-		this.offset = 0;
 	}
     var width = 0;
     for (var i=0;i<this.segments.length;i++) width += this.segments[i].textureWidth;
-    if (width<canvas.width) this.segments.push(new StructureSegment());
+    while (width<=canvas.width*2){
+		this.segments.push(new StructureSegment());
+		width = 0;
+    	for (var i=0;i<this.segments.length;i++) width += this.segments[i].textureWidth;
+	}
 }
 
 Structure.prototype.draw = function() {
 	ctx.save();
-	ctx.translate(-this.offset, -105);
+	ctx.translate(-Math.floor(this.offset), -105);
 	for(var i = 0; i < this.segments.length; i++) {
 		this.segments[i].draw();
 		ctx.translate(this.segments[i].textureWidth, 0);

@@ -11,7 +11,7 @@ ObstacleGapPlank.prototype = Object.create(ObstacleBase.prototype);
 
 ObstacleGapPlank.prototype.draw = function() {
     ctx.save();
-    ctx.translate(this.location.x, this.location.y);
+    ctx.translate(Math.floor(this.location.x), this.location.y);
 	
 	ctx.drawImage(Obstacle.image, 0, 0, 77, 105, 0, 0, 77, 107);
 	ctx.drawImage(Obstacle.image, 0, 118, 82, 19, 0, this.plankY+2, 82, 19);

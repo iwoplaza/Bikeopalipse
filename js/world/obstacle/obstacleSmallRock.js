@@ -9,7 +9,7 @@ Obstacle.register(ObstacleSmallRock);
 
 ObstacleSmallRock.prototype.draw = function(_stage) {
     ctx.save();
-    ctx.translate(this.location.x, this.location.y);
+    ctx.translate(Math.floor(this.location.x), this.location.y);
     /*ctx.fillStyle = "red";
     ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);*/
 	
