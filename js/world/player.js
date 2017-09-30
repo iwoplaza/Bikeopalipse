@@ -47,8 +47,7 @@ Player.prototype.update = function() {
 			var collision = coin.collidesWith(this.collisionBounds.offset(this.location));
 
 			if(collision) {
-				Stats.coins++;
-				coin.dead = true;
+				Stats.coins+=coin.collect();
 			}
 		}
 		
@@ -73,8 +72,8 @@ Player.prototype.draw = function(_stage) {
     ctx.translate(this.location.x, this.location.y);
     //ctx.fillRect(-15,-30, 30, 30);
     
-    ctx.fillStyle = "#ff1c1c";
-    ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);
+    /*ctx.fillStyle = "#ff1c1c";
+    ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);*/
     
 	this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;

@@ -1,6 +1,12 @@
 var HUD = {
-	barHeight: 20
+	barHeight: 20,
+	
+	coinSpinAnim: 0
 };
+
+HUD.update = function() {
+	this.coinSpinAnim = (this.coinSpinAnim+15*Time.delta)%6;
+}
 
 HUD.draw = function() {
 	var gameScreen = ScreenHandler.current;
@@ -18,5 +24,8 @@ HUD.draw = function() {
 	//ctx.fillText("Coins"+Stats.coins, 0, this.barHeight-5);
 	
 	Fonts.regular.drawText("score: "+gameScreen.score, 4, -14);
+	ctx.drawImage(Coins.image, 16*7, 0, 16, 16, 70, -17, 16, 16)
+	Fonts.regular.drawText(""+Stats.coins, 85, -14);
+	
 	ctx.restore();
 }

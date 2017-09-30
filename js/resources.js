@@ -2,13 +2,17 @@ var Resources = {
 	imagesToLoad: [
 		'res/img/roads.png',
 		'res/img/obstacles.png',
+		'res/img/background_dawn.png',
+		'res/img/skyline_dawn.png',
 		'res/img/player.png',
+		'res/img/coin.png',
 		'res/font/font.png'
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',
 		'res/sfx/Hurt.ogg',
-		'res/sfx/ReadyGo.ogg'
+		'res/sfx/ReadyGo.ogg',
+		'res/sfx/Coin.ogg'
 	],
 	
 	images: [],

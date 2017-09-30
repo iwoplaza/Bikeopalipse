@@ -7,8 +7,10 @@ World.init = function() {
     this.obstacleDelay = 10;
 	this.coins = [];
 	this.coinSpawnCooldown = 1;
+	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
 	this.road = new Road();
 	this.stage = new Stage();
+	this.skyline = new Skyline(Resources.images['res/img/skyline_dawn.png']);
 }
 
 World.update = function() {
@@ -44,6 +46,7 @@ World.update = function() {
 				this.coins.splice(i, 1);
 		}
 		
+		this.skyline.update();
 		this.road.update();
 	}
 }
@@ -52,10 +55,10 @@ World.draw = function() {
     ctx.save();
     ctx.translate(0, canvas.height);
 	ctx.scale(Camera.scale, Camera.scale);
-    
-    ctx.fillStyle = "#444";
-    ctx.fillRect(0, -this.roadHeight, canvas.width, this.roadHeight);
-    
+	
+	ctx.drawImage(this.backgroundImage, -56, -300, 512, 512);
+	this.skyline.draw();
+	
 	this.road.draw();
 	
 	this.stage.clear();
@@ -73,7 +76,7 @@ World.draw = function() {
 }
 
 World.spawnCoin = function() {
-	this.coins.push(new Coin(new Vector2(400, 20+Math.floor(Math.random()*-(this.roadHeight-40)))));
+	this.coins.push(new Coin(new Vector2(400, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
 	this.coinSpawnCooldown = 1;
 }
 

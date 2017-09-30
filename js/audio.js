@@ -13,7 +13,7 @@ AudioManager.play = function(path, volume) {
 	Resources.sounds[path].play();
 }
 
-AudioManager.stopAndPlay = function() {
+AudioManager.stopAndPlay = function(path, volume) {
 	if(!Resources.sounds[path]) {
 		console.error("Couldn't play "+path);
 		return;
