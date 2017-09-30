@@ -23,6 +23,7 @@ HUD.draw = function() {
 	ctx.font = "20px Arial";
 	//ctx.fillText("Coins"+Stats.coins, 0, this.barHeight-5);
 	
+	Fonts.regular.setAlignment("left");
 	Fonts.regular.drawText("score: "+gameScreen.score, 4, -14);
 	ctx.drawImage(Coins.image, 16*7, 0, 16, 16, 70, -17, 16, 16)
 	Fonts.regular.drawText(""+Stats.coins, 85, -14);

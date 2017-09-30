@@ -3,6 +3,9 @@ function Select(_location) {
 	this.options = [];
 	this.spacing = 5;
 	this.selectedIndex = 0;
+	this.selectDelay = 0.5;
+	this.flashFrequency = 4;
+	this.flash = 0;
 }
 
 Select.prototype.addOption = function(_option) {
@@ -25,23 +28,47 @@ Select.prototype.goUp = function() {
 	this.selectedIndex--;
 	if(this.selectedIndex < 0)
 		this.selectedIndex = 0;
+	else{
+		AudioManager.stopAndPlay('res/sfx/Click.ogg');
+	}
 }
 
 Select.prototype.goDown = function() {
 	this.selectedIndex++;
 	if(this.selectedIndex >= this.options.length)
 		this.selectedIndex = this.options.length-1;
+	else{
+		AudioManager.stopAndPlay('res/sfx/Click.ogg');
+	}
+}
+
+Select.prototype.confirm = function() {
+	var option = this.options[this.selectedIndex];
+	if(!option) return;
+	option.confirm();
+	return option;
 }
 
 function Option(_label) {
 	this.parentSelect = null;
 	this.label = _label;
+	this.flashProgress = 0;
 }
 
 Option.prototype.draw = function() {
 	var selected = this.parentSelect.selectedIndex == this.index;
 	
-	if(selected) {
+	var textColor = "#fff";
+	
+	if(this.flashing) {
+		this.flashProgress = (this.flashProgress+6*Time.delta)%1;
+		if(this.flashProgress < 0.5) {
+			ctx.fillStyle = "#343448";
+		}else{
+			textColor = "#343448";
+			ctx.fillStyle = "#9494d6";
+		}
+	}else if(selected) {
 	  	ctx.fillStyle = "#ff8a01";
 	}else {
 		ctx.fillStyle = "#343448";
@@ -50,9 +77,20 @@ Option.prototype.draw = function() {
 	var width = 200;
 	ctx.fillRect(-width/2, 0, width, 40);
 	
-	ctx.fillStyle = "#fff";
+	ctx.fillStyle = textColor;
 	ctx.textAlign = "center";
-	ctx.fillText(this.label, 0, 30);
+	//ctx.fillText(this.label, 0, 30);
+	Fonts.regular.setAlignment("center");
+	Fonts.regular.drawText(this.label, 0, 15);
 	
 	ctx.translate(0, 40);
+}
+
+Option.prototype.confirm = function() {
+	this.confirmed = true;
+}
+
+Option.prototype.flash = function() {
+	this.flash = 0;
+	this.flashing = true;
 }

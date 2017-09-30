@@ -22,6 +22,14 @@ Font.prototype.setLetterSpacing = function(_value) {
 Font.prototype.drawText = function(_text, _x, _y) {
 	ctx.save();
 	ctx.translate(_x, _y);
+	
+	var width = this.getTextWidth(_text);
+	if(this.alignment == "center"){
+		ctx.translate(-width/2, 0);
+	}else if(this.alignment == "right"){
+		ctx.translate(-width, 0);
+	}
+	
 	for(var i = 0; i < _text.length; i++) {
 		var char = this.characters[_text[i]];
 		if(char) {
@@ -32,6 +40,16 @@ Font.prototype.drawText = function(_text, _x, _y) {
 	ctx.restore();
 }
 
+Font.prototype.getTextWidth = function(_text) {
+	var width = -this.letterSpacing;
+	for(var i = 0; i < _text.length; i++) {
+		var char = this.characters[_text[i]];
+		if(char) {
+			width += char.dims.x+this.letterSpacing;
+		}
+	}
+	return width;
+}
 
 function Character(_pos, _dims) {
 	this.pos = _pos ? _pos : new Vector2(0, 0);
@@ -56,7 +74,7 @@ Fonts.init = function() {
 			'j': [50, 0, 6, 10],
 			'k': [56, 0, 6, 10],
 			'l': [62, 0, 6, 10],
-			'm': [68, 0, 6, 10],
+			'm': [68, 0, 7, 10],
 			'n': [75, 0, 6, 10],
 			'o': [81, 0, 6, 10],
 			'p': [87, 0, 6, 10],

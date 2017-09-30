@@ -27,11 +27,11 @@ ScreenHandler = {
     },
 	
 	getWidth: function() {
-		return canvas.width/camera.scale();
+		return canvas.width/Camera.scale;
 	},
 	
 	getHeight: function() {
-		return canvas.height/camera.scale();
+		return canvas.height/Camera.scale;
 	}
 };
 
