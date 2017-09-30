@@ -8,15 +8,8 @@ ObstacleSmallRock.prototype = Object.create(ObstacleBase.prototype);
 Obstacle.register(ObstacleSmallRock);
 
 ObstacleSmallRock.prototype.draw = function(_stage) {
-    ctx.save();
-    ctx.translate(Math.floor(this.location.x), this.location.y);
-    /*ctx.fillStyle = "red";
-    ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);*/
-	
 	this.sprite.moveTo(this.location.addVec(new Vector2(-10)));
 	_stage.addSprite(this.sprite);
-	
-    ctx.restore();
 }
 
 ObstacleBase.prototype.collidesWith = function(bounds) {

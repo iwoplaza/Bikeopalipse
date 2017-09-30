@@ -12,5 +12,5 @@ Sprite.prototype.moveTo = function(_vec) {
 }
 
 Sprite.prototype.draw = function() {
-	ctx.drawImage(this.image, this.textureCoords.x, this.textureCoords.y, this.width, this.height, this.location.x, this.location.y+this.yOffset, this.width, this.height);
+	ctx.drawImage(this.image, this.textureCoords.x, this.textureCoords.y, this.width, this.height, Math.floor(this.location.x), Math.floor(this.location.y+this.yOffset), this.width, this.height);
 }

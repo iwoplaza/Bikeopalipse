@@ -29,7 +29,7 @@ Select.prototype.goUp = function() {
 	if(this.selectedIndex < 0)
 		this.selectedIndex = 0;
 	else{
-		AudioManager.stopAndPlay('res/sfx/Click.ogg');
+		AudioManager.playSFX('res/sfx/Click.ogg');
 	}
 }
 
@@ -38,7 +38,7 @@ Select.prototype.goDown = function() {
 	if(this.selectedIndex >= this.options.length)
 		this.selectedIndex = this.options.length-1;
 	else{
-		AudioManager.stopAndPlay('res/sfx/Click.ogg');
+		AudioManager.playSFX('res/sfx/Click.ogg');
 	}
 }
 
@@ -91,6 +91,6 @@ Option.prototype.confirm = function() {
 }
 
 Option.prototype.flash = function() {
-	this.flash = 0;
+	this.flashProgress = 0;
 	this.flashing = true;
 }

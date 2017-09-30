@@ -28,5 +28,12 @@ HUD.draw = function() {
 	ctx.drawImage(Coins.image, 16*7, 0, 16, 16, 70, -17, 16, 16)
 	Fonts.regular.drawText(""+Stats.coins, 85, -14);
 	
+	ctx.save();
+	ctx.translate(120, 0);
+	for(var i = 0; i < Powerups.registry.length; i++) {
+		Powerups.registry[i].drawHUD();
+	}
+	ctx.restore();
+	
 	ctx.restore();
 }
