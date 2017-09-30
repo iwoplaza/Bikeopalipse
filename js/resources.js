@@ -10,7 +10,8 @@ var Resources = {
 		'res/font/font.png',
         'res/img/building01.png',
         'res/img/building02.png',
-        'res/img/house01.png'
+        'res/img/house01.png',
+        'res/img/switches.png'
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',
