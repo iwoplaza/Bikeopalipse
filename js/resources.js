@@ -7,11 +7,14 @@ var Resources = {
 		'res/img/player.png',
 		'res/img/coin.png',
 		'res/img/title.png',
+		'res/img/labels.png',
+		'res/img/gameover.png',
 		'res/font/font.png',
         'res/img/building01.png',
         'res/img/building02.png',
         'res/img/house01.png',
-        'res/img/switches.png'
+        'res/img/powerups.png',
+        'res/img/characters.png'
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',

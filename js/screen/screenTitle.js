@@ -2,10 +2,12 @@ function ScreenTitle() {
 	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2-20));
 	this.select.addOption(new Option('start'));
 	this.select.addOption(new Option('controls'));
+	this.select.addOption(new Option('options'));
 }
 
 ScreenTitle.prototype.init = function() {
     this.image = Resources.images['res/img/title.png'];
+	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.1);
 }
 
 ScreenTitle.prototype.update = function() {
@@ -13,7 +15,7 @@ ScreenTitle.prototype.update = function() {
 		if(this.flashProgress < 1) {
 			this.flashProgress += Time.delta;
 		}else{
-			ScreenHandler.open(new ScreenGame());
+			ScreenHandler.open(new ScreenLobby());
 		}
 	}
 }
@@ -40,27 +42,35 @@ ScreenTitle.prototype.draw = function() {
 
 ScreenTitle.prototype.keyDown = function(e) {
     var keyCode = e.keyCode;
-    if(keyCode == 32) {
-        var option = this.select.confirm();
-		if(option.index == 0) { //Start
-			option.flash();
-			this.flash();
+	
+	if(!this.flashing){
+		if(keyCode == 32) {
+			var option = this.select.confirm();
+			if(option.index == 0) { //Start
+				option.flash();
+				this.flash();
+			}
+			if(option.index == 1) { //Controls
+			}
+			if(option.index == 2) { //Settings
+				ScreenHandler.open(new ScreenOptions());
+			}
 		}
-    }
-	
-	if(keyCode == 87 || keyCode == 38) {
-	   this.select.goUp();
-	}
-	
-	if(keyCode == 83 || keyCode == 40) {
-	   this.select.goDown();
+
+		if(keyCode == 87 || keyCode == 38) {
+		   this.select.goUp();
+		}
+
+		if(keyCode == 83 || keyCode == 40) {
+		   this.select.goDown();
+		}
 	}
 }
 
 ScreenTitle.prototype.flash = function() {
 	this.flashing = true;
 	this.flashProgress = 0;
-	AudioManager.stopAndPlay('res/sfx/Start.ogg');
+	AudioManager.playSFX('res/sfx/Start.ogg');
 }
 
 ScreenTitle.prototype.keyUp = function(e) {

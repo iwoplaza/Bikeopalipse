@@ -7,6 +7,7 @@ function Player() {
     this.up = this.down = this.left = this.right = false;
     this.collisionBounds = new Bounds(-15, -3, 15, 0);
 	this.tripCooldown = 0;
+	this.powerup = null;
 	
 	this.sprite = new Sprite(Resources.images['res/img/player.png'], null, new Vector2(0, 0), 32, 32, -32);
 	this.animForward = 0;
@@ -51,6 +52,15 @@ Player.prototype.update = function() {
 			}
 		}
 		
+		for(var i in World.powerups) {
+			var powerupItem = World.powerups[i];
+			var collision = powerupItem.collidesWith(this.collisionBounds.offset(this.location));
+
+			if(collision && !powerupItem.collected) {
+				this.getPowerup(powerupItem.collect());
+			}
+		}
+		
 		this.animForward = (this.animForward+Time.delta*15)%4;
 	}else{
 		this.velocity = new Vector2();
@@ -84,7 +94,6 @@ Player.prototype.draw = function(_stage) {
 
 Player.prototype.keyDown = function(e) {
     var keyCode = e.keyCode;
-    console.log(keyCode);
     if(keyCode == 65 || keyCode == 37)
         this.left = true;
     if(keyCode == 68 || keyCode == 39)
@@ -97,7 +106,6 @@ Player.prototype.keyDown = function(e) {
 
 Player.prototype.keyUp = function(e) {
     var keyCode = e.keyCode;
-    console.log(keyCode);
     if(keyCode == 65 || keyCode == 37)
         this.left = false;
     if(keyCode == 68 || keyCode == 39)
@@ -125,8 +133,15 @@ Player.prototype.goDown = function() {
 }
 
 Player.prototype.trip = function() {
+	if(this.tripCooldown > 0) return;
 	this.tripCooldown = 0.6;
-	AudioManager.play('res/sfx/Hurt.ogg');
+	AudioManager.playSFX('res/sfx/Hurt.ogg');
+}
+
+Player.prototype.getPowerup = function(_index) {
+	var powerup = Powerups.registry[_index];
+	this.powerup = powerup.index;
+	Powerups.selectPowerup(powerup.index);
 }
 
 Player.prototype.applyDrag = function() {

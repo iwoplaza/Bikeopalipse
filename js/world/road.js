@@ -24,7 +24,7 @@ Road.prototype.update = function() {
 
 Road.prototype.draw = function() {
 	ctx.save();
-	ctx.translate(-Math.floor(this.offset), 0);
+	ctx.translate(Math.floor(-this.offset), 0);
 	for(var i = 0; i < this.segments.length; i++) {
 		this.segments[i].draw();
 		ctx.translate(this.textureWidth, 0);

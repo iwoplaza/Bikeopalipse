@@ -12,6 +12,8 @@ function onResourcesLoaded() {
 	Fonts.init();
 	Obstacle.init();
 	Coins.init();
+	Powerups.init();
+	Characters.init();
 	ScreenHandler.open(new ScreenTitle());
 	tick();
 }

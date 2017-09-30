@@ -1,39 +1,26 @@
 function ScreenOptions() {
-	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2-20));
-	this.select.addOption(new Option('start'));
-	this.select.addOption(new Option('controls'));
+	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 80));
+	this.select.addOption(new OptionToggle('music'));
+	this.select.addOption(new OptionToggle('sfx'));
+	this.select.addOption(new Option('back'));
+	
+	this.select.options[0].value = Stats.music;
+	this.select.options[1].value = Stats.sfx;
 }
 
 ScreenOptions.prototype.init = function() {
-    this.image = Resources.images['res/img/title.png'];
 }
 
 ScreenOptions.prototype.update = function() {
-    if(this.flashing) {
-		if(this.flashProgress < 1) {
-			this.flashProgress += Time.delta;
-		}else{
-			ScreenHandler.open(new ScreenGame());
-		}
-	}
 }
 
 ScreenOptions.prototype.draw = function() {
     ctx.fillStyle = "#2c2c2c";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    /*ctx.font = "80px Arial";
-    ctx.fillStyle = "#ffffff";
-    ctx.textAlign = "center";
-    ctx.fillText("Bikeopalipse", canvas.width/2, 150);
-    */
 	
 	ctx.save();
 	ctx.scale(Camera.scale, Camera.scale);
-	ctx.drawImage(this.image, ScreenHandler.getWidth()/2-128, 0, 256, 150);
 	this.select.draw();
-	
-	ctx.drawImage(Fonts.regular.image, 0, 44, 96, 20, 0, ScreenHandler.getHeight()-20, 96, 20);
 	
 	ctx.restore();
 }
@@ -42,9 +29,16 @@ ScreenOptions.prototype.keyDown = function(e) {
     var keyCode = e.keyCode;
     if(keyCode == 32) {
         var option = this.select.confirm();
-		if(option.index == 0) { //Start
-			option.flash();
-			this.flash();
+		
+		if(option.index == 0)
+			if(option.value) AudioManager.enableMusic();
+			else AudioManager.disableMusic();
+		if(option.index == 1)
+			Stats.setSFX(option.value);
+		
+		if(option.index == 2) { //Back
+			ScreenHandler.open(new ScreenTitle());
+			ScreenHandler.current.select.selectedIndex = 2;
 		}
     }
 	

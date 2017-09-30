@@ -6,7 +6,9 @@ World.init = function() {
     this.obstacles = [];
     this.obstacleDelay = 10;
 	this.coins = [];
-	this.coinSpawnCooldown = 1;
+	this.coinSpawnCooldown = 5;
+	this.powerups = [];
+	this.powerupSpawnCooldown = 100;
 	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
 	this.road = new Road();
 	this.stage = new Stage();
@@ -30,9 +32,15 @@ World.update = function() {
 		}
 
 		if(this.coinSpawnCooldown > 0) {
-			this.coinSpawnCooldown -= Time.delta;
+			this.coinSpawnCooldown -= this.getDriveSpeed()*Time.delta;
 		} else {
 			this.spawnCoin();
+		}
+		
+		if(this.powerupSpawnCooldown > 0) {
+			this.powerupSpawnCooldown -= this.getDriveSpeed()*Time.delta;
+		} else {
+			this.spawnPowerup();
 		}
 		
 		for(var i = this.obstacles.length-1; i >= 0; i--) {
@@ -45,6 +53,12 @@ World.update = function() {
 			this.coins[i].update();
 			if(this.coins[i].dead)
 				this.coins.splice(i, 1);
+		}
+		
+		for(var i = this.powerups.length-1; i >= 0; i--) {
+			this.powerups[i].update();
+			if(this.powerups[i].dead)
+				this.powerups.splice(i, 1);
 		}
 		
 		this.skyline.update();
@@ -74,6 +88,9 @@ World.draw = function() {
 	for(var key in this.coins) {
         this.coins[key].draw(this.stage);
     }
+	for(var key in this.powerups) {
+        this.powerups[key].draw(this.stage);
+    }
 	this.stage.draw();
     
     ctx.restore();
@@ -81,9 +98,14 @@ World.draw = function() {
 
 World.spawnCoin = function() {
 	this.coins.push(new Coin(new Vector2(400, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
-	this.coinSpawnCooldown = 1;
+	this.coinSpawnCooldown = 85;
+}
+
+World.spawnPowerup = function() {
+	this.powerups.push(new PowerupItem(new Vector2(400, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
+	this.powerupSpawnCooldown = 500;
 }
 
 World.getDriveSpeed = function() {
-    return 150;
+    return 100;
 }

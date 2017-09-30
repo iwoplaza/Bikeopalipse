@@ -37,7 +37,6 @@ Structure.prototype.draw = function() {
 
 function StructureSegment() {
     this.variant = Math.round(Math.random()*(this.variants.length-1));
-    console.log(this.variant);
     this.image = Resources.images[this.variants[this.variant]];
     this.textureWidth = this.image.width;
 	this.textureHeight = 495;
