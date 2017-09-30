@@ -14,6 +14,7 @@ function onResourcesLoaded() {
 	Coins.init();
 	Powerups.init();
 	Characters.init();
+	Explosions.init();
 	ScreenHandler.open(new ScreenControls());
 	tick();
 }

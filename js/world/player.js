@@ -40,7 +40,7 @@ Player.prototype.update = function() {
 			if(collision == Obstacle.COLLISION_FATAL)
 				gameScreen.gameOver();
 			else if(collision == Obstacle.COLLISION_TRIP)
-				this.trip();
+				this.trip(obstacle);
 		}
 		
 		for(var i in World.coins) {
@@ -143,8 +143,13 @@ Player.prototype.goDown = function() {
     this.velocity.y = Math.min(this.velocity.y+25, this.maxVelocityY);
 }
 
-Player.prototype.trip = function() {
+Player.prototype.trip = function(_obstacle) {
 	if(this.tripCooldown > 0) return;
+	var flag = false;
+	if(this.powerup != null)
+		flag = this.powerup.onTrip(_obstacle);
+	
+	if(flag) return;
 	this.tripCooldown = 0.6;
 	AudioManager.playSFX('res/sfx/Hurt.ogg');
 }
@@ -154,6 +159,7 @@ Player.prototype.getPowerup = function(_index) {
 	this.powerup = powerup;
 	this.powerup.onObtained();
 	Powerups.selectPowerup(powerup.index);
+	AudioManager.playSFX('res/sfx/Powerup.ogg', 0.5);
 }
 
 Player.prototype.applyDrag = function() {

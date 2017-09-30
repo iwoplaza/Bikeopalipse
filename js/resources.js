@@ -16,13 +16,16 @@ var Resources = {
         'res/img/house01.png',
         'res/img/powerups.png',
         'res/img/characters.png',
-        'res/img/shield.png'
+        'res/img/shield.png',
+        'res/img/explosion.png'
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',
 		'res/sfx/Hurt.ogg',
 		'res/sfx/ReadyGo.ogg',
 		'res/sfx/Coin.ogg',
+		'res/sfx/Powerup.ogg',
+		'res/sfx/Explosion.ogg',
 		'res/sfx/Click.ogg',
 		'res/sfx/Start.ogg'
 	],

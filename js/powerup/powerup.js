@@ -24,6 +24,9 @@ Powerup.prototype.onObtained = function() {
 	this.lifetime = 5;
 	this.dead = false;
 }
+Powerup.prototype.onTrip = function(_obstacle) {
+	return false;
+}
 
 Powerups = {
 	registry: [],
