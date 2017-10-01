@@ -28,7 +28,8 @@ var Resources = {
         'res/img/characters.png',
         'res/img/shield.png',
         'res/img/magnet.png',
-        'res/img/explosion.png'
+        'res/img/explosion.png',
+        'res/img/321go.png'
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',

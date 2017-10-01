@@ -67,6 +67,8 @@ ScreenLobby.prototype.keyDown = function(e) {
 			var option = this.select.confirm();
 			
 			if(option.index == 1) { //Back
+                var char = this.characterSelect.confirm();
+                this.chooseCharacter(char);
 				option.flash();
 				this.flash();
 			}

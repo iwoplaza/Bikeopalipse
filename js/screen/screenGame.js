@@ -4,6 +4,7 @@ function ScreenGame(_character) {
     this.scoreVault = 0;
 	this.distance = 0;
 	this.imageGameOver = Resources.images['res/img/gameover.png'];
+    this.countImage = Resources.images['res/img/321go.png'];
 	this.continueBlink = 0;
 	this.extraShake = 0;
 	this.character = _character ? _character :
@@ -18,10 +19,12 @@ ScreenGame.prototype.addScore = function(e){
 ScreenGame.prototype.init = function() {
     this.startGame();
 	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.3);
+    this.readyTimer = 4;
 }
 
 ScreenGame.prototype.update = function() {
-    World.update();
+    if (this.readyTimer<=0) World.update();
+    if (this.readyTimer>-1) this.readyTimer-=Time.delta;
 	if(!this.isGameOver) {
 		this.distance += World.getDriveSpeed()*Time.delta;
         this.distanceToScore();
@@ -84,6 +87,10 @@ ScreenGame.prototype.draw = function() {
 	}
 	
 	HUD.draw();
+    ctx.save();
+    ctx.scale(2,2);
+    if (this.readyTimer>-1) ctx.drawImage(this.countImage, 0, Math.min(3,3-this.readyTimer)*47, 80, 47, canvas.width/4-40, 50, 80, 47);
+    ctx.restore();
 }
 
 ScreenGame.prototype.keyDown = function(e) {
@@ -107,7 +114,7 @@ ScreenGame.prototype.startGame = function(e) {
 	this.isGameOver = false;
 	this.score = 0;
 	this.distance = 0;
-	AudioManager.playSFX('res/sfx/ReadyGo.ogg', 0.7);
+	//AudioManager.playSFX('res/sfx/ReadyGo.ogg', 0.7);
 }
 
 ScreenGame.prototype.gameOver = function(e) {

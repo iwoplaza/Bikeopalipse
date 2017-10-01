@@ -19,7 +19,7 @@ middleGround.prototype.update = function() {
     var width = 0;
     for (var i=0;i<this.segments.length;i++) width += this.segments[i].textureWidth;
     while (width<=canvas.width*2){
-		this.segments.push(new StructureSegment());
+		this.segments.push(new middleGroundSegment());
 		width = 0;
     	for (var i=0;i<this.segments.length;i++) width += this.segments[i].textureWidth;
 	}
