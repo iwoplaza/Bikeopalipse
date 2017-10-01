@@ -19,7 +19,15 @@ function onResourcesLoaded() {
 	
 	Stats.fetch();
 	
-	ScreenHandler.open(new ScreenIntro());
+    var cont = new ScreenControls();
+    cont.keyDown = function(e) {
+        var keyCode = e.keyCode;
+
+        if(keyCode == 32) {
+            ScreenHandler.open(new ScreenIntro());
+        }
+    };
+	ScreenHandler.open(cont);
 	
 	tick();
 }
