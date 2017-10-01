@@ -114,7 +114,7 @@ ScreenGame.prototype.startGame = function(e) {
 	this.isGameOver = false;
 	this.score = 0;
 	this.distance = 0;
-	//AudioManager.playSFX('res/sfx/ReadyGo.ogg', 0.7);
+	AudioManager.playSFX('res/sfx/Go.ogg', 0.7);
 }
 
 ScreenGame.prototype.gameOver = function(e) {

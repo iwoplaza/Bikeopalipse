@@ -56,7 +56,8 @@ var Resources = {
 		'res/sfx/Explosion.ogg',
 		'res/sfx/Click.ogg',
 		'res/sfx/Error.ogg',
-		'res/sfx/Start.ogg'
+		'res/sfx/Start.ogg',
+		'res/sfx/Go.ogg'
 	],
 	
 	images: [],

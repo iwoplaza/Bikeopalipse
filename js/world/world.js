@@ -19,7 +19,7 @@ World.init = function() {
 	this.skyline = new Skyline(Resources.images['res/img/skyline_dawn.png']);
 	
 	this.stepProgress = 0;
-	this.stepFrequency = 0.01;
+	this.stepFrequency = 0.015;
 }
 
 World.step = function() {
@@ -85,7 +85,7 @@ World.step = function() {
 
 World.update = function() {
 	this.stepProgress += Time.delta;
-	if(this.stepProgress > this.stepFrequency) {
+	while(this.stepProgress > this.stepFrequency) {
 		this.stepProgress -= this.stepFrequency;
 		this.step();
 	}
@@ -151,5 +151,5 @@ World.spawnZombies = function(_amount) {
 }
 
 World.getDriveSpeed = function() {
-    return Math.min(2,2)*Player.player.getSpeedMultiplier();
+    return Math.min(2,1.5)*Player.player.getSpeedMultiplier();
 }
