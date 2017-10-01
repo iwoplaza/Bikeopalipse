@@ -19,6 +19,7 @@ function ScreenLobby() {
 }
 
 ScreenLobby.prototype.init = function() {
+	AudioManager.playMusic('res/sfx/Lobby.ogg', 0.5);
 }
 
 ScreenLobby.prototype.update = function() {

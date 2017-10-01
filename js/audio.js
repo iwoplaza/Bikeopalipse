@@ -29,6 +29,11 @@ AudioManager.stopAndPlay = function(path, volume) {
 
 AudioManager.playMusic = function(path, volume) {
 	if(Stats.music) {
+		if(this.currentMusic && this.currentMusic != Resources.sounds[path]) {
+			this.currentMusic.pause();
+			this.currentMusic.currentTime = 0;
+		}
+		
 		this.currentMusic = Resources.sounds[path];
 		AudioManager.playLoop(path, volume);
 	}
