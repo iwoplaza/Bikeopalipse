@@ -121,5 +121,5 @@ World.spawnExplosion = function(_location) {
 }
 
 World.getDriveSpeed = function() {
-    return 100;
+    return 100*Player.player.getSpeedMultiplier();
 }

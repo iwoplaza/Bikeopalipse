@@ -16,11 +16,6 @@ PowerupEDrink.prototype.drawPlayerOverlay = function(_stage) {
 
 PowerupEDrink.prototype.update = function(){
     Powerup.prototype.update.call(this);
-    if(this.lifetime <= 1) {
-		World.getDriveSpeed = function(){
-            return 100;
-        }
-	}
 }
 
 PowerupEDrink.prototype.onTrip = function(_obstacle) {
@@ -30,7 +25,7 @@ PowerupEDrink.prototype.onTrip = function(_obstacle) {
 }
 PowerupEDrink.prototype.onObtained = function() {
 	Powerup.prototype.onObtained.call(this);
-    World.getDriveSpeed = function(){
-        return 200;
-    }
+}
+PowerupEDrink.prototype.getSpeedMultiplier = function() {
+	return 2;
 }

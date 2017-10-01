@@ -168,6 +168,12 @@ Player.prototype.applyDrag = function() {
 	}
 }
 
+Player.prototype.getSpeedMultiplier = function() {
+	if(this.powerup != null)
+		return this.powerup.getSpeedMultiplier();
+	return 1;
+}
+
 Player.prototype.getOffsetCollisionBounds = function() {
     return this.collisionBounds.offset(this.location);
 }
