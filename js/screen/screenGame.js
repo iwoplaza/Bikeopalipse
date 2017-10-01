@@ -62,12 +62,12 @@ ScreenGame.prototype.draw = function() {
 }
 
 ScreenGame.prototype.keyDown = function(e) {
-    Player.player.keyDown(e);
-	
 	if(this.isGameOver) {
 		if(e.keyCode == 32) {
 			ScreenHandler.open(new ScreenLobby());
 		}
+	}else{
+		Player.player.keyDown(e);
 	}
 }
 
