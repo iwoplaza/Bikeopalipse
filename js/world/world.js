@@ -76,6 +76,7 @@ World.update = function() {
 		this.skyline.update();
 		this.road.update();
         this.structure.update();
+        this.middleGround.update();
 	}
 }
 
