@@ -19,7 +19,7 @@ ScreenGame.prototype.addScore = function(e){
 ScreenGame.prototype.init = function() {
     this.startGame();
 	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.3);
-    this.readyTimer = 4;
+    this.readyTimer = 3;
 }
 
 ScreenGame.prototype.update = function() {
@@ -89,7 +89,7 @@ ScreenGame.prototype.draw = function() {
 	HUD.draw();
     ctx.save();
     ctx.scale(2,2);
-    if (this.readyTimer>-1) ctx.drawImage(this.countImage, 0, Math.min(3,3-this.readyTimer)*47, 80, 47, canvas.width/4-40, 50, 80, 47);
+    if (this.readyTimer>-1) ctx.drawImage(this.countImage, 0, Math.floor(Math.min(3,3-this.readyTimer))*47, 80, 47, canvas.width/4-40, 50, 80, 47);
     ctx.restore();
 }
 
