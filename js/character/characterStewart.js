@@ -5,7 +5,7 @@ function CharacterStewart() {
 CharacterStewart.prototype = Object.create(Player.prototype);
 CharacterStewart.prototype.name = "stewart";
 CharacterStewart.prototype.description = ["a makeshift runner"];
-CharacterStewart.prototype.price = 60;
+CharacterStewart.prototype.price = 1500;
 CharacterStewart.prototype.textureIndex = 1;
 Characters.register(CharacterStewart);
 

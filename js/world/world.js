@@ -4,7 +4,7 @@ var World = {
 
 World.init = function() {
     this.obstacles = [];
-    this.obstacleDelay = 110;
+    this.obstacleDelay = 310;
 	this.coins = [];
 	this.coinSpawnCooldown = 5;
 	this.powerups = [];
