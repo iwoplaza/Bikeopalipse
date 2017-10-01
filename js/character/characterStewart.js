@@ -11,8 +11,8 @@ Characters.register(CharacterStewart);
 CharacterStewart.prototype.draw = function(_stage) {
 	ctx.save();
 	ctx.translate(Math.floor(this.location.x), Math.floor(this.location.y));
-    ctx.fillStyle = "#ff1c1c";
-    ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);
+    //ctx.fillStyle = "#ff1c1c";
+    //ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);
     
 	this.sprite.moveTo(this.location.addVec(new Vector2(-32, 0)));
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*64;
