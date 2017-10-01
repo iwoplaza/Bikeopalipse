@@ -42,6 +42,18 @@ Select.prototype.goDown = function() {
 	}
 }
 
+Select.prototype.goLeft = function() {
+	var option = this.options[this.selectedIndex];
+	if(option.goLeft)
+		option.goLeft();
+}
+
+Select.prototype.goRight = function() {
+	var option = this.options[this.selectedIndex];
+	if(option.goRight)
+		option.goRight();
+}
+
 Select.prototype.confirm = function() {
 	var option = this.options[this.selectedIndex];
 	if(!option) return;

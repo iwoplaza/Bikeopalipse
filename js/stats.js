@@ -7,6 +7,7 @@ var Stats = {
 	currentCharacter: "vance",
 	
 	music: true, sfx: true,
+	globalVolume: 0.7,
 	
 	resetGame: function() {
 		this.coins = 0;
@@ -33,6 +34,10 @@ var Stats = {
 			this.music = localStorage.getItem('music') == "true";
 		if(localStorage.getItem('sfx'))
 			this.sfx = localStorage.getItem('sfx') == "true";
+		if(localStorage.getItem('globalVolume'))
+			this.globalVolume = Number(localStorage.getItem('globalVolume'));
+		
+		AudioManager.setMasterVolume(this.globalVolume);
 	},
 	
 	setHighscore: function(_score) {
@@ -62,6 +67,12 @@ var Stats = {
 	setSFX: function(_flag) {
 		this.sfx = _flag;
 		localStorage.setItem('sfx', this.sfx);
+	},
+	
+	setGlobalVolume: function(a) {
+		this.globalVolume = a;
+		AudioManager.setMasterVolume(this.globalVolume);
+		localStorage.setItem('globalVolume', this.globalVolume);
 	},
 	
 	obtainCharacter: function(_character) {

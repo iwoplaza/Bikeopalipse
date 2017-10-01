@@ -1,4 +1,11 @@
 var AudioManager = {};
+AudioManager.masterVolume = 1;
+
+AudioManager.setMasterVolume = function(a) {
+	this.masterVolume = a;
+	if(this.currentMusic)
+		this.currentMusic.volume = this.currentMusic.startVolume*a;
+}
 
 AudioManager.play = function(path, volume) {
 	if(!Resources.sounds[path]) {
@@ -7,7 +14,9 @@ AudioManager.play = function(path, volume) {
 	}
 	
 	if(volume != undefined)
-		Resources.sounds[path].volume = volume;
+		Resources.sounds[path].volume = volume*this.getMasterVolume();
+	else
+		Resources.sounds[path].volume = this.getMasterVolume();
 	
 	Resources.sounds[path].loop = false;
 	Resources.sounds[path].play();
@@ -20,7 +29,9 @@ AudioManager.stopAndPlay = function(path, volume) {
 	}
 	
 	if(volume != undefined)
-		Resources.sounds[path].volume = volume;
+		Resources.sounds[path].volume = volume*this.getMasterVolume();
+	else
+		Resources.sounds[path].volume = this.getMasterVolume();
 	
 	Resources.sounds[path].currentTime = 0;
 	Resources.sounds[path].loop = false;
@@ -34,10 +45,14 @@ AudioManager.playMusic = function(path, volume) {
 	}
 	this.currentMusic = Resources.sounds[path];
 	if(volume != undefined)
-		Resources.sounds[path].volume = volume;
+		Resources.sounds[path].volume = volume*this.getMasterVolume();
+	else
+		Resources.sounds[path].volume = this.getMasterVolume();
+	
+	this.currentMusic.startVolume = this.currentMusic.volume;
 	
 	if(Stats.music) {
-		AudioManager.playLoop(path, volume);
+		AudioManager.playLoop(path, volume*this.getMasterVolume());
 	}
 }
 
@@ -53,20 +68,28 @@ AudioManager.playLoop = function(path, volume) {
 	}
 	
 	if(volume != undefined)
-		Resources.sounds[path].volume = volume;
+		Resources.sounds[path].volume = volume*this.getMasterVolume();
+	else
+		Resources.sounds[path].volume = this.getMasterVolume();
 	
 	Resources.sounds[path].loop = true;
 	Resources.sounds[path].play();
 }
 
-AudioManager.setVolume = function(path) {
+AudioManager.setVolume = function(path, volume) {
 	if(!Resources.sounds[path]) {
 		console.error("Couldn't set volume for "+path);
 		return;
 	}
 	
 	if(volume != undefined)
-		Resources.sounds[path].volume = volume;
+		Resources.sounds[path].volume = volume*this.getMasterVolume();
+	else
+		Resources.sounds[path].volume = this.getMasterVolume();
+}
+
+AudioManager.getMasterVolume = function() {
+	return this.masterVolume;
 }
 
 AudioManager.enableMusic = function() {
@@ -79,5 +102,6 @@ AudioManager.enableMusic = function() {
 
 AudioManager.disableMusic = function() {
 	Stats.setMusic(false);
-	this.currentMusic.pause();
+	if(this.currentMusic)
+		this.currentMusic.pause();
 }

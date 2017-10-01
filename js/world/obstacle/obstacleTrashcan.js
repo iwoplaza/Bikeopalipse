@@ -2,7 +2,7 @@ function ObstacleTrashcan() {
     ObstacleBase.call(this);
     this.location.y = 10+Math.floor(Math.random()*-(World.roadHeight-20));
 	this.sprite = new Sprite(Obstacle.image, null, new Vector2(0,137), 30, 24, -12);
-	this.collisionBounds = new Bounds(-4, -8, 8, 3);
+	this.collisionBounds = new Bounds(-4, -8, 8, 5);
 }
 ObstacleTrashcan.prototype = Object.create(ObstacleBase.prototype);
 Obstacle.register(ObstacleTrashcan);
