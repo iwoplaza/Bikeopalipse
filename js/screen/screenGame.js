@@ -12,6 +12,7 @@ function ScreenGame(_character) {
 ScreenGame.prototype.init = function() {
 	Stats.fetch();
     this.startGame();
+	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.3);
 }
 
 ScreenGame.prototype.update = function() {

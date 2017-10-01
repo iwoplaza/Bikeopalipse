@@ -28,6 +28,7 @@ var Resources = {
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',
+		'res/sfx/Lobby.ogg',
 		'res/sfx/Hurt.ogg',
 		'res/sfx/ReadyGo.ogg',
 		'res/sfx/Coin.ogg',
