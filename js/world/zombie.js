@@ -6,13 +6,12 @@ function Zombie(_location) {
 }
 
 Zombie.prototype.update = function() {
-	this.animForward = (this.animForward+this.animSpeed*0.01)%8;
+	this.animForward = (this.animForward+this.animSpeed*0.015)%8;
 }
 
 Zombie.prototype.draw = function(_stage) {
 	ctx.save();
 	
-	//this.sprite.location.x = this.location.x;
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
 	_stage.addSprite(this.sprite);
 	

@@ -29,7 +29,25 @@ var Resources = {
         'res/img/shield.png',
         'res/img/magnet.png',
         'res/img/explosion.png',
+<<<<<<< HEAD
         'res/img/321go.png'
+=======
+		
+        'res/img/intro/0/px0000.png',
+        'res/img/intro/0/px0001.png',
+		
+        'res/img/intro/1/px0000.png',
+        'res/img/intro/1/px0001.png',
+        'res/img/intro/1/px0002.png',
+		
+		'res/img/intro/2/px0000.png',
+        'res/img/intro/2/px0001.png',
+        'res/img/intro/2/px0002.png',
+        'res/img/intro/2/px0003.png',
+		
+		'res/img/intro/3/px0000.png',
+        'res/img/intro/3/px0001.png',
+>>>>>>> db825a2dcf952d878ba13fc7af4238835b60264c
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',
