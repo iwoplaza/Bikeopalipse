@@ -6,6 +6,7 @@ var Resources = {
 		'res/img/skyline_dawn.png',
 		'res/img/vance.png',
 		'res/img/stewart.png',
+		'res/img/zombies.png',
 		'res/img/coin.png',
 		'res/img/title.png',
 		'res/img/labels.png',

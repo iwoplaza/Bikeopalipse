@@ -51,3 +51,9 @@ Powerups.selectPowerup = function(_index) {
 	}
 	this.registry[_index].enabled = true;
 }
+
+Powerups.reset = function() {
+	for(let i = 0; i < this.registry.length; i++) {
+		this.registry[i].enabled = false;
+	}
+}

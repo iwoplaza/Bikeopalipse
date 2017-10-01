@@ -78,6 +78,7 @@ ScreenGame.prototype.keyUp = function(e) {
 ScreenGame.prototype.startGame = function(e) {
 	Player.player = new this.character();
 	World.init();
+	Powerups.reset();
 	this.isGameOver = false;
 	this.score = 0;
 	this.distance = 0;
