@@ -5,6 +5,7 @@ function CharacterStewart() {
 CharacterStewart.prototype = Object.create(Player.prototype);
 CharacterStewart.prototype.name = "stewart";
 CharacterStewart.prototype.description = ["a makeshift runner"];
+CharacterStewart.prototype.price = 60;
 CharacterStewart.prototype.textureIndex = 1;
 Characters.register(CharacterStewart);
 
@@ -26,4 +27,18 @@ CharacterStewart.prototype.draw = function(_stage) {
 CharacterStewart.prototype.update = function() {
 	Player.prototype.update.call(this);
 	this.animForward = (this.animForward+Time.delta*10)%6;
+}
+
+CharacterStewart.prototype.useAbility = function() {
+	this.getPowerup(2);
+	Player.prototype.useAbility.call(this);
+}
+
+CharacterStewart.prototype.getPowerup = function(_index) {
+	if(this.usingAbility) return;
+	
+	Player.prototype.getPowerup.call(this, _index);
+}
+
+CharacterStewart.prototype.performAbility = function() {
 }

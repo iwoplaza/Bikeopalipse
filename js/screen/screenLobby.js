@@ -4,7 +4,7 @@ function ScreenLobby() {
 	this.characterSelect = new CharacterSelect(new Vector2(0, 0), this.bodyColor);
 	for(var key in Characters.registry) {
 		var character = Characters.registry[key];
-		var option = new CharacterOption(key, character.prototype.description, character.prototype.textureIndex, Stats.obtainedCharacters[key] == true);
+		var option = new CharacterOption(key, character.prototype.description, character.prototype.textureIndex, Stats.obtainedCharacters[key] == true, character.prototype.price);
 		this.characterSelect.addOption(option);
 		if(key == Stats.currentCharacter) {
 			this.characterSelect.selectedIndex = this.characterSelect.options.length-1;
@@ -36,15 +36,22 @@ ScreenLobby.prototype.draw = function() {
     ctx.fillStyle = this.bodyColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
+	var screenWidth = ScreenHandler.getWidth();
+	var screenHeight = ScreenHandler.getHeight();
+	
 	ctx.save();
 	ctx.scale(Camera.scale, Camera.scale);
 	this.select.draw();
 	
 	Fonts.regular.setAlignment("center");
-	Fonts.regular.drawText("select your hero", ScreenHandler.getWidth()/2, 15);
+	Fonts.regular.drawText("select your hero", screenWidth/2, 15);
 	
 	Fonts.regular.setAlignment("center");
-	Fonts.regular.drawText("highscore: "+Stats.highScore, ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+135);
+	Fonts.regular.drawText("highscore: "+Stats.highScore, screenWidth/2, screenHeight/2+135);
+	
+	ctx.drawImage(Coins.image, 100, 3, 8, 11, 10, screenHeight-15, 8, 11)
+	Fonts.regular.setAlignment("left");
+	Fonts.regular.drawText(""+Stats.coins, 22, screenHeight-14);
 	
 	ctx.restore();
 }
@@ -92,10 +99,18 @@ ScreenLobby.prototype.flash = function() {
 ScreenLobby.prototype.chooseCharacter = function(_option) {
 	var name = _option.label;
 	
+	var character = Characters.registry[name];
+	
+	if(!character) return;
+	
 	if(Stats.hasObtainedCharacter(name)) {
 		Stats.currentCharacter = name;
 		_option.flash();
 		this.flash();
+	}else if(Stats.consumeCoins(character.prototype.price)){
+		Stats.obtainCharacter(name);
+		_option.state = true;
+		AudioManager.playSFX('res/sfx/Explosion.ogg');
 	}else{
 		AudioManager.playSFX('res/sfx/Error.ogg');
 	}

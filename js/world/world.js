@@ -4,11 +4,11 @@ var World = {
 
 World.init = function() {
     this.obstacles = [];
-    this.obstacleDelay = 10;
+    this.obstacleDelay = 110;
 	this.coins = [];
 	this.coinSpawnCooldown = 5;
 	this.powerups = [];
-	this.powerupSpawnCooldown = 100;
+	this.powerupSpawnCooldown = 600;
 	this.explosions = [];
 	this.spawnZombies(10);
 	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
@@ -23,9 +23,9 @@ World.update = function() {
 	var gameScreen = ScreenHandler.current;
 	if(!gameScreen) return;
 	
-    Player.player.update();
-	
 	if(!gameScreen.isGameOver) {
+		Player.player.update();
+		
 		if(this.obstacleDelay > 0) {
 			this.obstacleDelay -= this.getDriveSpeed()*Time.delta;
 		} else {
@@ -114,11 +114,14 @@ World.draw = function() {
 World.spawnCoin = function() {
 	this.coins.push(new Coin(new Vector2(400, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
 	this.coinSpawnCooldown = 85;
+	if(Player.player.usingAbility && Player.player.name == CharacterVance.prototype.name) {
+		this.coinSpawnCooldown = 10;
+	}
 }
 
 World.spawnPowerup = function() {
 	this.powerups.push(new PowerupItem(new Vector2(400, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
-	this.powerupSpawnCooldown = 500;
+	this.powerupSpawnCooldown = 1500;
 }
 
 World.spawnExplosion = function(_location) {

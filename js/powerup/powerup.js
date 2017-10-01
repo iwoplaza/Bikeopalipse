@@ -27,6 +27,9 @@ Powerup.prototype.onObtained = function() {
 Powerup.prototype.onTrip = function(_obstacle) {
 	return false;
 }
+Powerup.prototype.onDieFromObstacle = function(_obstacle) {
+	return false;
+}
 Powerup.prototype.getSpeedMultiplier = function() {
 	return 1;
 }

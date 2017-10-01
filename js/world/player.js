@@ -9,7 +9,7 @@ function Player() {
 	this.tripCooldown = 0;
 	this.powerup = null;
 	this.usingAbility = false;
-	this.abilityFillup = 1;
+	this.abilityFillup = 0;
 	
 	this.sprite = new Sprite(Resources.images['res/img/player.png'], null, new Vector2(0, 0), 32, 32, -32);
 	this.animForward = 0;
@@ -40,9 +40,7 @@ Player.prototype.update = function() {
             var collision = obstacle.collidesWith(this.collisionBounds.offset(this.location));
 
             if(collision == Obstacle.COLLISION_FATAL){
-                if (this.powerup!=undefined){
-                    if (this.powerup.name!="EDrink") gameScreen.gameOver();
-                }else gameScreen.gameOver();
+                this.dieFromObstacle(obstacle);
             }else if(collision == Obstacle.COLLISION_TRIP)
                 this.trip(obstacle);
         }
@@ -81,6 +79,7 @@ Player.prototype.update = function() {
 	if(this.usingAbility) {
 		if(this.abilityFillup > 0) {
 			this.performAbility();
+			this.abilityFillup -= Time.delta*0.4;
 		}else{
 			this.disableAbility();
 		}
@@ -167,6 +166,19 @@ Player.prototype.trip = function(_obstacle) {
 	AudioManager.playSFX('res/sfx/Hurt.ogg');
 }
 
+
+Player.prototype.dieFromObstacle = function(_obstacle) {
+	var gameScreen = ScreenHandler.current;
+	if(!gameScreen) return;
+	
+	var flag = false;
+	if(this.powerup != null)
+		flag = this.powerup.onDieFromObstacle(_obstacle);
+	
+	if(flag) return;
+	gameScreen.gameOver();
+}
+
 Player.prototype.getPowerup = function(_index) {
 	var powerup = Powerups.registry[_index];
 	this.powerup = powerup;
@@ -184,6 +196,8 @@ Player.prototype.canUseAbility = function() {
 }
 
 Player.prototype.fillUpAbility = function(a) {
+	if(this.usingAbility) return;
+	
 	this.abilityFillup += a;
 	if(this.abilityFillup > 1)
 		this.abilityFillup = 1;

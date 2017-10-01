@@ -12,3 +12,13 @@ CharacterVance.prototype.update = function() {
 	Player.prototype.update.call(this);
 	this.animForward = (this.animForward+Time.delta*15)%4;
 }
+
+CharacterVance.prototype.performAbility = function() {
+	
+}
+
+CharacterVance.prototype.getSpeedMultiplier = function() {
+	if(this.powerup != null)
+		return this.powerup.getSpeedMultiplier();
+	return 1;
+}

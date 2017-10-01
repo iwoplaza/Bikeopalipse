@@ -1,16 +1,19 @@
 var HUD = {
 	barHeight: 20,
 	
-	coinSpinAnim: 0
+	specialBarShake: 0,
+	specialBarFlash: 0,
 };
 
 HUD.update = function() {
-	this.coinSpinAnim = (this.coinSpinAnim+15*Time.delta)%6;
 }
 
 HUD.draw = function() {
 	var gameScreen = ScreenHandler.current;
 	if(!gameScreen) return;
+	
+	this.specialBarShake = (this.specialBarShake+7*Time.delta)%1;
+	this.specialBarFlash = (this.specialBarShake+4*Time.delta)%1;
 	
 	var screenWidth = ScreenHandler.getWidth();
 	
@@ -35,6 +38,15 @@ HUD.draw = function() {
 	}
 	ctx.restore();
 	
+	if(!gameScreen.isGameOver)
+		HUD.drawSpecialBar();
+	
+	ctx.restore();
+}
+
+HUD.drawSpecialBar = function() {
+	var screenWidth = ScreenHandler.getWidth();
+	
 	ctx.save();
 	var segments = 16;
 	var segmentWidth = 4;
@@ -42,18 +54,33 @@ HUD.draw = function() {
 	var padding = 2;
 	var barWidth = (segments)*(padding+segmentWidth)+2+padding;
 	var barHeight = segmentHeight+padding*2+2;
-	ctx.translate(screenWidth-barWidth-3, -barHeight-3);
+	var shakeX = 0;
+	var shakeY = 0;
+	var segmentColor = "#a36603";
+	
+	if(Player.player.abilityFillup >= 1 && this.specialBarFlash < 0.5) {
+		segmentColor = "#fff";
+		
+		Fonts.regular.setAlignment("right");
+		Fonts.regular.drawText("press space", screenWidth-barWidth-5, -14);
+	}
+	
+	if(Player.player.usingAbility) {
+		shakeX = Math.sin(this.specialBarShake*Math.PI*2);
+		shakeY = Math.cos(this.specialBarShake*Math.PI*4);
+		segmentColor = "#fff";
+	}
+	
+	ctx.translate(screenWidth-barWidth-3+shakeX, -barHeight-3+shakeY);
 	ctx.fillStyle = "#654600";
 	ctx.fillRect(0, 0, barWidth, barHeight);
 	ctx.fillStyle = "#000";
 	ctx.fillRect(1, 1, barWidth-2, barHeight-2);
-	ctx.fillStyle = "#a36603";
+	ctx.fillStyle = segmentColor;
 	var abilityFillup = Player.player.abilityFillup*segments;
 	for(let i = 0; i < segments; i++) {
 		if(i > abilityFillup) ctx.fillStyle = "#2a2a2a";
 		ctx.fillRect(padding+1+i*(padding+segmentWidth), padding+1, segmentWidth, segmentHeight);
 	}
-	ctx.restore();
-	
 	ctx.restore();
 }

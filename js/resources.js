@@ -10,6 +10,7 @@ var Resources = {
 		'res/img/coin.png',
 		'res/img/title.png',
 		'res/img/guiicons.png',
+		'res/img/extra_salary.png',
 		'res/img/gameover.png',
 		'res/font/font.png',
 		'res/img/controls.png',

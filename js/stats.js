@@ -30,9 +30,9 @@ var Stats = {
 			this.currentCharacter = localStorage.getItem('currentCharacter');
 		
 		if(localStorage.getItem('music'))
-			this.music = localStorage.getItem('music');
+			this.music = localStorage.getItem('music') == "true";
 		if(localStorage.getItem('sfx'))
-			this.sfx = localStorage.getItem('sfx');
+			this.sfx = localStorage.getItem('sfx') == "true";
 	},
 	
 	setHighscore: function(_score) {
@@ -44,6 +44,14 @@ var Stats = {
 	
 	updateCoins: function() {
 		localStorage.setItem('coins', this.coins);
+	},
+	
+	consumeCoins: function(a) {
+		if(this.coins >= a) {
+			this.coins -= a;
+			this.updateCoins();
+			return true;
+		}else return false;
 	},
 	
 	setMusic: function(_flag) {
@@ -58,7 +66,7 @@ var Stats = {
 	
 	obtainCharacter: function(_character) {
 		this.obtainedCharacters[_character] = true;
-		localStorage.setItem('obtainedCharacters', this.obtainedCharacters);
+		localStorage.setItem('obtainedCharacters', JSON.stringify(this.obtainedCharacters));
 	},
 	
 	hasObtainedCharacter: function(_character) {

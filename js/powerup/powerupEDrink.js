@@ -24,6 +24,9 @@ PowerupEDrink.prototype.onTrip = function(_obstacle) {
     ScreenHandler.current.addScore(2);
 	return true;
 }
+PowerupEDrink.prototype.onDieFromObstacle = function(_obstacle) {
+	return true;
+}
 PowerupEDrink.prototype.onObtained = function() {
 	Powerup.prototype.onObtained.call(this);
 }

@@ -52,10 +52,18 @@ CharacterSelect.prototype.draw = function() {
 	var option = this.options[this.selectedIndex];
 	ctx.save();
 	Fonts.regular.setAlignment("center");
-	Fonts.regular.drawText(option.label, 0, 108);
-	for(let i in option.description) {
-		ctx.translate(0, 12);
-		Fonts.regular.drawText(option.description[i], 0, 108);
+	if(option.state) {
+		Fonts.regular.drawText(option.label, 0, 108);
+		for(let i in option.description) {
+			ctx.translate(0, 12);
+			Fonts.regular.drawText(option.description[i], 0, 108);
+		}
+	}else{
+		Fonts.regular.setAlignment("center");
+		var priceText = "buy for "+option.price;
+		Fonts.regular.drawText(priceText, 0, 137);
+		var textWidth = Fonts.regular.getTextWidth(priceText);
+		ctx.drawImage(Coins.image, 100, 3, 8, 11, 6+textWidth/2, 136, 8, 11);
 	}
 	ctx.restore();
 	
@@ -96,7 +104,7 @@ CharacterSelect.prototype.confirm = function() {
 	return option;
 }
 
-function CharacterOption(_label, _description, _tx, _state) {
+function CharacterOption(_label, _description, _tx, _state, _price) {
 	this.parentSelect = null;
 	this.label = _label;
 	this.description = _description ? _description : [];
@@ -104,6 +112,7 @@ function CharacterOption(_label, _description, _tx, _state) {
 	this.frameX = _tx;
 	this.frameY = 0;
 	this.state = _state;
+	this.price = _price;
 }
 
 CharacterOption.prototype.draw = function() {

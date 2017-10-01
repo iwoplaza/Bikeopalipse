@@ -5,6 +5,7 @@ function ScreenGame(_character) {
 	this.distance = 0;
 	this.imageGameOver = Resources.images['res/img/gameover.png'];
 	this.continueBlink = 0;
+	this.extraShake = 0;
 	this.character = _character ? _character :
 					(Characters.registry[Stats.currentCharacter] ? Characters.registry[Stats.currentCharacter] :
 					 CharacterVance );
@@ -24,6 +25,7 @@ ScreenGame.prototype.update = function() {
 	if(!this.isGameOver) {
 		this.distance += World.getDriveSpeed()*Time.delta;
         this.distanceToScore();
+		this.extraShake = (this.extraShake+7*Time.delta)%1;
 	}else{
 		this.continueBlink = (this.continueBlink+1*Time.delta)%1;
 	}
@@ -46,27 +48,38 @@ ScreenGame.prototype.draw = function() {
     World.draw();
 	ctx.restore();
 	
+	var screenWidth = ScreenHandler.getWidth();
+	var screenHeight = ScreenHandler.getHeight()
+	
 	if(!this.isGameOver) {
+		ctx.save();
+			ctx.scale(Camera.scale, Camera.scale);
+			if(Player.player.usingAbility) {
+				shakeX = Math.sin(this.extraShake*Math.PI*2);
+				shakeY = Math.cos(this.extraShake*Math.PI*4);
+				ctx.drawImage(Resources.images['res/img/extra_salary.png'], 0, 0, 175, 43, screenWidth/2-174/2+shakeX, 60+shakeY, 175, 43);
+			}
+		ctx.restore();
 	}else{
 		ctx.save();
 			ctx.scale(Camera.scale, Camera.scale);
 			ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-			ctx.fillRect(0, 0, ScreenHandler.getWidth(), ScreenHandler.getHeight());
-			ctx.drawImage(this.imageGameOver, ScreenHandler.getWidth()/2-256, 60);
+			ctx.fillRect(0, 0, screenWidth, screenHeight);
+			ctx.drawImage(this.imageGameOver, screenWidth/2-256, 60);
 			Fonts.regular.setAlignment("left");
-			Fonts.regular.drawText("better luck next time", ScreenHandler.getWidth()/2-4, ScreenHandler.getHeight()/2);
+			Fonts.regular.drawText("better luck next time", screenWidth/2-4, screenHeight/2);
 			ctx.fillStyle = "#fff";
-			ctx.fillRect(ScreenHandler.getWidth()/2-152, ScreenHandler.getHeight()/2+4, 144, 2);
+			ctx.fillRect(screenWidth/2-152, screenHeight/2+4, 144, 2);
 
 			Fonts.regular.setAlignment("right");
-			Fonts.regular.drawText("highscore: ", ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+20);
-			Fonts.regular.drawText("score: ", ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+35);
+			Fonts.regular.drawText("highscore: ", screenWidth/2, screenHeight/2+20);
+			Fonts.regular.drawText("score: ", screenWidth/2, screenHeight/2+35);
 			Fonts.regular.setAlignment("left");
-			Fonts.regular.drawText(""+Stats.highScore, ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+20);
-			Fonts.regular.drawText(""+this.score, ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+35);
+			Fonts.regular.drawText(""+Stats.highScore, screenWidth/2, screenHeight/2+20);
+			Fonts.regular.drawText(""+this.score, screenWidth/2, screenHeight/2+35);
 			Fonts.regular.setAlignment("center");
 			if(this.continueBlink < 0.5)
-				Fonts.regular.drawText("space to continue", ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+70);
+				Fonts.regular.drawText("space to continue", screenWidth/2, screenHeight/2+70);
 		ctx.restore();
 	}
 	
