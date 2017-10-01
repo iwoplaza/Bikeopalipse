@@ -4,7 +4,7 @@ function ScreenLobby() {
 	this.characterSelect = new CharacterSelect(new Vector2(0, 0), this.bodyColor);
 	for(var key in Characters.registry) {
 		var character = Characters.registry[key];
-		var option = new CharacterOption(key, character.prototype.description, character.prototype.textureIndex, true);
+		var option = new CharacterOption(key, character.prototype.description, character.prototype.textureIndex, Stats.obtainedCharacters[key] == true);
 		this.characterSelect.addOption(option);
 		if(key == Stats.currentCharacter) {
 			this.characterSelect.selectedIndex = this.characterSelect.options.length-1;
@@ -54,9 +54,8 @@ ScreenLobby.prototype.keyDown = function(e) {
     if(keyCode == 32 && !this.flashing) {
 		if(this.select.selectedIndex == 0) {
 			var option = this.characterSelect.confirm();
-			option.flash();
-			this.flash();
-			Stats.currentCharacter = this.characterSelect.options[this.characterSelect.selectedIndex].label;
+			
+			this.chooseCharacter(option);
 		}else{
 			var option = this.select.confirm();
 			
@@ -90,8 +89,16 @@ ScreenLobby.prototype.flash = function() {
 	AudioManager.playSFX('res/sfx/Start.ogg');
 }
 
-ScreenLobby.prototype.chooseCharacter = function() {
+ScreenLobby.prototype.chooseCharacter = function(_option) {
+	var name = _option.label;
 	
+	if(Stats.hasObtainedCharacter(name)) {
+		Stats.currentCharacter = name;
+		_option.flash();
+		this.flash();
+	}else{
+		AudioManager.playSFX('res/sfx/Error.ogg');
+	}
 }
 
 ScreenLobby.prototype.keyUp = function(e) {

@@ -1,19 +1,21 @@
 var Stats = {
 	highScore: 0,
 	coins: 0,
-	obtainedCharacters: [],
-	currentCharacter: "vance spark",
+	obtainedCharacters: {
+		'vance': true
+	},
+	currentCharacter: "vance",
 	
 	music: true, sfx: true,
 	
 	resetGame: function() {
 		this.coins = 0;
 		this.highScore = 0;
-		this.obtainedCharacters = [];
+		this.obtainedCharacters = {'vance': true};
 		this.currentCharacter = CharacterVance.prototype.name;
 		localStorage.setItem('highscore', this.highScore);
 		localStorage.setItem('coins', this.coins);
-		localStorage.setItem('obtainedCharacters', this.obtainedCharacters);
+		localStorage.setItem('obtainedCharacters', JSON.stringify(this.obtainedCharacters));
 		localStorage.setItem('currentCharacter', this.currentCharacter);
 	},
 	
@@ -23,7 +25,7 @@ var Stats = {
 		if(localStorage.getItem('coins'))
 			this.coins = parseInt(localStorage.getItem('coins'));
 		if(localStorage.getItem('obtainedCharacters'))
-			this.obtainedCharacters = localStorage.getItem('obtainedCharacters');
+			this.obtainedCharacters = JSON.parse(localStorage.getItem('obtainedCharacters'));
 		if(localStorage.getItem('currentCharacter'))
 			this.currentCharacter = localStorage.getItem('currentCharacter');
 		

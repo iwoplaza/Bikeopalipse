@@ -9,7 +9,7 @@ var Resources = {
 		'res/img/zombies.png',
 		'res/img/coin.png',
 		'res/img/title.png',
-		'res/img/labels.png',
+		'res/img/guiicons.png',
 		'res/img/gameover.png',
 		'res/font/font.png',
 		'res/img/controls.png',
@@ -37,6 +37,7 @@ var Resources = {
 		'res/sfx/Powerup.ogg',
 		'res/sfx/Explosion.ogg',
 		'res/sfx/Click.ogg',
+		'res/sfx/Error.ogg',
 		'res/sfx/Start.ogg'
 	],
 	

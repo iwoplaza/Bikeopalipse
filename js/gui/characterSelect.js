@@ -121,15 +121,21 @@ CharacterOption.prototype.draw = function() {
 		ctx.fillRect(-33, 37, 66, 66);
 	}
 	
-	if(selected) {
-		this.frameY = Math.floor(1+this.parentSelect.anim);
-	}else {
-		this.frameY = 0;
-	}
-	
 	ctx.fillStyle = "#4f4f6f";
 	ctx.fillRect(-32, 38, 64, 64);
-	ctx.drawImage(Characters.image, this.frameX*64, this.frameY*64, 64, 64, -32, 38, 64, 64);
+	
+	if(this.state) {
+		if(selected) {
+			this.frameY = Math.floor(1+this.parentSelect.anim);
+		}else {
+			this.frameY = 0;
+		}
+		ctx.drawImage(Characters.image, this.frameX*64, this.frameY*64, 64, 64, -32, 38, 64, 64);
+	}else{
+		this.frameY = 0;
+		ctx.drawImage(Characters.image, this.frameX*64, this.frameY*64, 64, 64, -32, 38, 64, 64);
+		ctx.drawImage(Resources.images['res/img/guiicons.png'], 0, 0, 22, 28, -11, 52, 22, 28);
+	}
 }
 
 CharacterOption.prototype.confirm = function() {
