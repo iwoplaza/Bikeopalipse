@@ -8,6 +8,8 @@ function Player() {
     this.collisionBounds = new Bounds(-15, -3, 15, 0);
 	this.tripCooldown = 0;
 	this.powerup = null;
+	this.usingAbility = false;
+	this.abilityFillup = 1;
 	
 	this.sprite = new Sprite(Resources.images['res/img/player.png'], null, new Vector2(0, 0), 32, 32, -32);
 	this.animForward = 0;
@@ -76,6 +78,14 @@ Player.prototype.update = function() {
 		}
 	}
 	
+	if(this.usingAbility) {
+		if(this.abilityFillup > 0) {
+			this.performAbility();
+		}else{
+			this.disableAbility();
+		}
+	}
+	
 	this.location = this.location.addVec(this.velocity.multiply(Time.delta));
 	
     if(this.location.x < 20)
@@ -111,7 +121,12 @@ Player.prototype.keyDown = function(e) {
         this.up = true;
     if(keyCode == 83 || keyCode == 40)
         this.down = true;
-}
+	
+	if(keyCode == 32 && this.canUseAbility()) {
+		this.useAbility();
+		console.log("ABILITY");
+	}
+ }
 
 Player.prototype.keyUp = function(e) {
     var keyCode = e.keyCode;
@@ -158,6 +173,28 @@ Player.prototype.getPowerup = function(_index) {
 	this.powerup.onObtained();
 	Powerups.selectPowerup(powerup.index);
 	AudioManager.playSFX('res/sfx/Powerup.ogg', 0.5);
+}
+
+Player.prototype.useAbility = function() {
+	this.usingAbility = true;
+}
+
+Player.prototype.canUseAbility = function() {
+	return this.abilityFillup >= 1 && !this.usingAbility;
+}
+
+Player.prototype.fillUpAbility = function(a) {
+	this.abilityFillup += a;
+	if(this.abilityFillup > 1)
+		this.abilityFillup = 1;
+}
+
+Player.prototype.performAbility = function() {
+	
+}
+
+Player.prototype.disableAbility = function() {
+	this.usingAbility = false;
 }
 
 Player.prototype.applyDrag = function() {
