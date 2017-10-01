@@ -33,15 +33,17 @@ Player.prototype.update = function() {
 		else if(this.down) this.goDown();
 		else this.applyDrag();
 		
-		for(var i in World.obstacles) {
-			var obstacle = World.obstacles[i];
-			var collision = obstacle.collidesWith(this.collisionBounds.offset(this.location));
+        for(var i in World.obstacles) {
+            var obstacle = World.obstacles[i];
+            var collision = obstacle.collidesWith(this.collisionBounds.offset(this.location));
 
-			if(collision == Obstacle.COLLISION_FATAL)
-				gameScreen.gameOver();
-			else if(collision == Obstacle.COLLISION_TRIP)
-				this.trip(obstacle);
-		}
+            if(collision == Obstacle.COLLISION_FATAL){
+                if (this.powerup!=undefined){
+                    if (this.powerup.name!="EDrink") gameScreen.gameOver();
+                }else gameScreen.gameOver();
+            }else if(collision == Obstacle.COLLISION_TRIP)
+                this.trip(obstacle);
+        }
 		
 		for(var i in World.coins) {
 			var coin = World.coins[i];

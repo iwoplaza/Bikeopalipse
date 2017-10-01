@@ -1,6 +1,7 @@
 function PowerupShield() {
 	Powerup.call(this);
 	this.animSpin = 0;
+    this.name = "Shield";
 }
 PowerupShield.prototype = Object.create(Powerup.prototype);
 Powerups.register(PowerupShield);

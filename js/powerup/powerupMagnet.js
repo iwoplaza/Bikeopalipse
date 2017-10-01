@@ -1,6 +1,7 @@
 function PowerupMagnet() {
 	Powerup.call(this);
 	this.animSpin = 0;
+    this.name = "Magnet";
     this.hudTextureCoords = new Vector2(16, 0);
 }
 PowerupMagnet.prototype = Object.create(Powerup.prototype);
