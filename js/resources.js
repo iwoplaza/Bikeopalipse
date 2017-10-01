@@ -10,6 +10,7 @@ var Resources = {
 		'res/img/labels.png',
 		'res/img/gameover.png',
 		'res/font/font.png',
+		'res/img/controls.png',
         'res/img/building01.png',
         'res/img/building02.png',
         'res/img/building03.png',
@@ -19,13 +20,17 @@ var Resources = {
         'res/img/house02.png',
         'res/img/house03.png',
         'res/img/powerups.png',
-        'res/img/characters.png'
+        'res/img/characters.png',
+        'res/img/shield.png',
+        'res/img/explosion.png'
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',
 		'res/sfx/Hurt.ogg',
 		'res/sfx/ReadyGo.ogg',
 		'res/sfx/Coin.ogg',
+		'res/sfx/Powerup.ogg',
+		'res/sfx/Explosion.ogg',
 		'res/sfx/Click.ogg',
 		'res/sfx/Start.ogg'
 	],

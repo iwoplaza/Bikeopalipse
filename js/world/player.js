@@ -40,7 +40,7 @@ Player.prototype.update = function() {
 			if(collision == Obstacle.COLLISION_FATAL)
 				gameScreen.gameOver();
 			else if(collision == Obstacle.COLLISION_TRIP)
-				this.trip();
+				this.trip(obstacle);
 		}
 		
 		for(var i in World.coins) {
@@ -66,6 +66,14 @@ Player.prototype.update = function() {
 		this.velocity = new Vector2();
 	}
     
+	if(this.powerup != null) {
+		this.powerup.update();
+		if(this.powerup.dead) {
+			this.powerup.enabled = false;
+			this.powerup = null;
+		}
+	}
+	
 	this.location = this.location.addVec(this.velocity.multiply(Time.delta));
 	
     if(this.location.x < 20)
@@ -88,6 +96,9 @@ Player.prototype.draw = function(_stage) {
 	this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
 	_stage.addSprite(this.sprite);
+	
+	if(this.powerup != null)
+		this.powerup.drawPlayerOverlay();
 	
     ctx.restore();
 }
@@ -132,16 +143,23 @@ Player.prototype.goDown = function() {
     this.velocity.y = Math.min(this.velocity.y+25, this.maxVelocityY);
 }
 
-Player.prototype.trip = function() {
+Player.prototype.trip = function(_obstacle) {
 	if(this.tripCooldown > 0) return;
+	var flag = false;
+	if(this.powerup != null)
+		flag = this.powerup.onTrip(_obstacle);
+	
+	if(flag) return;
 	this.tripCooldown = 0.6;
 	AudioManager.playSFX('res/sfx/Hurt.ogg');
 }
 
 Player.prototype.getPowerup = function(_index) {
 	var powerup = Powerups.registry[_index];
-	this.powerup = powerup.index;
+	this.powerup = powerup;
+	this.powerup.onObtained();
 	Powerups.selectPowerup(powerup.index);
+	AudioManager.playSFX('res/sfx/Powerup.ogg', 0.5);
 }
 
 Player.prototype.applyDrag = function() {

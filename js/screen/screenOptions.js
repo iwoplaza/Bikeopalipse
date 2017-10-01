@@ -51,12 +51,6 @@ ScreenOptions.prototype.keyDown = function(e) {
 	}
 }
 
-ScreenOptions.prototype.flash = function() {
-	this.flashing = true;
-	this.flashProgress = 0;
-	AudioManager.stopAndPlay('res/sfx/Start.ogg');
-}
-
 ScreenOptions.prototype.keyUp = function(e) {
     
 }
