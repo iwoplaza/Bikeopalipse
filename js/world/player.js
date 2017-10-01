@@ -85,7 +85,7 @@ Player.prototype.update = function() {
 		}
 	}
 	
-	this.location = this.location.addVec(this.velocity.multiply(0.02));
+	this.location = this.location.addVec(this.velocity.multiply(0.015));
 	
     if(this.location.x < 20)
         gameScreen.gameOver();
@@ -144,7 +144,7 @@ Player.prototype.goLeft = function() {
 }
 
 Player.prototype.goRight = function() {
-    this.velocity.x = 110;
+    this.velocity.x = 90;
 }
 
 Player.prototype.goUp = function() {

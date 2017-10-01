@@ -13,9 +13,9 @@ Obstacle.register(ObstacleMeteor);
 ObstacleMeteor.prototype.update = function() {
 	ObstacleBase.prototype.update.call(this);
 	
-	this.animComet = (this.animComet+15*Time.delta)%4;
+	this.animComet = (this.animComet+0.30)%4;
 	if(this.animFall > 0) {
-		this.animFall -= Time.delta*0.7;
+		this.animFall -= 0.014;
 		if(this.animFall <= 0) {
 			this.animFall = 0;
 			World.spawnExplosion(Object.create(this.location));
