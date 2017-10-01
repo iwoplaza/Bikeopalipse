@@ -50,7 +50,9 @@ Player.prototype.update = function() {
 			var collision = coin.collidesWith(this.collisionBounds.offset(this.location));
 
 			if(collision) {
-				Stats.coins+=coin.collect();
+                let value = coin.collect();
+				Stats.coins+=value;
+                ScreenHandler.current.addScore(value);
 			}
 		}
 		

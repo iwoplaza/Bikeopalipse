@@ -15,6 +15,6 @@ PowerupShield.prototype.drawPlayerOverlay = function(_stage) {
 PowerupShield.prototype.onTrip = function(_obstacle) {
 	_obstacle.dead = true;
 	World.spawnExplosion(_obstacle.location.add(0, 0));
-	
+	ScreenHandler.current.addScore(5);
 	return true;
 }
