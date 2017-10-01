@@ -2,6 +2,7 @@ var Resources = {
 	imagesToLoad: [
 		'res/img/roads.png',
 		'res/img/obstacles.png',
+		'res/img/meteor.png',
 		'res/img/background_dawn.png',
 		'res/img/skyline_dawn.png',
 		'res/img/vance.png',
