@@ -11,7 +11,7 @@ function middleGround() {
 }
 
 middleGround.prototype.update = function() {
-	this.offset += World.getDriveSpeed()*Time.delta;
+	this.offset += Time.delta*World.getDriveSpeed()*0.4;
 	if(this.offset >= this.segments[0].textureWidth) {
 		this.offset -= this.segments[0].textureWidth;
 		this.segments.splice(0, 1);
@@ -27,7 +27,7 @@ middleGround.prototype.update = function() {
 
 middleGround.prototype.draw = function() {
 	ctx.save();
-	ctx.translate(-Math.floor(this.offset), -105);
+	ctx.translate(-Math.floor(this.offset), -20);
 	for(var i = 0; i < this.segments.length; i++) {
 		this.segments[i].draw();
 		ctx.translate(this.segments[i].textureWidth, 0);
