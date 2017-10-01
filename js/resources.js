@@ -21,6 +21,7 @@ var Resources = {
         'res/img/house01.png',
         'res/img/house02.png',
         'res/img/house03.png',
+        'res/img/SecondLayer.png',
         'res/img/powerups.png',
         'res/img/characters.png',
         'res/img/shield.png',
