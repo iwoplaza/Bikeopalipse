@@ -19,7 +19,7 @@ function onResourcesLoaded() {
 	
 	Stats.fetch();
 	
-	ScreenHandler.open(new ScreenGame());
+	ScreenHandler.open(new ScreenIntro());
 	
 	tick();
 }
