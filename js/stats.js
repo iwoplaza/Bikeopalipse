@@ -1,8 +1,18 @@
 var Stats = {
 	highScore: 0,
 	coins: 0,
+	obtainedCharacters: [],
 	
 	music: true, sfx: true,
+	
+	resetGame: function() {
+		this.coins = 0;
+		this.highScore = 0;
+		this.obtainedCharacters = [];
+		localStorage.setItem('highscore', this.highScore);
+		localStorage.setItem('coins', this.coins);
+		localStorage.setItem('obtainedCharacters', this.obtainedCharacters);
+	},
 	
 	fetch: function() {
 		if(localStorage.getItem('highscore'))
@@ -30,5 +40,14 @@ var Stats = {
 	setSFX: function(_flag) {
 		this.sfx = _flag;
 		localStorage.setItem('sfx', this.sfx);
+	},
+	
+	obtainCharacter: function(_character) {
+		this.obtainedCharacters[_character] = true;
+		localStorage.setItem('obtainedCharacters', this.obtainedCharacters);
+	},
+	
+	hasObtainedCharacter: function(_character) {
+		return this.obtainedCharacters[_character] == true;
 	}
 };

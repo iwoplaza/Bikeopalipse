@@ -2,8 +2,8 @@ function ScreenLobby() {
 	this.bodyColor = "#2c2c2c";
 	
 	this.characterSelect = new CharacterSelect(new Vector2(0, 0), this.bodyColor);
-	this.characterSelect.addOption(new CharacterOption("vance spark", 0, 0));
-	this.characterSelect.addOption(new CharacterOption("christopher", 0, 0));
+	this.characterSelect.addOption(new CharacterOption("vance spark", 0));
+	this.characterSelect.addOption(new CharacterOption("stewart", 1));
 	
 	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 20));
 	this.select.addOption(this.characterSelect);
