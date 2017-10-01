@@ -61,16 +61,18 @@ ScreenLobby.prototype.keyDown = function(e) {
     if(keyCode == 32 && !this.flashing) {
 		if(this.select.selectedIndex == 0) {
 			var option = this.characterSelect.confirm();
-			
-			this.chooseCharacter(option);
+			var proceed = this.chooseCharacter(option);
+            if (proceed) this.select.options[1].flash();
 		}else{
 			var option = this.select.confirm();
 			
 			if(option.index == 1) { //Back
                 var char = this.characterSelect.confirm();
-                this.chooseCharacter(char);
-				option.flash();
-				this.flash();
+                var proceed = this.chooseCharacter(char);
+				if (proceed){
+                    option.flash();
+				    this.flash();
+                }
 			}
 			
 			if(option.index == 2) { //Back
@@ -109,12 +111,14 @@ ScreenLobby.prototype.chooseCharacter = function(_option) {
 		Stats.currentCharacter = name;
 		_option.flash();
 		this.flash();
+        return true;
 	}else if(Stats.consumeCoins(character.prototype.price)){
 		Stats.obtainCharacter(name);
 		_option.state = true;
 		AudioManager.playSFX('res/sfx/Explosion.ogg');
 	}else{
 		AudioManager.playSFX('res/sfx/Error.ogg');
+        return false;
 	}
 }
 
