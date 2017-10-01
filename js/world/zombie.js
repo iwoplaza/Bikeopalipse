@@ -1,17 +1,19 @@
 function Zombie(_location) {
-	this.location = _location ? _location : new Vector2(0, -(20+Math.random()*(World.roadHeight-40)));
-	this.animForward = 0;
-	this.sprite = new Sprite(Zombies.image, new Vector2(this.location.x, this.location.y), null, -16);
+	this.location = _location ? _location : new Vector2(-10+Math.random()*10, -(20+Math.random()*(World.roadHeight-40)));
+	this.animSpeed = 10+Math.random()*6;
+	this.animForward = Math.random()*3;
+	this.sprite = new Sprite(Zombies.image, new Vector2(this.location.x, this.location.y), null, 32, 32, -32);
 }
 
 Zombie.prototype.update = function() {
-	this.location.x -= World.getDriveSpeed()*Time.delta;
+	this.animForward = (this.animForward+this.animSpeed*Time.delta)%8;
 }
 
 Zombie.prototype.draw = function(_stage) {
 	ctx.save();
 	
-	this.sprite.location.x = this.location.x;
+	//this.sprite.location.x = this.location.x;
+	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
 	_stage.addSprite(this.sprite);
 	
 	ctx.restore();
