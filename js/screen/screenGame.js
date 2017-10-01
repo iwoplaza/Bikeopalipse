@@ -1,12 +1,17 @@
 function ScreenGame(_character) {
     this.isGameOver = false;
 	this.score = 0;
+    this.scoreVault = 0;
 	this.distance = 0;
 	this.imageGameOver = Resources.images['res/img/gameover.png'];
 	this.continueBlink = 0;
 	this.character = _character ? _character :
 					(Characters.registry[Stats.currentCharacter] ? Characters.registry[Stats.currentCharacter] :
 					 CharacterVance );
+}
+
+ScreenGame.prototype.addScore = function(e){
+    this.score+=e;
 }
 
 ScreenGame.prototype.init = function() {
@@ -19,10 +24,18 @@ ScreenGame.prototype.update = function() {
     World.update();
 	if(!this.isGameOver) {
 		this.distance += World.getDriveSpeed()*Time.delta;
-		this.score = Math.floor(this.distance/200);
+        this.distanceToScore();
 	}else{
 		this.continueBlink = (this.continueBlink+1*Time.delta)%1;
 	}
+}
+    
+ScreenGame.prototype.distanceToScore = function(){
+    this.scoreVault += World.getDriveSpeed()*Time.delta;
+    while (this.scoreVault>200){
+        this.addScore(1);
+        this.scoreVault-=200;
+    }
 }
 
 ScreenGame.prototype.draw = function() {

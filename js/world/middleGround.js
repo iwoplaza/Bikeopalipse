@@ -27,7 +27,7 @@ middleGround.prototype.update = function() {
 
 middleGround.prototype.draw = function() {
 	ctx.save();
-	ctx.translate(-Math.floor(this.offset), -20);
+	ctx.translate(-Math.floor(this.offset), -10);
 	for(var i = 0; i < this.segments.length; i++) {
 		this.segments[i].draw();
 		ctx.translate(this.segments[i].textureWidth, 0);
