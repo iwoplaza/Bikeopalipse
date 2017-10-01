@@ -23,6 +23,7 @@ var Resources = {
         'res/img/powerups.png',
         'res/img/characters.png',
         'res/img/shield.png',
+        'res/img/magnet.png',
         'res/img/explosion.png'
 	],
 	soundsToLoad: [
