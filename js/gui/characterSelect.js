@@ -56,7 +56,8 @@ CharacterSelect.prototype.draw = function() {
 		Fonts.regular.drawText(option.label, 0, 108);
 		for(let i in option.description) {
 			ctx.translate(0, 12);
-			Fonts.regular.drawText(option.description[i], 0, 118);
+			Fonts.slim.setAlignment("center");
+			Fonts.slim.drawText(option.description[i], 0, 114);
 		}
 	}else{
 		Fonts.regular.setAlignment("center");
@@ -135,7 +136,7 @@ CharacterOption.prototype.draw = function() {
 	
 	if(this.state) {
 		if(selected) {
-			this.frameY = Math.floor(1+this.parentSelect.anim);
+			this.frameY = 1+Math.floor(this.parentSelect.anim);
 		}else {
 			this.frameY = 0;
 		}

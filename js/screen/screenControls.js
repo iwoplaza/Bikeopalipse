@@ -18,6 +18,8 @@ ScreenControls.prototype.draw = function() {
 	
 	ctx.drawImage(this.image, ScreenHandler.getWidth()/2-128, 90, 256, 128);
 	
+	Fonts.slim.drawText("1234567890", 0, 0);
+	
 	if(this.continueBlink < 0.5) {
 		Fonts.regular.setAlignment("center");
 		Fonts.regular.drawText("confirm to continue", ScreenHandler.getWidth()/2, ScreenHandler.getHeight()-40);
