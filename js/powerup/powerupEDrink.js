@@ -27,5 +27,8 @@ PowerupEDrink.prototype.onObtained = function() {
 	Powerup.prototype.onObtained.call(this);
 }
 PowerupEDrink.prototype.getSpeedMultiplier = function() {
+	if(this.lifetime < 1) {
+		return 1+this.lifetime;
+	}
 	return 2;
 }
