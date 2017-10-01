@@ -51,6 +51,7 @@ CharacterSelect.prototype.draw = function() {
 	ctx.restore();
 	var option = this.options[this.selectedIndex];
 	ctx.save();
+	Fonts.regular.setAlignment("center");
 	Fonts.regular.drawText(option.label, 0, 108);
 	for(let i in option.description) {
 		ctx.translate(0, 12);
