@@ -16,6 +16,7 @@ PowerupEDrink.prototype.drawPlayerOverlay = function(_stage) {
 
 PowerupEDrink.prototype.update = function(){
     Powerup.prototype.update.call(this);
+	World.shoveOffZombies();
 }
 
 PowerupEDrink.prototype.onTrip = function(_obstacle) {

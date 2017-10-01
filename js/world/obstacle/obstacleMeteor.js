@@ -23,6 +23,10 @@ ObstacleMeteor.prototype.update = function() {
 	}
 }
 
+ObstacleMeteor.prototype.getGap = function() {
+    return 175;
+}
+
 ObstacleMeteor.prototype.draw = function(_stage) {
 	ctx.save();
 	ctx.translate(Math.floor(this.location.x), Math.floor(this.location.y));

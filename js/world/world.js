@@ -26,7 +26,7 @@ World.step = function() {
 	var gameScreen = ScreenHandler.current;
 	if(!gameScreen) return;
 	
-	if(!gameScreen.isGameOver) {
+	if(!gameScreen.isGameOver && gameScreen.readyTimer <= 0) {
 		Player.player.update();
 		
 		if(this.obstacleDelay > 0) {
@@ -74,7 +74,7 @@ World.step = function() {
 		}
 		
 		for(let i = 0; i < this.zombies.length; i++)
-			this.zombies[i].update();
+		this.zombies[i].update();
 		
 		this.skyline.update();
 		this.road.update();
@@ -151,5 +151,10 @@ World.spawnZombies = function(_amount) {
 }
 
 World.getDriveSpeed = function() {
-    return Math.min(2,1.5)*Player.player.getSpeedMultiplier();
+    return Math.min(3,1.5+ScreenHandler.current.distance*0.008)*Player.player.getSpeedMultiplier();
+}
+
+World.shoveOffZombies = function() {
+	for(let i = 0; i < this.zombies.length; i++)
+		this.zombies[i].shoveOff();
 }
