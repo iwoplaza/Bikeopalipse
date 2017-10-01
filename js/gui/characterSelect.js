@@ -4,6 +4,7 @@ function CharacterSelect(_location, _bgColor) {
 	this.spacing = 5;
 	this.selectedIndex = 0;
 	this.bgColor = _bgColor;
+	this.smoothOffset = 0;
 }
 
 CharacterSelect.prototype.addOption = function(_option) {
@@ -15,24 +16,39 @@ CharacterSelect.prototype.addOption = function(_option) {
 CharacterSelect.prototype.draw = function() {
 	var selected = this.parentSelect.selectedIndex == this.index;
 	
+	var offset = this.selectedIndex*85;
+	if(this.smoothOffset < offset) {
+		this.smoothOffset += 580*Time.delta;
+		if(this.smoothOffset > offset)
+			this.smoothOffset = offset;
+	}
+	
+	if(this.smoothOffset > offset) {
+		this.smoothOffset -= 580*Time.delta;
+		if(this.smoothOffset < offset)
+			this.smoothOffset = offset;
+	}
+	
 	ctx.save();
 	ctx.translate(this.location.x, this.location.y);
 	
 	var width = 200;
 	ctx.fillStyle = selected ? "#ff8a01" : "#343448";
-	ctx.fillRect(-width/2, 32, width, 90);
+	ctx.fillRect(-width/2, 32, width, 150);
 	ctx.fillStyle = "#343448";
-	ctx.fillRect(-width/2+1, 33, width-2, 88);
-	
+	ctx.fillRect(-width/2+1, 33, width-2, 148);
+	ctx.fillStyle = "#fff";
+	ctx.fillRect(-width/2+4, 104, width-8, 1);
 	
 	ctx.save();
-	var offset = this.selectedIndex*85;
-	ctx.translate(-offset, 0);
+	ctx.translate(-this.smoothOffset, 0);
 	for(let i = 0; i < this.options.length; i++) {
 		this.options[i].draw();
 		ctx.translate(80+this.spacing, 0);
 	}
 	ctx.restore();
+	var option = this.options[this.selectedIndex];
+	Fonts.regular.drawText(option.label, 0, 108);
 	
 	ctx.fillStyle = this.bgColor;
 	ctx.fillRect(-ScreenHandler.getWidth()/2, 32, (ScreenHandler.getWidth()-width)/2, 90);
@@ -43,7 +59,7 @@ CharacterSelect.prototype.draw = function() {
 	
 	ctx.restore();
 	
-	ctx.translate(0, 122);
+	ctx.translate(0, 182);
 }
 
 CharacterSelect.prototype.goLeft = function() {
@@ -71,12 +87,13 @@ CharacterSelect.prototype.confirm = function() {
 	return option;
 }
 
-function CharacterOption(_label, _tx, _ty) {
+function CharacterOption(_label, _tx, _state) {
 	this.parentSelect = null;
 	this.label = _label;
 	this.flashProgress = 0;
 	this.frameX = _tx;
-	this.frameY = _ty;
+	this.frameY = 0;
+	this.state = _state;
 }
 
 CharacterOption.prototype.draw = function() {
@@ -97,10 +114,7 @@ CharacterOption.prototype.draw = function() {
 	
 	ctx.fillStyle = "#4f4f6f";
 	ctx.fillRect(-32, 38, 64, 64);
-	ctx.drawImage(Characters.image, this.frameX*32, this.frameY*64, 64, 64, -32, 38, 64, 64);
-	
-	//Fonts.regular.setAlignment("center");
-	Fonts.regular.drawText(this.label, 0, 107);
+	ctx.drawImage(Characters.image, this.frameX*64, this.frameY*64, 64, 64, -32, 38, 64, 64);
 }
 
 CharacterOption.prototype.confirm = function() {
