@@ -21,6 +21,10 @@ CharacterStewart.prototype.draw = function(_stage) {
 	
 	if(this.powerup != null)
 		this.powerup.drawPlayerOverlay();
+	
+	if(this.tripCooldown > 0 && this.stunnedBlink < 0.5)
+		ctx.drawImage(Resources.images['res/img/guiicons.png'], 0, 28, 38, 7, -19, -42, 38, 7);
+	
 	ctx.restore();
 }
 

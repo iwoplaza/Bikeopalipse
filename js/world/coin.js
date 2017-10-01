@@ -52,7 +52,7 @@ Coin.prototype.collect = function() {
 	this.animCollection = 0;
 	AudioManager.playSFX('res/sfx/Coin.ogg');
 	
-	Player.player.fillUpAbility(0.015);
+	Player.player.fillUpAbility(0.02);
 	
 	return 1;
 }

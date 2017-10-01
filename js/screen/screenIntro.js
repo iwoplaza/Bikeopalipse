@@ -3,6 +3,8 @@ function ScreenIntro() {
 }
 
 ScreenIntro.prototype.init = function() {
+	ScreenHandler.open(new ScreenTitle());
+	
 	this.sequence = new Sequence();
 	var clip = new Clip();
 	clip.addFrame(new Frame('res/img/intro/0/px0000.png', 0.3));

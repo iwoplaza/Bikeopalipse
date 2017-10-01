@@ -11,6 +11,8 @@ function Player() {
 	this.usingAbility = false;
 	this.abilityFillup = 0;
 	
+	this.stunnedBlink = 0;
+	
 	this.sprite = new Sprite(Resources.images['res/img/player.png'], null, new Vector2(0, 0), 32, 32, -32);
 	this.animForward = 0;
 }
@@ -21,7 +23,8 @@ Player.prototype.update = function() {
 	
 	this.velocity.x = 0;
 	if(this.tripCooldown > 0) {
-		this.tripCooldown-=1;
+		this.tripCooldown-=0.01;
+		this.stunnedBlink = (this.stunnedBlink+0.06)%1;
 	}
 	
 	if(!gameScreen.isGameOver) {
@@ -79,7 +82,7 @@ Player.prototype.update = function() {
 	if(this.usingAbility) {
 		if(this.abilityFillup > 0) {
 			this.performAbility();
-			this.abilityFillup -= Time.delta*0.4;
+			this.abilityFillup -= 0.008;
 		}else{
 			this.disableAbility();
 		}
@@ -107,6 +110,10 @@ Player.prototype.draw = function(_stage) {
 	
 	if(this.powerup != null)
 		this.powerup.drawPlayerOverlay();
+	
+	if(this.tripCooldown > 0 && this.stunnedBlink < 0.5)
+	ctx.drawImage(Resources.images['res/img/guiicons.png'], 0, 28, 38, 7, -19, -42, 38, 7);
+	
 	ctx.restore();
 }
 
@@ -189,6 +196,7 @@ Player.prototype.getPowerup = function(_index) {
 
 Player.prototype.useAbility = function() {
 	this.usingAbility = true;
+	AudioManager.playSFX('res/sfx/Powerup.ogg', 0.5);
 }
 
 Player.prototype.canUseAbility = function() {
