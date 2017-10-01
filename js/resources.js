@@ -12,7 +12,12 @@ var Resources = {
 		'res/font/font.png',
         'res/img/building01.png',
         'res/img/building02.png',
+        'res/img/building03.png',
+        'res/img/building04.png',
+        'res/img/building05.png',
         'res/img/house01.png',
+        'res/img/house02.png',
+        'res/img/house03.png',
         'res/img/powerups.png',
         'res/img/characters.png'
 	],
