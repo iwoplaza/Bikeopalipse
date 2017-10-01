@@ -140,5 +140,5 @@ World.spawnZombies = function(_amount) {
 }
 
 World.getDriveSpeed = function() {
-    return 100*Player.player.getSpeedMultiplier()+ScreenHandler.current.distance*0.02;
+    return Math.min(260,100+ScreenHandler.current.distance*0.01)*Player.player.getSpeedMultiplier();
 }
