@@ -30,6 +30,7 @@ ScreenControls.prototype.keyDown = function(e) {
     var keyCode = e.keyCode;
 	
 	if(keyCode == 32) {
+		AudioManager.playSFX('res/sfx/Click.ogg');
 		ScreenHandler.open(new ScreenTitle());
 	}
 }

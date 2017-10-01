@@ -24,7 +24,8 @@ function onResourcesLoaded() {
         var keyCode = e.keyCode;
 
         if(keyCode == 32) {
-            ScreenHandler.open(new ScreenIntro());
+			AudioManager.playSFX('res/sfx/Click.ogg');
+            ScreenHandler.open(new ScreenBrief());
         }
     };
 	ScreenHandler.open(cont);
