@@ -19,11 +19,8 @@ function onResourcesLoaded() {
 	
 	Stats.fetch();
 	
-<<<<<<< HEAD
 	ScreenHandler.open(new ScreenGame());
-=======
-	ScreenHandler.open(new ScreenControls());
->>>>>>> 48f3384cb78d807f87f48713d5a9177b7d679995
+	
 	tick();
 }
 
