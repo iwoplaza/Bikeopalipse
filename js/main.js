@@ -19,9 +19,6 @@ function onResourcesLoaded() {
 	
 	Stats.fetch();
 	
-<<<<<<< HEAD
-	ScreenHandler.open(new ScreenGame());
-=======
     var cont = new ScreenControls();
     cont.keyDown = function(e) {
         var keyCode = e.keyCode;
@@ -31,7 +28,6 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
->>>>>>> e8d64c81829bec74d37ac1ae0bc0230a7f91bea0
 	
 	tick();
 }
