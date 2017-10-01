@@ -16,7 +16,7 @@ function onResourcesLoaded() {
 	Characters.init();
 	Explosions.init();
 	Zombies.init();
-	ScreenHandler.open(new ScreenControls());
+	ScreenHandler.open(new ScreenGame());
 	tick();
 }
 

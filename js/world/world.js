@@ -10,11 +10,7 @@ World.init = function() {
 	this.powerups = [];
 	this.powerupSpawnCooldown = 100;
 	this.explosions = [];
-	this.zombies = [
-		new Zombie(),
-		new Zombie(),
-		new Zombie()
-	];
+	this.spawnZombies(10);
 	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
 	this.road = new Road();
 	this.stage = new Stage();
@@ -128,6 +124,16 @@ World.spawnPowerup = function() {
 World.spawnExplosion = function(_location) {
 	this.explosions.push(new Explosion(_location));
 	AudioManager.playSFX('res/sfx/Explosion.ogg');
+}
+
+World.spawnZombies = function(_amount) {
+	this.zombies = [];
+	var min = 10;
+	var max = this.roadHeight-10;
+	for(let i = 0; i < _amount; i++) {
+		var percent = i/(_amount-1);
+		this.zombies.push(new Zombie(new Vector2(-20+Math.random()*30, -(min+percent*(max-min)))));
+	}
 }
 
 World.getDriveSpeed = function() {
