@@ -10,6 +10,11 @@ World.init = function() {
 	this.powerups = [];
 	this.powerupSpawnCooldown = 100;
 	this.explosions = [];
+	this.zombies = [
+		new Zombie(),
+		new Zombie(),
+		new Zombie()
+	];
 	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
 	this.road = new Road();
 	this.stage = new Stage();
@@ -68,6 +73,9 @@ World.update = function() {
 				this.explosions.splice(i, 1);
 		}
 		
+		for(let i = 0; i < this.zombies.length; i++)
+			this.zombies[i].update();
+		
 		this.skyline.update();
 		this.road.update();
         this.structure.update();
@@ -86,18 +94,17 @@ World.draw = function() {
 	
 	this.stage.clear();
     
-    for(var key in this.obstacles) {
+    for(var key in this.obstacles)
         this.obstacles[key].draw(this.stage);
-    }
-	for(var key in this.coins) {
+	for(var key in this.coins)
         this.coins[key].draw(this.stage);
-    }
-	for(var key in this.powerups) {
+	for(var key in this.powerups)
         this.powerups[key].draw(this.stage);
-    }
-	for(var key in this.explosions) {
+	for(var key in this.explosions)
         this.explosions[key].draw(this.stage);
-    }
+	for(let i = 0; i < this.zombies.length; i++)
+		this.zombies[i].draw(this.stage);
+	
 	Player.player.draw(this.stage);
 	
 	this.stage.draw();
