@@ -6,7 +6,7 @@ function Zombie(_location) {
 }
 
 Zombie.prototype.update = function() {
-	this.animForward = (this.animForward+this.animSpeed*Time.delta)%8;
+	this.animForward = (this.animForward+this.animSpeed*0.01)%8;
 }
 
 Zombie.prototype.draw = function(_stage) {

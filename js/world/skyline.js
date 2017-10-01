@@ -4,7 +4,7 @@ function Skyline(_image) {
 }
 
 Skyline.prototype.update = function() {
-	this.offset += Time.delta*World.getDriveSpeed()*0.05;
+	this.offset += World.getDriveSpeed()*0.05;
 	
 	if(this.offset >= 512) {
 		this.offset -= 512;

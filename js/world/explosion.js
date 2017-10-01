@@ -5,7 +5,7 @@ function Explosion(_location) {
 }
 
 Explosion.prototype.update = function() {
-	this.location.x -= World.getDriveSpeed()*Time.delta;
+	this.location.x -= World.getDriveSpeed();
 	this.anim += Time.delta*15;
 	if(this.location.x < -30 || this.anim > 9) this.dead = true;
 }

@@ -5,7 +5,7 @@ function ObstacleBase() {
 } 
 
 ObstacleBase.prototype.update = function() {
-    this.location.x -= this.getSpeed()*Time.delta;
+    this.location.x -= this.getSpeed();
     if(this.location.x < -300) {
         this.dead = true;
     }

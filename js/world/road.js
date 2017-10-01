@@ -14,17 +14,17 @@ function Road() {
 }
 
 Road.prototype.update = function() {
-	this.offset += World.getDriveSpeed()*Time.delta;
-	if(this.offset >= this.textureWidth) {
+	this.offset -= World.getDriveSpeed();
+	if(this.offset <= -this.textureWidth) {
 		this.segments.splice(0, 1);
 		this.segments.push(new RoadSegment(this));
-		this.offset -= this.textureWidth;
+		this.offset += this.textureWidth;
 	}
 }
 
 Road.prototype.draw = function() {
 	ctx.save();
-	ctx.translate(Math.floor(-this.offset), 0);
+	ctx.translate(Math.floor(this.offset), 0);
 	for(var i = 0; i < this.segments.length; i++) {
 		this.segments[i].draw();
 		ctx.translate(this.textureWidth, 0);

@@ -21,7 +21,7 @@ Player.prototype.update = function() {
 	
 	this.velocity.x = 0;
 	if(this.tripCooldown > 0) {
-		this.tripCooldown-=Time.delta;
+		this.tripCooldown-=1;
 	}
 	
 	if(!gameScreen.isGameOver) {
@@ -85,7 +85,7 @@ Player.prototype.update = function() {
 		}
 	}
 	
-	this.location = this.location.addVec(this.velocity.multiply(Time.delta));
+	this.location = this.location.addVec(this.velocity.multiply(0.02));
 	
     if(this.location.x < 20)
         gameScreen.gameOver();

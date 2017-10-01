@@ -11,7 +11,7 @@ function Structure() {
 }
 
 Structure.prototype.update = function() {
-	this.offset += World.getDriveSpeed()*Time.delta;
+	this.offset += World.getDriveSpeed();
 	if(this.offset >= this.segments[0].textureWidth) {
 		this.offset -= this.segments[0].textureWidth;
 		this.segments.splice(0, 1);

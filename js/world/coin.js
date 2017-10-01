@@ -13,8 +13,8 @@ function Coin(_location) {
 Coin.prototype.collisionBounds = new Bounds(-10, -10, 10, 10);
 
 Coin.prototype.update = function() {
-	this.animSpin = (this.animSpin+this.animSpinSpeed*Time.delta)%6;
-	this.animBob = (this.animBob+2*Time.delta)%1;
+	this.animSpin = (this.animSpin+this.animSpinSpeed*0.01)%6;
+	this.animBob = (this.animBob+2)%1;
 	
 	if(this.collected) {
 		if(this.animCollection < 5) {
@@ -27,7 +27,7 @@ Coin.prototype.update = function() {
 		}
 	}
 	
-	this.location.x -= World.getDriveSpeed()*Time.delta;
+	this.location.x -= World.getDriveSpeed();
 	if(this.location.x < -50) this.dead = true;
 }
 
@@ -52,7 +52,7 @@ Coin.prototype.collect = function() {
 	this.animCollection = 0;
 	AudioManager.playSFX('res/sfx/Coin.ogg');
 	
-	Player.player.fillUpAbility(0.01);
+	Player.player.fillUpAbility(0.015);
 	
 	return 1;
 }

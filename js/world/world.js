@@ -4,7 +4,7 @@ var World = {
 
 World.init = function() {
     this.obstacles = [];
-    this.obstacleDelay = 310;
+    this.obstacleDelay = 0;
 	this.coins = [];
 	this.coinSpawnCooldown = 5;
 	this.powerups = [];
@@ -17,9 +17,12 @@ World.init = function() {
     this.middleGround = new middleGround();
     this.structure = new Structure();
 	this.skyline = new Skyline(Resources.images['res/img/skyline_dawn.png']);
+	
+	this.stepProgress = 0;
+	this.stepFrequency = 0.01;
 }
 
-World.update = function() {
+World.step = function() {
 	var gameScreen = ScreenHandler.current;
 	if(!gameScreen) return;
 	
@@ -27,7 +30,7 @@ World.update = function() {
 		Player.player.update();
 		
 		if(this.obstacleDelay > 0) {
-			this.obstacleDelay -= this.getDriveSpeed()*Time.delta;
+			this.obstacleDelay -= this.getDriveSpeed();
 		} else {
 			var obstacle = Obstacle.generate();
 			this.obstacles.push(obstacle);
@@ -35,13 +38,13 @@ World.update = function() {
 		}
 
 		if(this.coinSpawnCooldown > 0) {
-			this.coinSpawnCooldown -= this.getDriveSpeed()*Time.delta;
+			this.coinSpawnCooldown -= this.getDriveSpeed();
 		} else {
 			this.spawnCoin();
 		}
 		
 		if(this.powerupSpawnCooldown > 0) {
-			this.powerupSpawnCooldown -= this.getDriveSpeed()*Time.delta;
+			this.powerupSpawnCooldown -= this.getDriveSpeed();
 		} else {
 			this.spawnPowerup();
 		}
@@ -77,6 +80,14 @@ World.update = function() {
 		this.road.update();
         this.structure.update();
         this.middleGround.update();
+	}
+}
+
+World.update = function() {
+	this.stepProgress += Time.delta;
+	if(this.stepProgress > this.stepFrequency) {
+		this.stepProgress -= this.stepFrequency;
+		this.step();
 	}
 }
 
@@ -140,5 +151,5 @@ World.spawnZombies = function(_amount) {
 }
 
 World.getDriveSpeed = function() {
-    return Math.min(260,100+ScreenHandler.current.distance*0.01)*Player.player.getSpeedMultiplier();
+    return Math.min(2,2)*Player.player.getSpeedMultiplier();
 }
