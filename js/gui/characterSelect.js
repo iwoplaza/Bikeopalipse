@@ -5,6 +5,7 @@ function CharacterSelect(_location, _bgColor) {
 	this.selectedIndex = 0;
 	this.bgColor = _bgColor;
 	this.smoothOffset = 0;
+	this.anim = 0;
 }
 
 CharacterSelect.prototype.addOption = function(_option) {
@@ -28,6 +29,7 @@ CharacterSelect.prototype.draw = function() {
 		if(this.smoothOffset < offset)
 			this.smoothOffset = offset;
 	}
+	this.anim = (this.anim+5*Time.delta)%2;
 	
 	ctx.save();
 	ctx.translate(this.location.x, this.location.y);
@@ -48,7 +50,13 @@ CharacterSelect.prototype.draw = function() {
 	}
 	ctx.restore();
 	var option = this.options[this.selectedIndex];
+	ctx.save();
 	Fonts.regular.drawText(option.label, 0, 108);
+	for(let i in option.description) {
+		ctx.translate(0, 12);
+		Fonts.regular.drawText(option.description[i], 0, 108);
+	}
+	ctx.restore();
 	
 	ctx.fillStyle = this.bgColor;
 	ctx.fillRect(-ScreenHandler.getWidth()/2, 32, (ScreenHandler.getWidth()-width)/2, 90);
@@ -87,9 +95,10 @@ CharacterSelect.prototype.confirm = function() {
 	return option;
 }
 
-function CharacterOption(_label, _tx, _state) {
+function CharacterOption(_label, _description, _tx, _state) {
 	this.parentSelect = null;
 	this.label = _label;
+	this.description = _description ? _description : [];
 	this.flashProgress = 0;
 	this.frameX = _tx;
 	this.frameY = 0;
@@ -111,6 +120,11 @@ CharacterOption.prototype.draw = function() {
 		ctx.fillRect(-33, 37, 66, 66);
 	}
 	
+	if(selected) {
+		this.frameY = Math.floor(1+this.parentSelect.anim);
+	}else {
+		this.frameY = 0;
+	}
 	
 	ctx.fillStyle = "#4f4f6f";
 	ctx.fillRect(-32, 38, 64, 64);

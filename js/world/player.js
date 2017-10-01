@@ -60,8 +60,6 @@ Player.prototype.update = function() {
 				this.getPowerup(powerupItem.collect());
 			}
 		}
-		
-		this.animForward = (this.animForward+Time.delta*15)%4;
 	}else{
 		this.velocity = new Vector2();
 	}
@@ -85,11 +83,8 @@ Player.prototype.update = function() {
 }
 
 Player.prototype.draw = function(_stage) {
-    ctx.fillStyle = "#3fce3f";
-    ctx.save();
-    ctx.translate(this.location.x, this.location.y);
-    //ctx.fillRect(-15,-30, 30, 30);
-    
+	ctx.save();
+	ctx.translate(Math.floor(this.location.x), Math.floor(this.location.y));
     /*ctx.fillStyle = "#ff1c1c";
     ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);*/
     
@@ -99,8 +94,7 @@ Player.prototype.draw = function(_stage) {
 	
 	if(this.powerup != null)
 		this.powerup.drawPlayerOverlay();
-	
-    ctx.restore();
+	ctx.restore();
 }
 
 Player.prototype.keyDown = function(e) {

@@ -2,10 +2,17 @@ function ScreenLobby() {
 	this.bodyColor = "#2c2c2c";
 	
 	this.characterSelect = new CharacterSelect(new Vector2(0, 0), this.bodyColor);
-	this.characterSelect.addOption(new CharacterOption("vance spark", 0));
-	this.characterSelect.addOption(new CharacterOption("stewart", 1));
+	for(var key in Characters.registry) {
+		var character = Characters.registry[key];
+		var option = new CharacterOption(key, character.prototype.description, character.prototype.textureIndex, true);
+		this.characterSelect.addOption(option);
+		if(key == Stats.currentCharacter) {
+			this.characterSelect.selectedIndex = this.characterSelect.options.length-1;
+			this.characterSelect.smoothOffset = this.characterSelect.selectedIndex*85;
+		}
+	}
 	
-	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 20));
+	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 3));
 	this.select.addOption(this.characterSelect);
 	this.select.addOption(new Option('go'));
 	this.select.addOption(new Option('back'));
@@ -36,18 +43,19 @@ ScreenLobby.prototype.draw = function() {
 	Fonts.regular.drawText("select your hero", ScreenHandler.getWidth()/2, 15);
 	
 	Fonts.regular.setAlignment("center");
-	Fonts.regular.drawText("highscore: "+Stats.highScore, ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+100);
+	Fonts.regular.drawText("highscore: "+Stats.highScore, ScreenHandler.getWidth()/2, ScreenHandler.getHeight()/2+135);
 	
 	ctx.restore();
 }
 
 ScreenLobby.prototype.keyDown = function(e) {
     var keyCode = e.keyCode;
-    if(keyCode == 32) {
+    if(keyCode == 32 && !this.flashing) {
 		if(this.select.selectedIndex == 0) {
 			var option = this.characterSelect.confirm();
 			option.flash();
 			this.flash();
+			Stats.currentCharacter = this.characterSelect.options[this.characterSelect.selectedIndex].label;
 		}else{
 			var option = this.select.confirm();
 			
@@ -79,6 +87,10 @@ ScreenLobby.prototype.flash = function() {
 	this.flashing = true;
 	this.flashProgress = 0;
 	AudioManager.playSFX('res/sfx/Start.ogg');
+}
+
+ScreenLobby.prototype.chooseCharacter = function() {
+	
 }
 
 ScreenLobby.prototype.keyUp = function(e) {

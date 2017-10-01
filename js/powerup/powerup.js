@@ -44,7 +44,7 @@ Powerups.register = function(_powerup) {
 
 Powerups.selectPowerup = function(_index) {
 	for(let i = 0; i < this.registry.length; i++) {
-		this.registry[_index].enabled = false;
+		this.registry[i].enabled = false;
 	}
 	this.registry[_index].enabled = true;
 }

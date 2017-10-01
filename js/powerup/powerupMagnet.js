@@ -17,8 +17,10 @@ PowerupMagnet.prototype.update = function() {
     
     for (var i=0;i<World.coins.length;i++){
         var dist = Math.sqrt(Math.pow((Player.player.location.x-World.coins[i].location.x),2)+Math.pow((Player.player.location.y-World.coins[i].location.y),2))
-        World.coins[i].location.x += ((Player.player.location.x-World.coins[i].location.x)/dist)*3;
-        World.coins[i].location.y += ((Player.player.location.y-World.coins[i].location.y)/dist)*3;
+		if(dist < 60 && dist != 0) {
+			World.coins[i].location.x += ((Player.player.location.x-World.coins[i].location.x)/dist)*3;
+			World.coins[i].location.y += ((Player.player.location.y-World.coins[i].location.y)/dist)*3;
+		}
     }
 	
 	return true;

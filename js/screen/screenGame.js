@@ -1,9 +1,12 @@
-function ScreenGame() {
+function ScreenGame(_character) {
     this.isGameOver = false;
 	this.score = 0;
 	this.distance = 0;
 	this.imageGameOver = Resources.images['res/img/gameover.png'];
 	this.continueBlink = 0;
+	this.character = _character ? _character :
+					(Characters.registry[Stats.currentCharacter] ? Characters.registry[Stats.currentCharacter] :
+					 CharacterVance );
 }
 
 ScreenGame.prototype.init = function() {
@@ -72,7 +75,7 @@ ScreenGame.prototype.keyUp = function(e) {
 }
 
 ScreenGame.prototype.startGame = function(e) {
-	Player.player = new Player();
+	Player.player = new this.character();
 	World.init();
 	this.isGameOver = false;
 	this.score = 0;
