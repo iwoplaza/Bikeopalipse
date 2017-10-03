@@ -1,7 +1,7 @@
 function ScreenGame(_character) {
     this.isGameOver = false;
 	this.score = 0;
-    this.scoreVault = 0;
+    this.scoreInterval = 0;
 	this.distance = 0;
 	this.imageGameOver = Resources.images['res/img/gameover.png'];
     this.countImage = Resources.images['res/img/321go.png'];
@@ -35,10 +35,10 @@ ScreenGame.prototype.update = function() {
 }
 
 ScreenGame.prototype.distanceToScore = function(){
-    this.scoreVault += World.getDriveSpeed()*Time.delta;
-    while (this.scoreVault>200){
+    this.scoreInterval += World.getDriveSpeed()*Time.delta;
+    while (this.scoreInterval>200){
         this.addScore(1);
-        this.scoreVault-=200;
+        this.scoreInterval-=200;
     }
 }
 
