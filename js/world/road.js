@@ -3,6 +3,7 @@ function Road() {
 	this.textureHeight = 105;
 	this.image = Resources.images['res/img/roads.png'];
 	this.offset = 0;
+	this.totalOffset = 0;
 	
 	this.segments = [];
 	this.segments.push(new RoadSegment(this));
@@ -15,11 +16,14 @@ function Road() {
 
 Road.prototype.update = function() {
 	this.offset -= World.getDriveSpeed();
+	
 	if(this.offset <= -this.textureWidth) {
 		this.segments.splice(0, 1);
 		this.segments.push(new RoadSegment(this));
 		this.offset += this.textureWidth;
 	}
+	
+	this.totalOffset -= World.getDriveSpeed();
 }
 
 Road.prototype.draw = function() {

@@ -3,6 +3,8 @@ var World = {
 };
 
 World.init = function() {
+	this.distance = 0;
+	
     this.obstacles = [];
     this.obstacleDelay = 0;
 	this.coins = [];
@@ -29,25 +31,19 @@ World.step = function() {
 	if(!gameScreen.isGameOver && gameScreen.readyTimer <= 0) {
 		Player.player.update();
 		
-		if(this.obstacleDelay > 0) {
-			this.obstacleDelay -= this.getDriveSpeed();
-		} else {
+		this.obstacleDelay -= this.getDriveSpeed();
+		if(this.obstacleDelay <= 0) {
 			var obstacle = Obstacle.generate();
+			obstacle.location.x += this.obstacleDelay;
 			this.obstacles.push(obstacle);
-			this.obstacleDelay = obstacle.getGap();
+			this.obstacleDelay += obstacle.getGap();
 		}
 
-		if(this.coinSpawnCooldown > 0) {
-			this.coinSpawnCooldown -= this.getDriveSpeed();
-		} else {
-			this.spawnCoin();
-		}
+		this.coinSpawnCooldown -= this.getDriveSpeed();
+		if(this.coinSpawnCooldown <= 0) this.spawnCoin();
 		
-		if(this.powerupSpawnCooldown > 0) {
-			this.powerupSpawnCooldown -= this.getDriveSpeed();
-		} else {
-			this.spawnPowerup();
-		}
+		this.powerupSpawnCooldown -= this.getDriveSpeed();
+		if(this.powerupSpawnCooldown <= 0) this.spawnPowerup();
 		
 		for(var i = this.obstacles.length-1; i >= 0; i--) {
 			this.obstacles[i].update();
@@ -74,12 +70,14 @@ World.step = function() {
 		}
 		
 		for(let i = 0; i < this.zombies.length; i++)
-		this.zombies[i].update();
+			this.zombies[i].update();
 		
 		this.skyline.update();
 		this.road.update();
         this.structure.update();
         this.middleGround.update();
+		
+		this.distance += this.getDriveSpeed();
 	}
 }
 
@@ -123,16 +121,17 @@ World.draw = function() {
 }
 
 World.spawnCoin = function() {
-	this.coins.push(new Coin(new Vector2(400, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
-	this.coinSpawnCooldown = 85;
+	this.coins.push(new Coin(new Vector2(400+this.coinSpawnCooldown, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
 	if(Player.player.usingAbility && Player.player.name == CharacterVance.prototype.name) {
-		this.coinSpawnCooldown = 10;
+		this.coinSpawnCooldown += 10;
+	}else{
+		this.coinSpawnCooldown += 85;
 	}
 }
 
 World.spawnPowerup = function() {
-	this.powerups.push(new PowerupItem(new Vector2(400, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
-	this.powerupSpawnCooldown = 1500;
+	this.powerups.push(new PowerupItem(new Vector2(400+this.powerupSpawnCooldown, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
+	this.powerupSpawnCooldown += 1500;
 }
 
 World.spawnExplosion = function(_location) {
@@ -151,7 +150,7 @@ World.spawnZombies = function(_amount) {
 }
 
 World.getDriveSpeed = function() {
-    return Math.min(3,1.5+ScreenHandler.current.distance*0.008)*Player.player.getSpeedMultiplier();
+    return Math.min(3.5,1.5+this.distance*0.00008)*Player.player.getSpeedMultiplier();
 }
 
 World.shoveOffZombies = function() {

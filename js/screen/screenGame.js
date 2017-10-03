@@ -33,7 +33,7 @@ ScreenGame.prototype.update = function() {
 		this.continueBlink = (this.continueBlink+1*Time.delta)%1;
 	}
 }
-    
+
 ScreenGame.prototype.distanceToScore = function(){
     this.scoreVault += World.getDriveSpeed()*Time.delta;
     while (this.scoreVault>200){
