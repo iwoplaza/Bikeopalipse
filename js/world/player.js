@@ -104,9 +104,6 @@ Player.prototype.draw = function(_stage) {
     /*ctx.fillStyle = "#ff1c1c";
     ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);*/
     
-	this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
-	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
-	_stage.addSprite(this.sprite);
 	
 	if(this.powerup != null)
 		this.powerup.drawPlayerOverlay();

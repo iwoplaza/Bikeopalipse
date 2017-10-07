@@ -1,8 +1,9 @@
 function ScreenOptions() {
-	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 80));
+	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 30));
 	this.select.addOption(new OptionToggle('music'));
 	this.select.addOption(new OptionToggle('sfx'));
 	this.select.addOption(new OptionSlider('volume'));
+	this.select.addOption(new Option('reset game'));
 	this.select.addOption(new Option('back'));
 	
 	this.select.options[0].value = Stats.music;
@@ -37,8 +38,11 @@ ScreenOptions.prototype.keyDown = function(e) {
 			else AudioManager.disableMusic();
 		if(option.index == 1)
 			Stats.setSFX(option.value);
-		
-		if(option.index == 3) { //Back
+		if(option.index == 3) { //Reset Game
+            Stats.resetGame();
+        }
+        
+		if(option.index == 4) { //Back
 			ScreenHandler.open(new ScreenTitle());
 			ScreenHandler.current.select.selectedIndex = 2;
 		}

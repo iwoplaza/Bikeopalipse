@@ -10,7 +10,16 @@ Characters.register(CharacterVance);
 
 CharacterVance.prototype.update = function() {
 	Player.prototype.update.call(this);
-	this.animForward = (this.animForward+Time.delta*15)%4;
+	this.animForward = (this.animForward+0.2)%4;
+}
+
+CharacterVance.prototype.draw = function(_stage) {
+    Player.prototype.draw.call(this, _stage);
+    
+    this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
+	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
+    this.sprite.textureCoords.y = this.up ? 32 : this.down ? 64 : 0;
+	_stage.addSprite(this.sprite);
 }
 
 CharacterVance.prototype.performAbility = function() {
