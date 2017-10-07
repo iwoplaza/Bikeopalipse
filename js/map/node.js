@@ -26,6 +26,11 @@ Node.prototype.setRoute = function(_id){
         }
     }
 }
+Node.prototype.draw = function(){
+    ctx.save();
+    
+    ctx.restore();
+}
 function test(){
     Node.prototype.create(0,new Vector2(0,0), {"1": 10, "2": 20});
     Node.prototype.create(1,new Vector2(0,0), {"0": 10},"T1");
