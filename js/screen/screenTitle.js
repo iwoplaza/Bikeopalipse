@@ -15,7 +15,7 @@ ScreenTitle.prototype.update = function() {
 		if(this.flashProgress < 1) {
 			this.flashProgress += Time.delta;
 		}else{
-			ScreenHandler.open(new ScreenLobby());
+			ScreenHandler.open(new ScreenMode());
 		}
 	}
 }
