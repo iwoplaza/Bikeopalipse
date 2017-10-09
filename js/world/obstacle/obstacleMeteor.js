@@ -45,7 +45,7 @@ ObstacleMeteor.prototype.draw = function(_stage) {
 }
 
 ObstacleMeteor.prototype.collidesWith = function(bounds) {
-    if(this.getOffsetCollisionBounds().overlaps(bounds)) {
+    if(this.getOffsetCollisionBounds().overlaps(bounds) && this.animFall <= 0) {
 		return Obstacle.COLLISION_FATAL;
 	}
 	return 0;
