@@ -22,6 +22,9 @@ ObstacleGapPlank.prototype.draw = function() {
 ObstacleGapPlank.prototype.getGap = function() {
     return 200;
 }
+ObstacleGapPlank.prototype.getDeathCause = function() {
+	return DeathCause.HOLE;
+}
 
 ObstacleGapPlank.prototype.collidesWith = function(bounds) {
     return (this.collisionBoundsTop.offset(this.location).overlaps(bounds) ||

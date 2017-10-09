@@ -3,8 +3,8 @@ function Skyline(_image) {
 	this.offset = 0;
 }
 
-Skyline.prototype.update = function() {
-	this.offset += World.getDriveSpeed()*0.05;
+Skyline.prototype.step = function(_amount) {
+	this.offset += _amount*0.05;
 	
 	if(this.offset >= 512) {
 		this.offset -= 512;

@@ -1,7 +1,7 @@
 function ScreenMode() {
 	this.bodyColor = "#2c2c2c";
 	
-	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 3));
+	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 60));
 	this.select.addOption(new Option('story mode'));
 	this.select.addOption(new Option('endless mode'));
 	this.select.addOption(new Option('tutorial'));

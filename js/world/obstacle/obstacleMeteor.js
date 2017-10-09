@@ -13,9 +13,9 @@ Obstacle.register(ObstacleMeteor);
 ObstacleMeteor.prototype.update = function() {
 	ObstacleBase.prototype.update.call(this);
 	
-	this.animComet = (this.animComet+0.30)%4;
+	this.animComet = (this.animComet+6*Time.delta)%4;
 	if(this.animFall > 0) {
-		this.animFall -= 0.014;
+		this.animFall -= 0.9*Time.delta;
 		if(this.animFall <= 0) {
 			this.animFall = 0;
 			World.spawnExplosion(Object.create(this.location));
@@ -25,6 +25,9 @@ ObstacleMeteor.prototype.update = function() {
 
 ObstacleMeteor.prototype.getGap = function() {
     return 175;
+}
+ObstacleMeteor.prototype.getDeathCause = function() {
+	return DeathCause.FIRE;
 }
 
 ObstacleMeteor.prototype.draw = function(_stage) {
@@ -42,7 +45,7 @@ ObstacleMeteor.prototype.draw = function(_stage) {
 }
 
 ObstacleMeteor.prototype.collidesWith = function(bounds) {
-    if(this.getOffsetCollisionBounds().overlaps(bounds)) {
+    if(this.getOffsetCollisionBounds().overlaps(bounds) && this.animFall <= 0) {
 		return Obstacle.COLLISION_FATAL;
 	}
 	return 0;

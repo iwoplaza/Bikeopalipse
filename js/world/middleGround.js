@@ -10,8 +10,8 @@ function middleGround() {
 	this.segments.push(new middleGroundSegment());
 }
 
-middleGround.prototype.update = function() {
-	this.offset += World.getDriveSpeed()*0.4;
+middleGround.prototype.step = function(_amount) {
+	this.offset += _amount*0.4;
 	if(this.offset >= this.segments[0].textureWidth) {
 		this.offset -= this.segments[0].textureWidth;
 		this.segments.splice(0, 1);
