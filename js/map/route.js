@@ -6,6 +6,6 @@ function Route(_A, _B){
     _B.routes[_A.id]=this;
 }
 Route.prototype.List = new Array(0);
-Route.prototype.create(_A, _B){
+Route.prototype.create = function(_A, _B){
     Route.prototype.List.push(new Route(_A, _B));
 }
