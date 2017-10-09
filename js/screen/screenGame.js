@@ -11,7 +11,7 @@ ScreenGame.prototype.update = function() {
 }
 
 ScreenGame.prototype.draw = function() {
-    ctx.fillStyle = "#ffae3f";
+    ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
 	GameModes.current.draw();

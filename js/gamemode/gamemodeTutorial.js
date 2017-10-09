@@ -8,9 +8,18 @@ GameModeTutorial.prototype.start = function() {
 };
 GameModeTutorial.prototype.update = function() {
 	GameMode.prototype.update.call(this);
+	
+	World.update();
 };
 GameModeTutorial.prototype.draw = function() {
 	GameMode.prototype.draw.call(this);
+	
+	ctx.save();
+		ctx.translate(0, -HUD.barHeight*Camera.scale);
+		World.draw();
+	ctx.restore();
+	
+	HUD.draw();
 };
 GameModeTutorial.prototype.getCharacterClass = function() {
 	return CharacterVance;

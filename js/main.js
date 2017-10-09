@@ -29,7 +29,7 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
-	ScreenHandler.open(new ScreenGame(new GameModeEndless()));
+	//ScreenHandler.open(new ScreenGame(new GameModeEndless()));
 	
 	tick();
 }
