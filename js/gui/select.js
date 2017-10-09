@@ -1,11 +1,16 @@
-function Select(_location) {
+function Select(_location, _spacing) {
 	this.location = _location ? _location : new Vector2(0, 0);
 	this.options = [];
-	this.spacing = 5;
+	this.spacing = (_spacing?_spacing:5);
 	this.selectedIndex = 0;
 	this.selectDelay = 0.5;
 	this.flashFrequency = 4;
 	this.flash = 0;
+}
+
+Option.prototype.drawH = function() {
+	Option.prototype.draw.call(this);
+	ctx.translate(this.size.x, -this.size.y);
 }
 
 Select.prototype.addOption = function(_option) {
@@ -61,10 +66,11 @@ Select.prototype.confirm = function() {
 	return option;
 }
 
-function Option(_label) {
+function Option(_label, _size) {
 	this.parentSelect = null;
 	this.label = _label;
 	this.flashProgress = 0;
+    this.size = _size?_size:(new Vector2(200, 40));
 }
 
 Option.prototype.draw = function() {
@@ -86,16 +92,15 @@ Option.prototype.draw = function() {
 		ctx.fillStyle = "#343448";
 	}
 	
-	var width = 200;
-	ctx.fillRect(-width/2, 0, width, 40);
+	ctx.fillRect(-this.size.x/2, 0, this.size.x, this.size.y);
 	
 	ctx.fillStyle = textColor;
 	ctx.textAlign = "center";
 	//ctx.fillText(this.label, 0, 30);
 	Fonts.regular.setAlignment("center");
-	Fonts.regular.drawText(this.label, 0, 15);
+	Fonts.regular.drawText(this.label, 0, this.size.y/2-5);
 	
-	ctx.translate(0, 40);
+	ctx.translate(0, this.size.y);
 }
 
 Option.prototype.confirm = function() {
