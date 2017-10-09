@@ -27,7 +27,7 @@ ScreenLobby.prototype.update = function() {
 		if(this.flashProgress < 1) {
 			this.flashProgress += Time.delta;
 		}else{
-			ScreenHandler.open(new ScreenGame());
+			ScreenHandler.open(new ScreenGame(new GameModeEndless()));
 		}
 	}
 }

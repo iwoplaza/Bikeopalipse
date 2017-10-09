@@ -1,4 +1,4 @@
-function ScreenGame(_character) {
+function ScreenGame(_gamemode) {
     this.isGameOver = false;
 	this.score = 0;
     this.scoreInterval = 0;
@@ -7,9 +7,7 @@ function ScreenGame(_character) {
     this.countImage = Resources.images['res/img/321go.png'];
 	this.continueBlink = 0;
 	this.extraShake = 0;
-	this.character = _character ? _character :
-					(Characters.registry[Stats.currentCharacter] ? Characters.registry[Stats.currentCharacter] :
-					 CharacterVance );
+	this.gamemode = _gamemode;
 }
 
 ScreenGame.prototype.addScore = function(e){

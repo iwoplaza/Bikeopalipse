@@ -1,4 +1,4 @@
-function GamemodeStory() {
-    
+function GameModeStory() {
+    GameMode.call(this);
 }
-GamemodeStory.prototype = Object.create(Gamemode.prototype);
+GameModeStory.prototype = Object.create(GameMode.prototype);
