@@ -1,17 +1,28 @@
 function ScreenMap() {
-	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 80));
-	this.select.addOption(new Option('back'));
-	this.select.addOption(new Option('show'));
-	this.select.addOption(new Option('select'));
+	this.select = new Select(new Vector2(67.5, 2.5), 2.5);
+	this.select.addOption(new Option('back', new Vector2(130,20)));
+	this.select.addOption(new Option('show', new Vector2(130,20)));
+	this.select.addOption(new Option('select', new Vector2(130,20)));
+    
+    this.select.draw = function() {
+        ctx.save();
+        ctx.translate(this.location.x, this.location.y);
+        for(let i = 0; i < this.options.length; i++) {
+            this.options[i].drawH();
+            ctx.translate(this.spacing, 0);
+        }
+        ctx.restore();
+    }
 }
 
 ScreenMap.prototype.init = function() {
     this.keyQueue = new Array(10);
+    this.image = Resources.images['res/img/map.png'];
+    this.map = new Map(this.image, new Vector2(0,0), new Vector2(ScreenHandler.getWidth(), ScreenHandler.getHeight()));
 }
 
 ScreenMap.prototype.update = function() {
     var secret = [65,66,39,37,39,37,40,40,38,38];
-    if (this.keyQueue == secret) console.log("LOL");
     for (var i=0;i<10;i++){
         if (this.keyQueue[i] != secret[i]) return;
     }
@@ -25,8 +36,10 @@ ScreenMap.prototype.draw = function() {
 	
 	ctx.save();
 	ctx.scale(Camera.scale, Camera.scale);
-	this.select.draw();
-	
+	this.map.draw();
+    ctx.fillStyle = "#2c2c2c";
+    ctx.fillRect(0, 0, canvas.width/2, 25);
+    this.select.draw();
 	ctx.restore();
 }
 
@@ -45,17 +58,15 @@ ScreenMap.prototype.keyDown = function(e) {
     }
 	
 	if(keyCode == 87 || keyCode == 38) {
-	   this.select.goUp();
 	}
 	
 	if(keyCode == 83 || keyCode == 40) {
-	   this.select.goDown();
 	}
 	
 	if(keyCode == 65 || keyCode == 37)
-		this.select.goLeft();
+		this.select.goUp();
 	if(keyCode == 68 || keyCode == 39)
-		this.select.goRight();
+		this.select.goDown();
 }
 
 ScreenMap.prototype.keyUp = function(e) {

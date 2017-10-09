@@ -46,6 +46,8 @@ var Resources = {
 		
 		'res/img/intro/3/px0000.png',
         'res/img/intro/3/px0001.png',
+        
+        'res/img/map.png'
 	],
 	soundsToLoad: [
 		'res/sfx/Apoca.ogg',
