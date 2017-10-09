@@ -18,7 +18,7 @@ function ScreenMap() {
 ScreenMap.prototype.init = function() {
     this.keyQueue = new Array(10);
     this.image = Resources.images['res/img/map.png'];
-    this.map = new Map(this.image, new Vector2(0,0), new Vector2(ScreenHandler.getWidth(), ScreenHandler.getHeight()));
+    this.map = new Map(this.image, new Vector2(0,0));
 }
 
 ScreenMap.prototype.update = function() {
@@ -50,11 +50,11 @@ ScreenMap.prototype.keyDown = function(e) {
     this.keyQueue.pop();
     if(keyCode == 32) {
         var option = this.select.confirm();
-        
-		if(option.index == 3) { //Back
-			ScreenHandler.open(new ScreenTitle());
-			ScreenHandler.current.select.selectedIndex = 2;
-		}
+        switch(option.index){
+            case 0:
+                ScreenHandler.open(new ScreenMode());
+                break;
+        }
     }
 	
 	if(keyCode == 87 || keyCode == 38) {

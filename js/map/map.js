@@ -1,7 +1,6 @@
-function Map(_image, _location, _size, _nodes){
+function Map(_image, _location){
     this.image = _image;
     this.location = _location;
-    this.size = _size;
     this.current = 0;
     this.next = 0;
     this.dist = 0;
@@ -9,7 +8,7 @@ function Map(_image, _location, _size, _nodes){
 Map.prototype.draw = function(){
     ctx.save();
     ctx.translate(this.location.x, this.location.y);
-    ctx.drawImage(this.image, 0, 0, this.size.x, this.size.y);
+    ctx.drawImage(this.image, 0, 0, this.image.width, this.image.height);
     for (var i in this.nodes) this.nodes[i].draw();
     ctx.restore();
 }
