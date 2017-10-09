@@ -10,7 +10,7 @@ Characters.register(CharacterVance);
 
 CharacterVance.prototype.update = function() {
 	Player.prototype.update.call(this);
-	this.animForward = (this.animForward+0.2)%4;
+	this.animForward = (this.animForward+15*Time.delta)%4;
 }
 
 CharacterVance.prototype.draw = function(_stage) {

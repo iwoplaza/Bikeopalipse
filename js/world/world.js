@@ -4,15 +4,14 @@ var World = {
 
 World.init = function() {
 	this.distance = 0;
+	this.interReminder = 0;
 	
     this.obstacles = [];
-    this.obstacleDelay = 0;
 	this.coins = [];
-	this.coinSpawnCooldown = 5;
 	this.powerups = [];
-	this.powerupSpawnCooldown = 600;
 	this.explosions = [];
-	this.spawnZombies(10);
+	this.zombies = [];
+	
 	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
 	this.road = new Road();
 	this.stage = new Stage();
@@ -21,72 +20,62 @@ World.init = function() {
 	this.skyline = new Skyline(Resources.images['res/img/skyline_dawn.png']);
 	
 	this.stepProgress = 0;
-	this.stepFrequency = 0.015;
-}
-
-World.step = function() {
-	var gameScreen = ScreenHandler.current;
-	if(!gameScreen) return;
-	
-	if(!gameScreen.isGameOver && gameScreen.readyTimer <= 0) {
-		Player.player.update();
-		
-		this.obstacleDelay -= this.getDriveSpeed();
-		if(this.obstacleDelay <= 0) {
-			var obstacle = Obstacle.generate();
-			obstacle.location.x += this.obstacleDelay;
-			this.obstacles.push(obstacle);
-			this.obstacleDelay += obstacle.getGap();
-		}
-
-		this.coinSpawnCooldown -= this.getDriveSpeed();
-		if(this.coinSpawnCooldown <= 0) this.spawnCoin();
-		
-		this.powerupSpawnCooldown -= this.getDriveSpeed();
-		if(this.powerupSpawnCooldown <= 0) this.spawnPowerup();
-		
-		for(var i = this.obstacles.length-1; i >= 0; i--) {
-			this.obstacles[i].update();
-			if(this.obstacles[i].dead)
-				this.obstacles.splice(i, 1);
-		}
-		
-		for(var i = this.coins.length-1; i >= 0; i--) {
-			this.coins[i].update();
-			if(this.coins[i].dead)
-				this.coins.splice(i, 1);
-		}
-		
-		for(var i = this.powerups.length-1; i >= 0; i--) {
-			this.powerups[i].update();
-			if(this.powerups[i].dead)
-				this.powerups.splice(i, 1);
-		}
-		
-		for(var i = this.explosions.length-1; i >= 0; i--) {
-			this.explosions[i].update();
-			if(this.explosions[i].dead)
-				this.explosions.splice(i, 1);
-		}
-		
-		for(let i = 0; i < this.zombies.length; i++)
-			this.zombies[i].update();
-		
-		this.skyline.update();
-		this.road.update();
-        this.structure.update();
-        this.middleGround.update();
-		
-		this.distance += this.getDriveSpeed();
-	}
 }
 
 World.update = function() {
-	this.stepProgress += Time.delta;
-	while(this.stepProgress > this.stepFrequency) {
-		this.stepProgress -= this.stepFrequency;
-		this.step();
+	Player.player.update();
+	
+	for(let i = 0; i < this.obstacles.length; i++)
+		this.obstacles[i].update();
+	for(let i = 0; i < this.coins.length; i++)
+		this.coins[i].update();
+	for(let i = 0; i < this.powerups.length; i++)
+		this.powerups[i].update();
+	for(let i = 0; i < this.explosions.length; i++)
+		this.explosions[i].update();
+	for(let i = 0; i < this.zombies.length; i++)
+		this.zombies[i].update();
+	
+	this.stepFrequency = this.getDriveSpeed();
+	this.stepProgress += Time.delta*this.stepFrequency;
+	if(this.stepProgress >= 1) {
+		this.step(Math.floor(this.stepProgress));
+		this.stepProgress = this.stepProgress%1;
 	}
+}
+
+World.step = function(_amount) {
+	for(var i = this.obstacles.length-1; i >= 0; i--) {
+		this.obstacles[i].step(_amount);
+		if(this.obstacles[i].dead)
+			this.obstacles.splice(i, 1);
+	}
+
+	for(var i = this.coins.length-1; i >= 0; i--) {
+		this.coins[i].step(_amount);
+		if(this.coins[i].dead)
+			this.coins.splice(i, 1);
+	}
+
+	for(var i = this.powerups.length-1; i >= 0; i--) {
+		this.powerups[i].step(_amount);
+		if(this.powerups[i].dead)
+			this.powerups.splice(i, 1);
+	}
+
+	for(var i = this.explosions.length-1; i >= 0; i--) {
+		this.explosions[i].step(_amount);
+		if(this.explosions[i].dead)
+			this.explosions.splice(i, 1);
+	}
+
+	this.skyline.step(_amount);
+	this.road.step(_amount);
+	this.structure.step(_amount);
+	this.middleGround.step(_amount);
+
+	this.distance += this.getDriveSpeed();
+	this.interReminder = (this.interReminder+this.getDriveSpeed())%1;
 }
 
 World.draw = function() {
@@ -120,18 +109,12 @@ World.draw = function() {
     ctx.restore();
 }
 
-World.spawnCoin = function() {
-	this.coins.push(new Coin(new Vector2(400+this.coinSpawnCooldown, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
-	if(Player.player.usingAbility && Player.player.name == CharacterVance.prototype.name) {
-		this.coinSpawnCooldown += 10;
-	}else{
-		this.coinSpawnCooldown += 85;
-	}
+World.spawnCoin = function(_x) {
+	this.coins.push(new Coin(new Vector2(Math.floor(_x), -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
 }
 
-World.spawnPowerup = function() {
-	this.powerups.push(new PowerupItem(new Vector2(400+this.powerupSpawnCooldown, -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
-	this.powerupSpawnCooldown += 1500;
+World.spawnPowerup = function(_x) {
+	this.powerups.push(new PowerupItem(new Vector2(Math.floor(_x), -20+Math.floor(Math.random()*-(this.roadHeight-60)))));
 }
 
 World.spawnExplosion = function(_location) {
@@ -150,7 +133,7 @@ World.spawnZombies = function(_amount) {
 }
 
 World.getDriveSpeed = function() {
-    return Math.min(3.5,1.5+this.distance*0.00008)*Player.player.getSpeedMultiplier();
+    return GameModes.current.getDriveSpeed();
 }
 
 World.shoveOffZombies = function() {

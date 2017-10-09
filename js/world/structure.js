@@ -10,18 +10,18 @@ function Structure() {
 	this.segments.push(new StructureSegment());
 }
 
-Structure.prototype.update = function() {
-	this.offset += World.getDriveSpeed();
+Structure.prototype.step = function(_amount) {
+	this.offset += _amount;
 	if(this.offset >= this.segments[0].textureWidth) {
 		this.offset -= this.segments[0].textureWidth;
 		this.segments.splice(0, 1);
 	}
     var width = 0;
-    for (var i=0;i<this.segments.length;i++) width += this.segments[i].textureWidth;
-    while (width<=canvas.width*2){
+    for (var i = 0; i < this.segments.length; i++) width += this.segments[i].textureWidth;
+    while (width <= canvas.width*2){
 		this.segments.push(new StructureSegment());
 		width = 0;
-    	for (var i=0;i<this.segments.length;i++) width += this.segments[i].textureWidth;
+    	for (var i = 0; i < this.segments.length; i++) width += this.segments[i].textureWidth;
 	}
 }
 

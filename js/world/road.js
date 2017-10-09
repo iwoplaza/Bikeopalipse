@@ -14,8 +14,8 @@ function Road() {
 	this.segments.push(new RoadSegment(this));
 }
 
-Road.prototype.update = function() {
-	this.offset -= World.getDriveSpeed();
+Road.prototype.step = function(_amount) {
+	this.offset -= _amount;
 	
 	if(this.offset <= -this.textureWidth) {
 		this.segments.splice(0, 1);
@@ -23,7 +23,7 @@ Road.prototype.update = function() {
 		this.offset += this.textureWidth;
 	}
 	
-	this.totalOffset -= World.getDriveSpeed();
+	this.totalOffset -= _amount;
 }
 
 Road.prototype.draw = function() {

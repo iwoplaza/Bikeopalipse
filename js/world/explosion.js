@@ -5,15 +5,20 @@ function Explosion(_location) {
 }
 
 Explosion.prototype.update = function() {
-	this.location.x -= World.getDriveSpeed();
 	this.anim += Time.delta*15;
-	if(this.location.x < -30 || this.anim > 9) this.dead = true;
+	if(this.anim > 9) this.dead = true;
+	
+	this.sprite.yOffset -= Time.delta*10;
+}
+
+Explosion.prototype.step = function(_amount) {
+	this.location.x -= _amount;
+	if(this.location.x < -30) this.dead = true;
 }
 
 Explosion.prototype.draw = function(_stage) {
 	this.sprite.location.x = this.location.x-16;
 	this.sprite.textureCoords.x = Math.floor(this.anim)*32;
-	this.sprite.yOffset -= Time.delta*10;
 	_stage.addSprite(this.sprite);
 }
 

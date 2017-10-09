@@ -4,12 +4,15 @@ function Zombie(_location) {
 	this.animForward = Math.random()*3;
 	this.appearance = 1;
 	this.sprite = new Sprite(Zombies.image, new Vector2(this.location.x-50, this.location.y), null, 32, 32, -32);
+	this.jumpTimer = 0;
+	this.jumpStartTime = 0;
 }
 
 Zombie.prototype.update = function() {
-	this.animForward = (this.animForward+this.animSpeed*0.015)%8;
+	this.animForward = (this.animForward+this.animSpeed*1.1*Time.delta)%8;
+	if(this.jumpTimer > 0) this.jumpTimer -= Time.delta;
 	if(this.appearance > 0)
-		this.appearance -= 0.01;
+		this.appearance -= Time.delta;
 	
 	this.sprite.location.x = this.location.x-this.appearance*50;
 }
@@ -17,14 +20,18 @@ Zombie.prototype.update = function() {
 Zombie.prototype.draw = function(_stage) {
 	ctx.save();
 	
-	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
+	if(this.jumpTimer > 0) {
+		var jumpAnimFrame = this.jumpTimer;
+		this.sprite.textureCoords.x = Math.floor(jumpAnimFrame)*32;
+	}else
+		this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
 	_stage.addSprite(this.sprite);
 	
 	ctx.restore();
 }
 
 Zombie.prototype.shoveOff = function() {
-	this.appearance += 0.02;
+	this.appearance += 0.02*Time.delta;
 	if(this.appearance > 50) this.appearance = 50;
 }
 

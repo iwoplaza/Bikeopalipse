@@ -23,8 +23,8 @@ Player.prototype.update = function() {
 	
 	this.velocity.x = 0;
 	if(this.tripCooldown > 0) {
-		this.tripCooldown-=0.01;
-		this.stunnedBlink = (this.stunnedBlink+0.06)%1;
+		this.tripCooldown-=Time.delta;
+		this.stunnedBlink = (this.stunnedBlink+5*Time.delta)%1;
 	}
 	
 	if(!gameScreen.isGameOver) {
@@ -55,7 +55,7 @@ Player.prototype.update = function() {
 			if(collision) {
                 let value = coin.collect();
 				Stats.coins+=value;
-                ScreenHandler.current.addScore(value);
+                GameModes.current.onCoinCollected(this, value);
 			}
 		}
 		
@@ -91,7 +91,7 @@ Player.prototype.update = function() {
 	this.location = this.location.addVec(this.velocity.multiply(0.015));
 	
     if(this.location.x < 20)
-        gameScreen.gameOver();
+		GameModes.current.onDeath(DeathCause.CHASERS);
     if(this.location.y < -World.roadHeight)
         this.location.y = -World.roadHeight;
     if(this.location.y > 0)
@@ -180,7 +180,7 @@ Player.prototype.dieFromObstacle = function(_obstacle) {
 		flag = this.powerup.onDieFromObstacle(_obstacle);
 	
 	if(flag) return;
-	gameScreen.gameOver();
+	GameModes.current.onDeath(_obstacle.getDeathCause());
 }
 
 Player.prototype.getPowerup = function(_index) {

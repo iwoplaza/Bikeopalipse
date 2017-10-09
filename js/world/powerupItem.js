@@ -12,11 +12,11 @@ function PowerupItem(_location) {
 PowerupItem.prototype.collisionBounds = new Bounds(-10, -10, 10, 10);
 
 PowerupItem.prototype.update = function() {
-	this.animBob = (this.animBob+0.02)%1;
+	this.animBob = (this.animBob+2*Time.delta)%1;
 	
 	if(this.collected) {
 		if(this.animCollection < 5) {
-			this.animCollection += (15*0.01);
+			this.animCollection += (15*Time.delta);
 		}
 
 		if(this.animCollection >= 5) {
@@ -24,8 +24,10 @@ PowerupItem.prototype.update = function() {
 			return;
 		}
 	}
-	
-	this.location.x -= World.getDriveSpeed();
+}
+
+PowerupItem.prototype.step = function(_amount) {
+	this.location.x -= _amount;
 	if(this.location.x < -50) this.dead = true;
 }
 
