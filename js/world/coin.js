@@ -65,5 +65,5 @@ Coin.prototype.collidesWith = function(bounds) {
 
 Coins = {};
 Coins.init = function() {
-	this.image = Resources.images['res/img/coin.png'];
+	this.image = Resources.images['res/img/world/coin.png'];
 }

@@ -44,7 +44,7 @@ function middleGroundSegment() {
 }
 
 middleGroundSegment.prototype.variants = [
-    'res/img/SecondLayer.png',
+    'res/img/world/middleground_dawn.png',
 ];
 
 middleGroundSegment.prototype.draw = function() {

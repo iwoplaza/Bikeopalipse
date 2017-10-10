@@ -39,7 +39,7 @@ Powerups = {
 };
 
 Powerups.init = function() {
-	this.image = Resources.images['res/img/powerups.png'];
+	this.image = Resources.images['res/img/ui/powerups.png'];
 }
 
 Powerups.register = function(_powerup) {

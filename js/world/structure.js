@@ -44,14 +44,14 @@ function StructureSegment() {
 }
 
 StructureSegment.prototype.variants = [
-    'res/img/building01.png',
-    'res/img/building02.png',
-    'res/img/building03.png',
-    'res/img/building04.png',
-    'res/img/building05.png',
-    'res/img/house01.png',
-    'res/img/house02.png',
-    'res/img/house03.png'
+    'res/img/world/building01.png',
+    'res/img/world/building02.png',
+    'res/img/world/building03.png',
+    'res/img/world/building04.png',
+    'res/img/world/building05.png',
+    'res/img/world/house01.png',
+    'res/img/world/house02.png',
+    'res/img/world/house03.png'
 ];
 
 StructureSegment.prototype.draw = function() {

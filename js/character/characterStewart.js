@@ -1,6 +1,6 @@
 function CharacterStewart() {
 	Player.call(this);
-	this.sprite = new Sprite(Resources.images['res/img/stewart.png'], null, new Vector2(0, 0), 64, 64, -43);
+	this.sprite = new Sprite(Resources.images['res/img/character/stewart.png'], null, new Vector2(0, 0), 64, 64, -43);
 }
 CharacterStewart.prototype = Object.create(Player.prototype);
 CharacterStewart.prototype.name = "stewart";

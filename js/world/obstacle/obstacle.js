@@ -5,7 +5,7 @@ Obstacle = {
 };
 
 Obstacle.init = function() {
-	this.image = Resources.images['res/img/obstacles.png'];
+	this.image = Resources.images['res/img/world/obstacles.png'];
 }
 
 Obstacle.generate = function() {

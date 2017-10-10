@@ -61,5 +61,5 @@ Zombie.prototype.getOffsetCollisionBounds = function() {
 
 Zombies = {};
 Zombies.init = function() {
-	this.image = Resources.images['res/img/zombies.png'];
+	this.image = Resources.images['res/img/world/zombies.png'];
 }

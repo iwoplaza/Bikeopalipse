@@ -1,7 +1,7 @@
 function Road() {
 	this.textureWidth = 92;
 	this.textureHeight = 105;
-	this.image = Resources.images['res/img/roads.png'];
+	this.image = Resources.images['res/img/world/roads.png'];
 	this.offset = 0;
 	this.totalOffset = 0;
 	

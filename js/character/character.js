@@ -5,5 +5,5 @@ Characters.register = function(_character) {
 }
 
 Characters.init = function() {
-	this.image = Resources.images['res/img/characters.png'];
+	this.image = Resources.images['res/img/character/characters.png'];
 }

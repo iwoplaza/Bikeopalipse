@@ -16,6 +16,7 @@ function onResourcesLoaded() {
 	Characters.init();
 	Explosions.init();
 	Zombies.init();
+	Talkers.init();
 	
 	Stats.fetch();
 	
@@ -29,7 +30,7 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
-	//ScreenHandler.open(new ScreenGame(new GameModeEndless()));
+	ScreenHandler.open(new ScreenGame(new GameModeTutorial()));
 	
 	tick();
 }

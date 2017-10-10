@@ -2,7 +2,7 @@ function ScreenControls() {
 }
 
 ScreenControls.prototype.init = function() {
-    this.image = Resources.images['res/img/controls.png'];
+    this.image = Resources.images['res/img/ui/controls.png'];
 	this.continueBlink = 0;
 }
 

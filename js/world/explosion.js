@@ -24,5 +24,5 @@ Explosion.prototype.draw = function(_stage) {
 
 Explosions = {};
 Explosions.init = function() {
-	this.image = Resources.images['res/img/explosion.png'];
+	this.image = Resources.images['res/img/world/explosion.png'];
 }

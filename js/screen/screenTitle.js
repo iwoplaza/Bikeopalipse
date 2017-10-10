@@ -6,7 +6,7 @@ function ScreenTitle() {
 }
 
 ScreenTitle.prototype.init = function() {
-    this.image = Resources.images['res/img/title.png'];
+    this.image = Resources.images['res/img/ui/title.png'];
 	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.3);
 }
 

@@ -17,7 +17,7 @@ function ScreenMap() {
 
 ScreenMap.prototype.init = function() {
     this.keyQueue = new Array(10);
-    this.image = Resources.images['res/img/map.png'];
+    this.image = Resources.images['res/img/ui/map.png'];
     this.map = new Map(this.image, new Vector2(0,0));
 }
 

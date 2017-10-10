@@ -144,7 +144,7 @@ CharacterOption.prototype.draw = function() {
 	}else{
 		this.frameY = 0;
 		ctx.drawImage(Characters.image, this.frameX*64, this.frameY*64, 64, 64, -32, 38, 64, 64);
-		ctx.drawImage(Resources.images['res/img/guiicons.png'], 0, 0, 22, 28, -11, 52, 22, 28);
+		ctx.drawImage(Resources.images['res/img/ui/guiicons.png'], 0, 0, 22, 28, -11, 52, 22, 28);
 	}
 }
 

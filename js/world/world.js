@@ -12,12 +12,12 @@ World.init = function() {
 	this.explosions = [];
 	this.zombies = [];
 	
-	this.backgroundImage = Resources.images['res/img/background_dawn.png'];
+	this.backgroundImage = Resources.images['res/img/world/background_dawn.png'];
 	this.road = new Road();
 	this.stage = new Stage();
     this.middleGround = new middleGround();
     this.structure = new Structure();
-	this.skyline = new Skyline(Resources.images['res/img/skyline_dawn.png']);
+	this.skyline = new Skyline(Resources.images['res/img/world/skyline_dawn.png']);
 	
 	this.stepProgress = 0;
 }

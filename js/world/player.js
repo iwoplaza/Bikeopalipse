@@ -12,8 +12,6 @@ function Player() {
 	this.abilityFillup = 0;
 	
 	this.stunnedBlink = 0;
-	
-	this.sprite = new Sprite(Resources.images['res/img/player.png'], null, new Vector2(0, 0), 32, 32, -32);
 	this.animForward = 0;
 }
 

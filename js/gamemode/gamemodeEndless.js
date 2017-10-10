@@ -14,8 +14,9 @@ GameModeEndless.prototype.start = function() {
     this.scoreInterval = 0;
 	this.distance = 0;
 	
-	this.imageGameOver = Resources.images['res/img/gameover.png'];
-    this.imageCount = Resources.images['res/img/321go.png'];
+	this.imageGameOver = Resources.images['res/img/ui/gameover.png'];
+    this.imageCount = Resources.images['res/img/ui/321go.png'];
+	this.imageExtra = Resources.images['res/img/ui/extra_salary.png'];
 	this.continueBlink = 0;
 	this.extraShake = 0;
 	this.readyTimer = 3;
@@ -63,7 +64,7 @@ GameModeEndless.prototype.draw = function() {
 			if(Player.player.usingAbility) {
 				shakeX = Math.sin(this.extraShake*Math.PI*2);
 				shakeY = Math.cos(this.extraShake*Math.PI*4);
-				ctx.drawImage(Resources.images['res/img/extra_salary.png'], 0, 0, 175, 43, screenWidth/2-174/2+shakeX, 60+shakeY, 175, 43);
+				ctx.drawImage(this.imageExtra, 0, 0, 175, 43, screenWidth/2-174/2+shakeX, 60+shakeY, 175, 43);
 			}
 		
 			if (this.readyTimer>-1)
