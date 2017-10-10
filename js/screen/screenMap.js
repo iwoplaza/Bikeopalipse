@@ -25,6 +25,7 @@ ScreenMap.prototype.update = function() {
         if (this.keyQueue[i] != secret[i]) return;
     }
     console.log("Secret code detected!");
+    Node.prototype.create(18, new Vector2(93,114), "Secret");
     this.keyQueue = new Array(10);
 }
 

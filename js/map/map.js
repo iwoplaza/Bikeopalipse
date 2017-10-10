@@ -64,7 +64,7 @@ Map.prototype.test = function(){
     Node.prototype.create(14, new Vector2(166,77), "T14");
     Node.prototype.create(15, new Vector2(194,61), "T15");
     Node.prototype.create(16, new Vector2(158,41));
-    Node.prototype.create(16, new Vector2(117,40), "T17");
+    Node.prototype.create(17, new Vector2(117,40), "T17");
     /*
     Route.prototype.create(Node.prototype.List[0],Node.prototype.List[1]);
     Route.prototype.create(Node.prototype.List[1],Node.prototype.List[2]);
