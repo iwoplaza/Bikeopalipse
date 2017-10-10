@@ -30,7 +30,7 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
-	ScreenHandler.open(new ScreenGame(new GameModeTutorial()));
+	//ScreenHandler.open(new ScreenGame(new GameModeTutorial()));
 	
 	tick();
 }

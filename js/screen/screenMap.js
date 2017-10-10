@@ -9,9 +9,17 @@ ScreenMap.prototype.init = function() {
     this.keyQueue = new Array(10);
     this.image = Resources.images['res/img/ui/map.png'];
     this.map = new Map(this.image, new Vector2(0,0));
+    this.keys = new Array(0);
 }
 
 ScreenMap.prototype.update = function() {
+    if (this.mode){
+        if (this.keys[87] || this.keys[38]) this.map.move(0);
+        if (this.keys[83] || this.keys[40]) this.map.move(1);
+        if (this.keys[65] || this.keys[37]) this.map.move(2);
+        if (this.keys[68] || this.keys[39]) this.map.move(3);
+    }
+    
     var secret = [65,66,39,37,39,37,40,40,38,38];
     for (var i=0;i<10;i++){
         if (this.keyQueue[i] != secret[i]) return;
@@ -39,12 +47,13 @@ ScreenMap.prototype.draw = function() {
 
 ScreenMap.prototype.keyDown = function(e) {
     var keyCode = e.keyCode;
+    this.keys[keyCode] = true;
     console.log("Key code: "+e.keyCode);
     this.keyQueue.unshift(e.keyCode);
     this.keyQueue.pop();
     if(keyCode == 32) {
+        var option = this.select.confirm();
         if (!this.mode){
-            var option = this.select.confirm();
             switch(option.index){
                 case 0:
                     ScreenHandler.open(new ScreenMode());
@@ -52,11 +61,9 @@ ScreenMap.prototype.keyDown = function(e) {
                 case 1:
 
                     break;
-                case 2:
-                    this.mode = true;
-                    break;
             }
         }
+        if (option.index == 2) this.mode = !this.mode;
     }
 	
 	if(keyCode == 87 || keyCode == 38) {
@@ -66,19 +73,14 @@ ScreenMap.prototype.keyDown = function(e) {
 	}
 	
 	if(keyCode == 65 || keyCode == 37){
-        if (!this.mode) this.select.goUp();
-        else{
-            
-        }   
+        if (!this.mode) this.select.goUp(); 
     }
 	if(keyCode == 68 || keyCode == 39){
-		if (!this.mode) this.select.goDown();
-        else{
-            
-        }
+        if (!this.mode) this.select.goDown();
     }
 }
 
 ScreenMap.prototype.keyUp = function(e) {
-    
+    var keyCode = e.keyCode;
+    this.keys[keyCode] = false;
 }
