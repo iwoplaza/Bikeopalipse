@@ -3,16 +3,6 @@ function ScreenMap() {
 	this.select.addOption(new Option('back', new Vector2(130,20)));
 	this.select.addOption(new Option('show', new Vector2(130,20)));
 	this.select.addOption(new Option('select', new Vector2(130,20)));
-    
-    this.select.draw = function() {
-        ctx.save();
-        ctx.translate(this.location.x, this.location.y);
-        for(let i = 0; i < this.options.length; i++) {
-            this.options[i].drawH();
-            ctx.translate(this.spacing, 0);
-        }
-        ctx.restore();
-    }
 }
 
 ScreenMap.prototype.init = function() {
@@ -31,15 +21,19 @@ ScreenMap.prototype.update = function() {
 }
 
 ScreenMap.prototype.draw = function() {
-    ctx.fillStyle = "#2c2c2c";
+    ctx.fillStyle = "#0c284f";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
 	ctx.save();
-	ctx.scale(Camera.scale, Camera.scale);
+	ctx.scale(Camera.scale+1, Camera.scale+1);
 	this.map.draw();
+    ctx.restore();
+    
+    ctx.save();
+	ctx.scale(Camera.scale, Camera.scale);
     ctx.fillStyle = "#2c2c2c";
-    ctx.fillRect(0, 0, canvas.width/2, 25);
-    this.select.draw();
+    ctx.fillRect(0, 0, canvas.width/Camera.scale, 25);
+    this.select.drawH();
 	ctx.restore();
 }
 
@@ -49,11 +43,19 @@ ScreenMap.prototype.keyDown = function(e) {
     this.keyQueue.unshift(e.keyCode);
     this.keyQueue.pop();
     if(keyCode == 32) {
-        var option = this.select.confirm();
-        switch(option.index){
-            case 0:
-                ScreenHandler.open(new ScreenMode());
-                break;
+        if (!this.mode){
+            var option = this.select.confirm();
+            switch(option.index){
+                case 0:
+                    ScreenHandler.open(new ScreenMode());
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+                    this.mode = true;
+                    break;
+            }
         }
     }
 	
@@ -63,10 +65,18 @@ ScreenMap.prototype.keyDown = function(e) {
 	if(keyCode == 83 || keyCode == 40) {
 	}
 	
-	if(keyCode == 65 || keyCode == 37)
-		this.select.goUp();
-	if(keyCode == 68 || keyCode == 39)
-		this.select.goDown();
+	if(keyCode == 65 || keyCode == 37){
+        if (!this.mode) this.select.goUp();
+        else{
+            
+        }   
+    }
+	if(keyCode == 68 || keyCode == 39){
+		if (!this.mode) this.select.goDown();
+        else{
+            
+        }
+    }
 }
 
 ScreenMap.prototype.keyUp = function(e) {

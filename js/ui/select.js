@@ -13,6 +13,16 @@ Option.prototype.drawH = function() {
 	ctx.translate(this.size.x, -this.size.y);
 }
 
+Select.prototype.drawH = function() {
+    ctx.save();
+    ctx.translate(this.location.x, this.location.y);
+    for(let i = 0; i < this.options.length; i++) {
+        this.options[i].drawH();
+        ctx.translate(this.spacing, 0);
+    }
+    ctx.restore();
+}
+
 Select.prototype.addOption = function(_option) {
 	_option.parentSelect = this;
 	_option.index = this.options.length;
