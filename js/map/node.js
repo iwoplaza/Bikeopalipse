@@ -17,3 +17,6 @@ Node.prototype.draw = function(){
     ctx.drawImage(this.image, 8*this.discovered, (this.name==undefined)*9, 8, 9, 0, 0, 8, 9);
     ctx.restore();
 }
+Node.prototype.getDist = function(_x, _y){
+    return Math.sqrt(Math.pow(this.location.x+4-_x,2)+Math.pow(this.location.y+4.5-_y,2));
+}

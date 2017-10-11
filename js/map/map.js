@@ -1,16 +1,14 @@
 function Map(_image, _location){
+    this.test();
     this.current = undefined;
     this.route = undefined;
-    this.selected = undefined;
+    this.selected = Node.prototype.List[0];;
     this.map = {
         location: _location,
         image: _image
     };
-    this.cursor = {
-        location: new Vector2((canvas.width/(Camera.scale+1))/2, (canvas.height/(Camera.scale+1))/2),
-        image: Resources.images['res/img/ui/selector.png']
-    };
-    this.test();
+    this.selector = Resources.images['res/img/ui/selector.png'];
+    this.cursor = new Vector2(((canvas.width/(Camera.scale+1))/2), ((canvas.height/(Camera.scale+1))/2));
 }
 Map.prototype.move = function(_direction){
     switch(_direction){
@@ -28,16 +26,29 @@ Map.prototype.move = function(_direction){
             break;
     }
 }
+Map.prototype.update = function(){
+    this.selected = Node.prototype.List[0];
+    for (var i=1;i<Node.prototype.List.length;i++){
+        if (Node.prototype.List[i].getDist(this.cursor.x-this.map.location.x,this.cursor.y-this.map.location.y)<this.selected.getDist(this.cursor.x-this.map.location.x,this.cursor.y-this.map.location.y)) this.selected = Node.prototype.List[i];
+    }
+}
 Map.prototype.draw = function(){
     ctx.save();
     ctx.translate(this.map.location.x, this.map.location.y);
     ctx.drawImage(this.map.image, 0, 0, this.map.image.width, this.map.image.height);
+    for (var i in Route.prototype.List) Route.prototype.List[i].draw();
     for (var i in Node.prototype.List) Node.prototype.List[i].draw();
+    
+    ctx.translate(this.selected.location.x,this.selected.location.y);
+    ctx.drawImage(this.selector, Math.floor(-this.selector.width/(Camera.scale+1)),  Math.floor(-this.selector.height/(Camera.scale+1))+1, this.selector.width, this.selector.height);
+    
+    
     ctx.restore();
     
     ctx.save();
-    ctx.translate(this.cursor.location.x, this.cursor.location.y);
-    ctx.drawImage(this.cursor.image, -this.cursor.image.width/2, -this.cursor.image.height/2, this.cursor.image.width, this.cursor.image.height);
+    ctx.translate(this.cursor.x, this.cursor.y);
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(-1,-1,2,2);
     ctx.restore();
 }
 Map.prototype.setRoute = function(_id){
@@ -65,9 +76,31 @@ Map.prototype.test = function(){
     Node.prototype.create(15, new Vector2(194,61), "T15");
     Node.prototype.create(16, new Vector2(158,41));
     Node.prototype.create(17, new Vector2(117,40), "T17");
-    /*
+    
     Route.prototype.create(Node.prototype.List[0],Node.prototype.List[1]);
+    Route.prototype.create(Node.prototype.List[0],Node.prototype.List[14]);
     Route.prototype.create(Node.prototype.List[1],Node.prototype.List[2]);
-    Route.prototype.create(Node.prototype.List[2],Node.prototype.List[0]);
-    */
+    Route.prototype.create(Node.prototype.List[2],Node.prototype.List[3]);
+    Route.prototype.create(Node.prototype.List[3],Node.prototype.List[4]);
+    Route.prototype.create(Node.prototype.List[3],Node.prototype.List[7]);
+    Route.prototype.create(Node.prototype.List[4],Node.prototype.List[5]);
+    Route.prototype.create(Node.prototype.List[5],Node.prototype.List[6]);
+    Route.prototype.create(Node.prototype.List[7],Node.prototype.List[5]);
+    Route.prototype.create(Node.prototype.List[7],Node.prototype.List[9]);
+    Route.prototype.create(Node.prototype.List[7],Node.prototype.List[8]);
+    Route.prototype.create(Node.prototype.List[8],Node.prototype.List[0]);
+    Route.prototype.create(Node.prototype.List[8],Node.prototype.List[11]);
+    Route.prototype.create(Node.prototype.List[8],Node.prototype.List[12]);
+    Route.prototype.create(Node.prototype.List[8],Node.prototype.List[9]);
+    Route.prototype.create(Node.prototype.List[9],Node.prototype.List[10]);
+    Route.prototype.create(Node.prototype.List[10],Node.prototype.List[11]);
+    Route.prototype.create(Node.prototype.List[10],Node.prototype.List[11]);
+    Route.prototype.create(Node.prototype.List[11],Node.prototype.List[13]);
+    Route.prototype.create(Node.prototype.List[12],Node.prototype.List[14]);
+    Route.prototype.create(Node.prototype.List[12],Node.prototype.List[13]);
+    Route.prototype.create(Node.prototype.List[13],Node.prototype.List[15]);
+    Route.prototype.create(Node.prototype.List[15],Node.prototype.List[14]);
+    Route.prototype.create(Node.prototype.List[14],Node.prototype.List[16]);
+    Route.prototype.create(Node.prototype.List[16],Node.prototype.List[17]);
+    
 }

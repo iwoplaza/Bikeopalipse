@@ -19,6 +19,7 @@ ScreenMap.prototype.update = function() {
         if (this.keys[65] || this.keys[37]) this.map.move(2);
         if (this.keys[68] || this.keys[39]) this.map.move(3);
     }
+    this.map.update();
     
     var secret = [65,66,39,37,39,37,40,40,38,38];
     for (var i=0;i<10;i++){
@@ -26,6 +27,8 @@ ScreenMap.prototype.update = function() {
     }
     console.log("Secret code detected!");
     Node.prototype.create(18, new Vector2(93,114), "Secret");
+    Route.prototype.create(Node.prototype.List[0],Node.prototype.List[18]);
+    Route.prototype.create(Node.prototype.List[3],Node.prototype.List[18]);
     this.keyQueue = new Array(10);
 }
 
