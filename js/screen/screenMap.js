@@ -6,6 +6,8 @@ function ScreenMap() {
 }
 
 ScreenMap.prototype.init = function() {
+    Node.prototype.List = new Array(0);
+    Route.prototype.List = new Array(0);
     this.keyQueue = new Array(10);
     this.image = Resources.images['res/img/ui/map.png'];
     this.map = new Map(this.image, new Vector2(0,0));
@@ -27,8 +29,8 @@ ScreenMap.prototype.update = function() {
     }
     console.log("Secret code detected!");
     Node.prototype.create(18, new Vector2(93,114), "Secret");
-    Route.prototype.create(Node.prototype.List[0],Node.prototype.List[18]);
-    Route.prototype.create(Node.prototype.List[3],Node.prototype.List[18]);
+    Route.prototype.create(Node.prototype.List[18],Node.prototype.List[0]);
+    Route.prototype.create(Node.prototype.List[18],Node.prototype.List[3]);
     this.keyQueue = new Array(10);
 }
 
