@@ -1,11 +1,36 @@
 var canvas, ctx;
+var gl;
 
 function main() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
 	ctx.imageSmoothingEnabled = false;
 	
+	/*try {
+        gl = canvas.getContext("experimental-webgl");
+        gl.viewportWidth = canvas.width;
+        gl.viewportHeight = canvas.height;
+    } catch (e) { }
+	
+    if (!gl) {
+        alert("Could not initialise WebGL, sorry :-(");
+		return;
+    }
+	
+	initGL();*/
     Resources.loadAll(onResourcesLoaded);
+}
+
+function initGL() {
+	gl.enable(gl.DEPTH_TEST);
+	gl.enable(gl.BLEND);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.BACK);
+    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.clearColor(0.2, 0.7, 1, 1);
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 }
 
 function onResourcesLoaded() {
@@ -30,7 +55,7 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
-	ScreenHandler.open(new ScreenGame(new GameModeTutorial()));
+	//ScreenHandler.open(new ScreenGame(new GameModeTutorial()));
 	
 	tick();
 }

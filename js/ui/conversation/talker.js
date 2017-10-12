@@ -7,6 +7,7 @@ Talkers = {};
 
 Talkers.init = function() {
 	this.registry = {
-		'vance': new Talker('vance')
+		'vance': new Talker('vance'),
+		'miro': new Talker('miro')
 	};
 };

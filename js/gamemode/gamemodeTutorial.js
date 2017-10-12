@@ -16,6 +16,7 @@ GameModeTutorial.prototype.start = function() {
 	this.convUI = new ConvUI();
 	this.convUI.start(new Conversation().
 		addNode(new ConvNode(Talkers.registry.vance, "...", 4)).
+		addNode(new ConvNode(Talkers.registry.miro, "bzzt", 0)).
 		addNode(new ConvNode(Talkers.registry.vance, "what?", 0)).
 		addNode(new ConvNode(Talkers.registry.vance, "hello?!", 1))
 	);
