@@ -40,7 +40,7 @@ ObstacleMeteor.prototype.draw = function(_stage) {
 	if(this.animFall > 0)
 		ctx.drawImage(this.sprite.image, Math.floor(this.animComet)*32, 0, 32, 32, -8+this.distance*this.animFall, -27-this.distance*this.animFall, 32, 32);
 	else
-		_stage.addSprite(this.sprite);
+		_stage.addPlane(this.sprite);
 	ctx.restore();
 }
 

@@ -42,7 +42,7 @@ Zombie.prototype.draw = function(_stage) {
 	}else
 		this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
 	
-	_stage.addSprite(this.sprite);
+	_stage.addPlane(this.sprite);
 	
 	ctx.restore();
 };

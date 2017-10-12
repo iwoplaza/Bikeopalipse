@@ -19,7 +19,7 @@ CharacterVance.prototype.draw = function(_stage) {
     this.sprite.moveTo(this.location.addVec(new Vector2(-16, 0)));
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*32;
     this.sprite.textureCoords.y = this.up ? 32 : this.down ? 64 : 0;
-	_stage.addSprite(this.sprite);
+	_stage.addPlane(this.sprite);
 }
 
 CharacterVance.prototype.performAbility = function() {

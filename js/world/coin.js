@@ -45,7 +45,7 @@ Coin.prototype.draw = function(_stage) {
 		this.sprite.textureCoords = new Vector2(Math.floor(this.animSpin)*16, 0);
 	}
 	
-	_stage.addSprite(this.sprite);
+	_stage.addPlane(this.sprite);
 }
 
 Coin.prototype.collect = function() {

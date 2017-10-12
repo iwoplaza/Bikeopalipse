@@ -11,7 +11,7 @@ ObstacleTrashcan.prototype.draw = function(_stage) {
 	this.sprite.moveTo(this.location.addVec(new Vector2(-15)));
     //ctx.fillStyle = "#ff1c1c";
     //ctx.fillRect(this.location.x+this.collisionBounds.minX, this.location.y+this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);
-    _stage.addSprite(this.sprite);
+    _stage.addPlane(this.sprite);
 }
 
 ObstacleBase.prototype.collidesWith = function(bounds) {

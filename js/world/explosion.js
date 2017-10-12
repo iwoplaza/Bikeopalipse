@@ -19,7 +19,7 @@ Explosion.prototype.step = function(_amount) {
 Explosion.prototype.draw = function(_stage) {
 	this.sprite.location.x = this.location.x-16;
 	this.sprite.textureCoords.x = Math.floor(this.anim)*32;
-	_stage.addSprite(this.sprite);
+	_stage.addPlane(this.sprite);
 }
 
 Explosions = {};

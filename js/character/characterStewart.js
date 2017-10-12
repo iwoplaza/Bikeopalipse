@@ -14,7 +14,7 @@ CharacterStewart.prototype.draw = function(_stage) {
     
     this.sprite.moveTo(this.location.addVec(new Vector2(-32, 0)));
 	this.sprite.textureCoords.x = Math.floor(this.animForward)*64;
-	_stage.addSprite(this.sprite);
+	_stage.addPlane(this.sprite);
 }
 
 CharacterStewart.prototype.update = function() {

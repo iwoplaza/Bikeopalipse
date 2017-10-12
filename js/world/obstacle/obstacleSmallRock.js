@@ -9,7 +9,7 @@ Obstacle.register(ObstacleSmallRock);
 
 ObstacleSmallRock.prototype.draw = function(_stage) {
 	this.sprite.moveTo(this.location.addVec(new Vector2(-10)));
-	_stage.addSprite(this.sprite);
+	_stage.addPlane(this.sprite);
 }
 
 ObstacleBase.prototype.collidesWith = function(bounds) {

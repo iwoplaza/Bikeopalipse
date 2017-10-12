@@ -6,10 +6,7 @@ function Sprite(_image, _loc, _tex, _w, _h, _yo) {
 	this.height = _h ? _h : 0;
 	this.yOffset = _yo;
 }
-
-Sprite.prototype.moveTo = function(_vec) {
-	this.location = _vec;
-}
+Sprite.prototype = Object.create(Plane.prototype);
 
 Sprite.prototype.draw = function() {
 	ctx.drawImage(this.image, this.textureCoords.x, this.textureCoords.y, this.width, this.height, Math.floor(this.location.x), Math.floor(this.location.y+this.yOffset), this.width, this.height);

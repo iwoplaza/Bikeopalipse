@@ -42,7 +42,7 @@ PowerupItem.prototype.draw = function(_stage) {
 		this.sprite.yOffset = -8 - Math.abs(Math.sin(this.animBob*Math.PI)*2);
 	}
 	
-	_stage.addSprite(this.sprite);
+	_stage.addPlane(this.sprite);
 }
 
 PowerupItem.prototype.collect = function() {
