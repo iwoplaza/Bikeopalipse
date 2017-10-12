@@ -9,3 +9,6 @@ Route.prototype.List = new Array(0);
 Route.prototype.create = function(_A, _B){
     Route.prototype.List.push(new Route(_A, _B));
 }
+Route.prototype.draw = function(){
+    drawLine(this.nodes[0], this.nodes[1]);
+}

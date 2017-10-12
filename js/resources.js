@@ -27,6 +27,8 @@ var Resources = {
 		'res/img/ui/powerups.png',
 		'res/img/ui/controls.png',
 		'res/img/ui/map.png',
+		'res/img/ui/selector.png',
+		'res/img/ui/node.png',
 		'res/img/ui/avatar/vance.png',
 		'res/img/ui/avatar/miro.png',
 		'res/img/character/characters.png',
