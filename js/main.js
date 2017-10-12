@@ -3,10 +3,10 @@ var gl;
 
 function main() {
     canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
-	ctx.imageSmoothingEnabled = false;
+    //ctx = canvas.getContext('2d');
+	//ctx.imageSmoothingEnabled = false;
 	
-	/*try {
+	try {
         gl = canvas.getContext("experimental-webgl");
         gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;
@@ -17,23 +17,28 @@ function main() {
 		return;
     }
 	
-	initGL();*/
+	ctx = new Context();
+	initGL();
     Resources.loadAll(onResourcesLoaded);
 }
 
 function initGL() {
 	gl.enable(gl.DEPTH_TEST);
+	gl.depthFunc(gl.ALWAYS);
 	gl.enable(gl.BLEND);
     gl.bindTexture(gl.TEXTURE_2D, null);
 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    gl.enable(gl.CULL_FACE);
+    gl.disable(gl.CULL_FACE);
     gl.cullFace(gl.BACK);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    gl.clearColor(0.2, 0.7, 1, 1);
+    gl.clearColor(0, 0, 0, 1);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.ortho(0, canvas.width, canvas.height, 0, 0, 100);
 }
 
 function onResourcesLoaded() {
+	Shaders.use('default');
+	
 	Fonts.init();
 	Obstacle.init();
 	Coins.init();
@@ -41,8 +46,8 @@ function onResourcesLoaded() {
 	Characters.init();
 	Explosions.init();
 	Zombies.init();
+	MiddleGroundVariants.init();
 	Talkers.init();
-	
 	Stats.fetch();
 	
     var cont = new ScreenControls();
@@ -56,7 +61,6 @@ function onResourcesLoaded() {
     };
 	ScreenHandler.open(cont);
 	//ScreenHandler.open(new ScreenGame(new GameModeTutorial()));
-	
 	tick();
 }
 

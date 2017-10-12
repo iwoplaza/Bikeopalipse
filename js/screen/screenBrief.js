@@ -3,6 +3,7 @@ function ScreenBrief() {
 
 ScreenBrief.prototype.init = function() {
 	this.continueBlink = 0;
+	this.mesh = Draw.rectangle(ScreenHandler.getWidth()/2-128, 90, 0, 256, 128);
 }
 
 ScreenBrief.prototype.update = function() {
@@ -10,10 +11,10 @@ ScreenBrief.prototype.update = function() {
 }
 
 ScreenBrief.prototype.draw = function() {
-	ctx.save();
+	gl.clearColor(0.03515625, 0.10546875, 0.21875, 1);
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.resetToWorldMatrix();
 	ctx.scale(Camera.scale, Camera.scale);
-	ctx.fillStyle = "#091b38";
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
 	var screenWidth = ScreenHandler.getWidth();
 	var screenHeight = ScreenHandler.getHeight();
@@ -35,7 +36,6 @@ ScreenBrief.prototype.draw = function() {
 		Fonts.regular.setAlignment("center");
 		Fonts.regular.drawText("confirm to continue", ScreenHandler.getWidth()/2, ScreenHandler.getHeight()-40);
 	}
-	ctx.restore();
 }
 
 ScreenBrief.prototype.keyDown = function(e) {

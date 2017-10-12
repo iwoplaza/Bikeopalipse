@@ -3,7 +3,7 @@ function Font(_path, _chars) {
 	this.characters = [];
 	for(let key in _chars) {
 		var value = _chars[key];
-		var char = new Character(new Vector2(value[0],value[1]),new Vector2(value[2],value[3]));
+		var char = new Character(new Vector2(value[0],value[1]),new Vector2(value[2],value[3]), this.image);
 		this.characters[key] = char;
 	}
 	
@@ -20,21 +20,25 @@ Font.prototype.setLetterSpacing = function(_value) {
 }
 
 Font.prototype.drawText = function(_text, _x, _y) {
+	Shaders.use('textured');
+	Textures.bind(this.image);
+	
 	ctx.save();
-	ctx.translate(_x, _y);
+	ctx.translate(_x, _y, 0);
 	
 	var width = this.getTextWidth(_text);
 	if(this.alignment == "center"){
-		ctx.translate(-width/2, 0);
+		ctx.translate(-width/2, 0, 0);
 	}else if(this.alignment == "right"){
-		ctx.translate(-width, 0);
+		ctx.translate(-width, 0, 0);
 	}
 	
 	for(var i = 0; i < _text.length; i++) {
 		var char = this.characters[_text[i]];
 		if(char) {
-			ctx.drawImage(this.image, char.pos.x, char.pos.y, char.dims.x, char.dims.y, 0, 0, char.dims.x, char.dims.y);
-			ctx.translate(char.dims.x+this.letterSpacing, 0);
+			char.mesh.draw(ctx);
+			//ctx.drawImage(this.image, char.pos.x, char.pos.y, char.dims.x, char.dims.y, 0, 0, char.dims.x, char.dims.y);
+			ctx.translate(char.dims.x + this.letterSpacing, 0, 0);
 		}
 	}
 	ctx.restore();
@@ -51,9 +55,10 @@ Font.prototype.getTextWidth = function(_text) {
 	return width;
 }
 
-function Character(_pos, _dims) {
+function Character(_pos, _dims, _image) {
 	this.pos = _pos ? _pos : new Vector2(0, 0);
 	this.dims = _dims ? _dims : new Vector2(0, 0);
+	this.mesh = Draw.rectangle(0, 0, 0, this.dims.x, this.dims.y, this.pos.x/_image.width, this.pos.y/_image.height, this.dims.x/_image.width, this.dims.y/_image.height);
 }
 
 Fonts = {};

@@ -1,6 +1,4 @@
 function ScreenMode() {
-	this.bodyColor = "#2c2c2c";
-	
 	this.select = new Select(new Vector2(ScreenHandler.getWidth()/2, 60));
 	this.select.addOption(new Option('story mode'));
 	this.select.addOption(new Option('endless mode'));
@@ -33,20 +31,17 @@ ScreenMode.prototype.update = function() {
 }
 
 ScreenMode.prototype.draw = function() {
-    ctx.fillStyle = this.bodyColor;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0.171875, 0.171875, 0.171875, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.resetToWorldMatrix();
+	ctx.scale(Camera.scale, Camera.scale);
 	
 	var screenWidth = ScreenHandler.getWidth();
 	var screenHeight = ScreenHandler.getHeight();
 	
-	ctx.save();
-	ctx.scale(Camera.scale, Camera.scale);
 	this.select.draw();
-	
 	Fonts.regular.setAlignment("center");
 	Fonts.regular.drawText("select a mode", screenWidth/2, 15);
-	
-	ctx.restore();
 }
 
 ScreenMode.prototype.keyDown = function(e) {

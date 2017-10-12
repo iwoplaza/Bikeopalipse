@@ -20,7 +20,8 @@ var Resources = {
 		'res/img/world/zombies.png',
 		'res/img/world/coin.png',
 		'res/img/ui/title.png',
-		'res/img/ui/guiicons.png',
+		'res/img/ui/icons.png',
+		'res/img/ui/buttons.png',
 		'res/img/ui/extra_salary.png',
 		'res/img/ui/gameover.png',
 		'res/img/ui/321go.png',
@@ -63,6 +64,9 @@ var Resources = {
 		'res/sfx/Start.ogg',
 		'res/sfx/Go.ogg'
 	],
+	shadersToLoad: [
+		'default', 'primitive', 'textured', 'cutout'
+	],
 	
 	images: [],
 	sounds: [],
@@ -85,18 +89,28 @@ Resources.loadNextImage = function() {
 	var image = new Image();
 	image.src = imagePath;
 	image.onload = function(e) {
-		Resources.images[imagePath] = this;
+		Resources.images[imagePath] = new Texture(this);
 		Resources.loadNextImage();
 	}
 }
 
 Resources.loadNextSound = function() {
 	if(this.soundsToLoad.length == 0) {
-		console.log("Resources loaded!");
-		this.callback();
+		console.log("Sounds loaded!");
+		this.loadNextShader();
 		return;
 	}
 	var soundPath = this.soundsToLoad.pop();
 	Resources.sounds[soundPath] = new Audio(soundPath);
 	Resources.loadNextSound();
+}
+
+Resources.loadNextShader = function() {
+	if(this.shadersToLoad.length == 0) {
+		console.log("Resources loaded!");
+		this.callback();
+		return;
+	}
+	var shaderName = this.shadersToLoad.pop();
+	Shaders.loadResource(shaderName);
 }

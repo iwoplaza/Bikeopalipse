@@ -10,13 +10,7 @@ OptionToggle.prototype.draw = function() {
 	var textColor = "#fff";
 	var bodyColor = "#343448";
 	
-	if(this.flashing) {
-		this.flashProgress = (this.flashProgress+6*Time.delta)%1;
-		if(this.flashProgress > 0.5) {
-			textColor = "#343448";
-			bodyColor = "#9494d6";
-		}
-	}else if(selected) {
+	if(selected) {
 	  	bodyColor = "#ff8a01";
 	}
 	ctx.fillStyle = bodyColor;

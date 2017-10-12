@@ -57,3 +57,26 @@ StructureSegment.prototype.variants = [
 StructureSegment.prototype.draw = function() {
 	ctx.drawImage(this.image, 0, 0, this.textureWidth, this.textureHeight, 0, -this.textureHeight, this.textureWidth, this.textureHeight);
 }
+
+function StructureVariant(_path, _x, _y, _width, _height) {
+	this.path = _path;
+	this.image = Resources.images[_path];
+	this.x = _x ? _x : 0;
+	this.y = _y ? _y : 0;
+	this.width = _width ? _width : this.image.width;
+	this.height = _height ? _height : this.image.height;
+	this.mesh = Draw.rectangle(0, -this.height, 0, this.width, this.height);
+}
+
+StructureVariants = {
+	registry: []
+};
+StructureVariants.init = function() {
+	this.register('res/img/world/building01.png', 0, 0, 824, 256);
+}
+StructureVariants.register = function(_path, _x, _y, _width, _height) {
+	this.registry.push(new StructureVariant(_path, _x, _y, _width, _height));
+}
+StructureVariants.getRandom = function() {
+	return this.registry[Math.round(Math.random()*(this.registry.length-1))];
+}

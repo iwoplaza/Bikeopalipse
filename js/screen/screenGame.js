@@ -11,8 +11,9 @@ ScreenGame.prototype.update = function() {
 }
 
 ScreenGame.prototype.draw = function() {
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0.171875, 0.171875, 0.171875, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.resetToWorldMatrix();
 	
 	GameModes.current.draw();
 }

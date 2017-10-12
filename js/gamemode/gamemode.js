@@ -20,6 +20,10 @@ GameMode.prototype.start = function() {
 	this.score = 0;
 	this.distance = 0;
 };
+GameMode.prototype.destroy = function() {
+	Player.player.destroy();
+	World.destroy();
+};
 GameMode.prototype.update = function() {};
 GameMode.prototype.draw = function() {};
 GameMode.prototype.keyDown = function(e) {

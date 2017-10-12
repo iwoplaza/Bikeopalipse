@@ -12,15 +12,21 @@ World.init = function() {
 	this.explosions = [];
 	this.zombies = [];
 	
-	this.backgroundImage = Resources.images['res/img/world/background_dawn.png'];
+	this.imageBackground = Resources.images['res/img/world/background_dawn.png'];
+	this.meshBackground = Draw.rectangle(-56, -300, 0, 512, 512);
 	this.road = new Road();
 	this.stage = new Stage();
-    this.middleGround = new middleGround();
+    this.middleGround = new MiddleGround();
     this.structure = new Structure();
 	this.skyline = new Skyline(Resources.images['res/img/world/skyline_dawn.png']);
 	
 	this.stepProgress = 0;
-}
+};
+
+World.destroy = function() {
+	this.meshBackground.cleanUp();
+	this.skyline.destroy();
+};
 
 World.update = function() {
 	Player.player.update();
@@ -82,7 +88,7 @@ World.draw = function() {
     ctx.save();
     ctx.translate(0, canvas.height);
 	ctx.scale(Camera.scale, Camera.scale);
-	ctx.drawImage(this.backgroundImage, -56, -300, 512, 512);
+	ctx.drawImage(this.meshBackground, this.imageBackground);
 	
 	this.skyline.draw();
     this.middleGround.draw();

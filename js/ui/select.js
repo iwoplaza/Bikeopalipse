@@ -81,6 +81,8 @@ function Option(_label, _size) {
 	this.label = _label;
 	this.flashProgress = 0;
     this.size = _size?_size:(new Vector2(200, 40));
+	this.image = Resources.images['res/img/ui/buttons.png'];
+	this.mesh = Draw.rectangle(-this.size.x/2, 0, 0, this.size.x, this.size.y);
 }
 
 Option.prototype.draw = function() {
@@ -102,7 +104,16 @@ Option.prototype.draw = function() {
 		ctx.fillStyle = "#343448";
 	}
 	
-	ctx.fillRect(-this.size.x/2, 0, this.size.x, this.size.y);
+	var frame = selected ? 1 : 0;
+	if(this.flashing) {
+		frame = this.flashProgress < 0.5 ? 0 : 2;
+			
+		if(this.flashProgress >= 0.5)
+			textColor = "#343448";
+	}
+	
+	ctx.drawImage(this.mesh, this.image, 0, frame*40, 200, 40);
+	//ctx.fillRect(-this.size.x/2, 0, this.size.x, this.size.y);
 	
 	ctx.fillStyle = textColor;
 	ctx.textAlign = "center";

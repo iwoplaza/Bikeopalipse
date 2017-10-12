@@ -6,7 +6,9 @@ function ScreenTitle() {
 }
 
 ScreenTitle.prototype.init = function() {
-    this.image = Resources.images['res/img/ui/title.png'];
+    this.imageTitle = Resources.images['res/img/ui/title.png'];
+	this.meshTitle = Draw.rectangle(ScreenHandler.getWidth()/2-128, 0, 0, 256, 128);
+	this.meshCredits = Draw.rectangle(0, ScreenHandler.getHeight()-20, 0, 96, 20);
 	AudioManager.playMusic('res/sfx/Apoca.ogg', 0.3);
 }
 
@@ -21,23 +23,15 @@ ScreenTitle.prototype.update = function() {
 }
 
 ScreenTitle.prototype.draw = function() {
-    ctx.fillStyle = "#2c2c2c";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    /*ctx.font = "80px Arial";
-    ctx.fillStyle = "#ffffff";
-    ctx.textAlign = "center";
-    ctx.fillText("Bikeopalipse", canvas.width/2, 150);
-    */
-	
-	ctx.save();
+    gl.clearColor(0.171875, 0.171875, 0.171875, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.resetToWorldMatrix();
 	ctx.scale(Camera.scale, Camera.scale);
-	ctx.drawImage(this.image, ScreenHandler.getWidth()/2-128, 0, 256, 150);
+	
+	ctx.drawImage(this.meshTitle, this.imageTitle);
 	this.select.draw();
 	
-	ctx.drawImage(Fonts.regular.image, 0, 44, 96, 20, 0, ScreenHandler.getHeight()-20, 96, 20);
-	
-	ctx.restore();
+	ctx.drawImage(this.meshCredits, Fonts.regular.image, 0, 44, 96, 20);
 }
 
 ScreenTitle.prototype.keyDown = function(e) {

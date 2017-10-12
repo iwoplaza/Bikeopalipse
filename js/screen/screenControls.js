@@ -4,6 +4,7 @@ function ScreenControls() {
 ScreenControls.prototype.init = function() {
     this.image = Resources.images['res/img/ui/controls.png'];
 	this.continueBlink = 0;
+	this.mesh = Draw.rectangle(ScreenHandler.getWidth()/2-128, 90, 0, 256, 128);
 }
 
 ScreenControls.prototype.update = function() {
@@ -11,18 +12,16 @@ ScreenControls.prototype.update = function() {
 }
 
 ScreenControls.prototype.draw = function() {
-	ctx.save();
+	gl.clearColor(0.03515625, 0.10546875, 0.21875, 1);
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.resetToWorldMatrix();
 	ctx.scale(Camera.scale, Camera.scale);
-	ctx.fillStyle = "#091b38";
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	
-	ctx.drawImage(this.image, ScreenHandler.getWidth()/2-128, 90, 256, 128);
+	ctx.drawImage(this.mesh, this.image);
 	
 	if(this.continueBlink < 0.5) {
 		Fonts.regular.setAlignment("center");
 		Fonts.regular.drawText("confirm to continue", ScreenHandler.getWidth()/2, ScreenHandler.getHeight()-40);
 	}
-	ctx.restore();
 }
 
 ScreenControls.prototype.keyDown = function(e) {
