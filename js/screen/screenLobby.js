@@ -1,6 +1,4 @@
 function ScreenLobby() {
-	this.bodyColor = "#2c2c2c";
-	
 	this.characterSelect = new CharacterSelect(new Vector2(0, 0), this.bodyColor);
 	for(var key in Characters.registry) {
 		var character = Characters.registry[key];
@@ -16,6 +14,8 @@ function ScreenLobby() {
 	this.select.addOption(this.characterSelect);
 	this.select.addOption(new Option('go'));
 	this.select.addOption(new Option('back'));
+	
+	this.meshCoin = Draw.rectangle(10, ScreenHandler.getHeight()-15, 0, 8, 11);
 }
 
 ScreenLobby.prototype.init = function() {
@@ -33,14 +33,14 @@ ScreenLobby.prototype.update = function() {
 }
 
 ScreenLobby.prototype.draw = function() {
-    ctx.fillStyle = this.bodyColor;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0.171875, 0.171875, 0.171875, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.resetToWorldMatrix();
+	ctx.scale(Camera.scale, Camera.scale);
 	
 	var screenWidth = ScreenHandler.getWidth();
 	var screenHeight = ScreenHandler.getHeight();
-	
-	ctx.save();
-	ctx.scale(Camera.scale, Camera.scale);
+
 	this.select.draw();
 	
 	Fonts.regular.setAlignment("center");
@@ -49,11 +49,10 @@ ScreenLobby.prototype.draw = function() {
 	Fonts.regular.setAlignment("center");
 	Fonts.regular.drawText("highscore: "+Stats.highScore, screenWidth/2, screenHeight/2+135);
 	
-	ctx.drawImage(Coins.image, 100, 3, 8, 11, 10, screenHeight-15, 8, 11)
+	//ctx.drawImage(Coins.image, 100, 3, 8, 11, 10, screenHeight-15, 8, 11)
+	ctx.drawImage(this.meshCoin, Coins.image, 100, 3, 8, 11);
 	Fonts.regular.setAlignment("left");
 	Fonts.regular.drawText(""+Stats.coins, 22, screenHeight-14);
-	
-	ctx.restore();
 }
 
 ScreenLobby.prototype.keyDown = function(e) {

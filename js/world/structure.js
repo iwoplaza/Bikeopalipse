@@ -12,16 +12,16 @@ function Structure() {
 
 Structure.prototype.step = function(_amount) {
 	this.offset += _amount;
-	if(this.offset >= this.segments[0].textureWidth) {
-		this.offset -= this.segments[0].textureWidth;
+	if(this.offset >= this.segments[0].width) {
+		this.offset -= this.segments[0].width;
 		this.segments.splice(0, 1);
 	}
     var width = 0;
-    for (var i = 0; i < this.segments.length; i++) width += this.segments[i].textureWidth;
+    for (var i = 0; i < this.segments.length; i++) width += this.segments[i].width;
     while (width <= canvas.width*2){
 		this.segments.push(new StructureSegment());
 		width = 0;
-    	for (var i = 0; i < this.segments.length; i++) width += this.segments[i].textureWidth;
+    	for (var i = 0; i < this.segments.length; i++) width += this.segments[i].width;
 	}
 }
 
@@ -30,20 +30,17 @@ Structure.prototype.draw = function() {
 	ctx.translate(-Math.floor(this.offset), -105);
 	for(var i = 0; i < this.segments.length; i++) {
 		this.segments[i].draw();
-		ctx.translate(this.segments[i].textureWidth, 0);
+		ctx.translate(this.segments[i].width, 0);
 	}
 	ctx.restore();
 }
 
 function StructureSegment() {
-    this.variant = Math.round(Math.random()*(this.variants.length-1));
-    this.image = Resources.images[this.variants[this.variant]];
-    this.textureWidth = this.image.width;
-	this.textureHeight = 495;
-	this.texturePos = new Vector2();
+    this.variant = StructureVariants.getRandom();
+	this.width = this.variant.width;
 }
 
-StructureSegment.prototype.variants = [
+/*StructureSegment.prototype.variants = [
     'res/img/world/building01.png',
     'res/img/world/building02.png',
     'res/img/world/building03.png',
@@ -52,10 +49,10 @@ StructureSegment.prototype.variants = [
     'res/img/world/house01.png',
     'res/img/world/house02.png',
     'res/img/world/house03.png'
-];
+];*/
 
 StructureSegment.prototype.draw = function() {
-	ctx.drawImage(this.image, 0, 0, this.textureWidth, this.textureHeight, 0, -this.textureHeight, this.textureWidth, this.textureHeight);
+	ctx.drawImage(this.variant.mesh, this.variant.image, this.variant.x, this.variant.y, this.variant.width, this.variant.height);
 }
 
 function StructureVariant(_path, _x, _y, _width, _height) {
@@ -72,7 +69,14 @@ StructureVariants = {
 	registry: []
 };
 StructureVariants.init = function() {
-	this.register('res/img/world/building01.png', 0, 0, 824, 256);
+	this.register('res/img/world/building01.png', 0, 0, 358, 256);
+	this.register('res/img/world/building02.png', 0, 0, 309, 256);
+	this.register('res/img/world/building03.png', 0, 0, 374, 256);
+	this.register('res/img/world/building04.png', 0, 0, 315, 256);
+	this.register('res/img/world/building05.png', 0, 0, 386, 256);
+	this.register('res/img/world/house01.png', 0, 0, 360, 256);
+	this.register('res/img/world/house02.png', 0, 0, 374, 256);
+	this.register('res/img/world/house03.png', 0, 0, 360, 256);
 }
 StructureVariants.register = function(_path, _x, _y, _width, _height) {
 	this.registry.push(new StructureVariant(_path, _x, _y, _width, _height));

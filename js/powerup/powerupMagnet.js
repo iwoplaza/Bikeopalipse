@@ -7,10 +7,13 @@ function PowerupMagnet() {
 PowerupMagnet.prototype = Object.create(Powerup.prototype);
 Powerups.register(PowerupMagnet);
 
+PowerupMagnet.prototype.init = function() {
+	this.meshEffect = Draw.rectangle(-32, -48, 0, 64, 64);
+};
 PowerupMagnet.prototype.drawPlayerOverlay = function(_stage) {
 	this.animSpin = (this.animSpin+0.35)%4;
 	if(this.lifetime > 1 || this.blink <= 0.5)
-		ctx.drawImage(Resources.images['res/img/world/magnet.png'], Math.floor(this.animSpin)*64, 0, 64, 64, -32, -48, 64, 64);
+		ctx.drawImage(this.meshEffect, Resources.images['res/img/world/magnet.png'], Math.floor(this.animSpin)*64, 0, 64, 64);
 }
 
 PowerupMagnet.prototype.update = function() {

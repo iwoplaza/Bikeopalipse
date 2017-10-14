@@ -13,6 +13,8 @@ function Player() {
 	
 	this.stunnedBlink = 0;
 	this.animForward = 0;
+	
+	this.meshStunned = Draw.rectangle(-19, -42, 0, 38, 7);
 }
 
 Player.prototype.update = function() {
@@ -107,7 +109,7 @@ Player.prototype.draw = function(_stage) {
 		this.powerup.drawPlayerOverlay();
 	
 	if(this.tripCooldown > 0 && this.stunnedBlink < 0.5)
-	ctx.drawImage(Resources.images['res/img/ui/guiicons.png'], 0, 28, 38, 7, -19, -42, 38, 7);
+		ctx.drawImage(this.meshStunned, Resources.images['res/img/ui/icons.png'], 0, 28, 38, 7);
 	
 	ctx.restore();
 }

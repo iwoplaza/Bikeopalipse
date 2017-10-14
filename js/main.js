@@ -47,6 +47,8 @@ function onResourcesLoaded() {
 	Explosions.init();
 	Zombies.init();
 	MiddleGroundVariants.init();
+	StructureVariants.init();
+	HUD.init();
 	Talkers.init();
 	Stats.fetch();
 	
@@ -60,7 +62,7 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
-	//ScreenHandler.open(new ScreenGame(new GameModeTutorial()));
+	ScreenHandler.open(new ScreenLobby());
 	tick();
 }
 

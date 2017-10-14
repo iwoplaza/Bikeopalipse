@@ -92,3 +92,10 @@ Context.prototype.drawImage = function(mesh, image, x, y, w, h) {
 	Textures.bind(image);
 	mesh.draw(this);
 };
+
+Context.prototype.drawSolid = function(mesh) {
+	Shaders.use('solid');
+	mesh.draw(this);
+}
+
+Context.prototype.drawRect = Context.prototype.drawSolid;

@@ -14,9 +14,15 @@ GameModeEndless.prototype.start = function() {
     this.scoreInterval = 0;
 	this.distance = 0;
 	
+	var screenWidth = ScreenHandler.getWidth();
+	var screenHeight = ScreenHandler.getHeight();
 	this.imageGameOver = Resources.images['res/img/ui/gameover.png'];
     this.imageCount = Resources.images['res/img/ui/321go.png'];
 	this.imageExtra = Resources.images['res/img/ui/extra_salary.png'];
+	this.meshCount = Draw.rectangle(screenWidth/2-40, 50, 0, 80, 47);
+	this.meshExtra = Draw.rectangle((screenWidth-174)/2, 60, 0, 175, 43);
+	this.meshDarkenOverlay = Draw.rectangle_solid(0, 0, 0, screenWidth, ScreenHandler.getHeight(), [0, 0, 0, 0.8]);
+	this.meshGameOver = Draw.rectangle(screenWidth/2-256, 60, 0, 512, 128);
 	this.continueBlink = 0;
 	this.extraShake = 0;
 	this.readyTimer = 3;
@@ -62,24 +68,22 @@ GameModeEndless.prototype.draw = function() {
 		ctx.save();
 			ctx.scale(Camera.scale, Camera.scale);
 			if(Player.player.usingAbility) {
-				shakeX = Math.sin(this.extraShake*Math.PI*2);
-				shakeY = Math.cos(this.extraShake*Math.PI*4);
-				ctx.drawImage(this.imageExtra, 0, 0, 175, 43, screenWidth/2-174/2+shakeX, 60+shakeY, 175, 43);
+				let shakeX = Math.sin(this.extraShake*Math.PI*2);
+				let shakeY = Math.cos(this.extraShake*Math.PI*4);
+				ctx.translate(shakeX, shakeY);
+				ctx.drawImage(this.meshExtra, this.imageExtra, 0, 0, 175, 43);
 			}
 		
 			if (this.readyTimer>-1)
-				ctx.drawImage(this.imageCount, 0, Math.floor(Math.min(3,3-this.readyTimer))*47, 80, 47, screenWidth/2-40, 50, 80, 47);
+				ctx.drawImage(this.meshCount, this.imageCount, 0, Math.floor(Math.min(3,3-this.readyTimer))*47, 80, 47);
 		ctx.restore();
 	}else{
 		ctx.save();
 			ctx.scale(Camera.scale, Camera.scale);
-			ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-			ctx.fillRect(0, 0, screenWidth, screenHeight);
-			ctx.drawImage(this.imageGameOver, screenWidth/2-256, 60);
+			ctx.drawSolid(this.meshDarkenOverlay);
+			ctx.drawImage(this.meshGameOver, this.imageGameOver);
 			Fonts.regular.setAlignment("left");
 			Fonts.regular.drawText("better luck next time", screenWidth/2-4, screenHeight/2);
-			ctx.fillStyle = "#fff";
-			ctx.fillRect(screenWidth/2-152, screenHeight/2+4, 144, 2);
 
 			Fonts.regular.setAlignment("right");
 			Fonts.regular.drawText("highscore: ", screenWidth/2, screenHeight/2+20);

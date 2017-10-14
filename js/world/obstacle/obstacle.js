@@ -6,6 +6,10 @@ Obstacle = {
 
 Obstacle.init = function() {
 	this.image = Resources.images['res/img/world/obstacles.png'];
+	for(let i = 0; i < this.registry.length; i++) {
+		if(this.registry[i].prototype.init)
+			this.registry[i].prototype.init();
+	}
 }
 
 Obstacle.generate = function() {

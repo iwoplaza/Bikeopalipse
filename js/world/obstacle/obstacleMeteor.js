@@ -10,6 +10,10 @@ function ObstacleMeteor() {
 ObstacleMeteor.prototype = Object.create(ObstacleBase.prototype);
 Obstacle.register(ObstacleMeteor);
 
+//This function is called by the Obstacles object on init.
+ObstacleMeteor.prototype.init = function() {
+	this.meshComet = Draw.rectangle(-8, -27, 0, 32, 32);
+}
 ObstacleMeteor.prototype.update = function() {
 	ObstacleBase.prototype.update.call(this);
 	
@@ -37,9 +41,10 @@ ObstacleMeteor.prototype.draw = function(_stage) {
 	
 	/*ctx.fillStyle = "#ff1c1c";
     ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);*/
-	if(this.animFall > 0)
-		ctx.drawImage(this.sprite.image, Math.floor(this.animComet)*32, 0, 32, 32, -8+this.distance*this.animFall, -27-this.distance*this.animFall, 32, 32);
-	else
+	if(this.animFall > 0) {
+		ctx.translate(this.distance*this.animFall, -this.distance*this.animFall);
+		ctx.drawImage(this.meshComet, this.sprite.image, Math.floor(this.animComet)*32, 0, 32, 32);
+	}else
 		_stage.addPlane(this.sprite);
 	ctx.restore();
 }

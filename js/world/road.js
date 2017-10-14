@@ -4,6 +4,7 @@ function Road() {
 	this.image = Resources.images['res/img/world/roads.png'];
 	this.offset = 0;
 	this.totalOffset = 0;
+	this.mesh = Draw.rectangle(0, -105, 0, 92, 105);
 	
 	this.segments = [];
 	this.segments.push(new RoadSegment(this));
@@ -50,5 +51,5 @@ RoadSegment.prototype.variants = [
 
 RoadSegment.prototype.draw = function() {
 	var coords = this.variants[this.variant];
-	ctx.drawImage(this.road.image, coords[0], coords[1], this.road.textureWidth, this.road.textureHeight, 0, -105, this.road.textureWidth, this.road.textureHeight);
+	ctx.drawImage(this.road.mesh, this.road.image, coords[0], coords[1], this.road.textureWidth, this.road.textureHeight);
 }

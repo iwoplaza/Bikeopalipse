@@ -5,8 +5,16 @@ var HUD = {
 	specialBarFlash: 0,
 };
 
+HUD.init = function() {
+	this.image = Resources.images['res/img/ui/icons.png'];
+	
+	this.meshBar = Draw.rectangle_solid(0, -this.barHeight, 0, ScreenHandler.getWidth(), this.barHeight, [0, 0, 0, 1]);
+	this.meshCoin = Draw.rectangle(70, -17, 0, 16, 16);
+	this.meshSpecialBar = Draw.rectangle(ScreenHandler.getWidth()-103, -17, 0, 100, 14);
+};
+
 HUD.update = function() {
-}
+};
 
 HUD.draw = function() {
 	var gameScreen = ScreenHandler.current;
@@ -18,31 +26,27 @@ HUD.draw = function() {
 	var screenWidth = ScreenHandler.getWidth();
 	
 	ctx.save();
-	ctx.translate(0, canvas.height);
-	ctx.scale(Camera.scale, Camera.scale);
-	ctx.fillStyle = "#000";
-	ctx.fillRect(0, -this.barHeight, screenWidth, this.barHeight);
+		ctx.translate(0, canvas.height);
+		ctx.scale(Camera.scale, Camera.scale);
+		ctx.drawRect(this.meshBar);
+
+		Fonts.regular.setAlignment("left");
+		Fonts.regular.drawText("score: "+GameModes.current.getScore(), 4, -14);
+		ctx.drawImage(this.meshCoin, Coins.image, 16*7, 0, 16, 16)
+		Fonts.regular.drawText(""+Stats.coins, 85, -14);
 	
-	ctx.fillStyle = "#fff";
-	ctx.textAlign = "left";
-	ctx.font = "20px Arial";
-	Fonts.regular.setAlignment("left");
-	Fonts.regular.drawText("score: "+GameModes.current.getScore(), 4, -14);
-	ctx.drawImage(Coins.image, 16*7, 0, 16, 16, 70, -17, 16, 16)
-	Fonts.regular.drawText(""+Stats.coins, 85, -14);
-	
-	ctx.save();
-	ctx.translate(120, 0);
-	for(var i = 0; i < Powerups.registry.length; i++) {
-		Powerups.registry[i].drawHUD();
-	}
-	ctx.restore();
-	
-	if(!gameScreen.isGameOver)
-		HUD.drawSpecialBar();
+		ctx.save();
+			ctx.translate(120, 0);
+			for(var i = 0; i < Powerups.registry.length; i++) {
+				Powerups.registry[i].drawHUD();
+			}
+		ctx.restore();
+
+		if(!gameScreen.isGameOver)
+			HUD.drawSpecialBar();
 	
 	ctx.restore();
-}
+};
 
 HUD.drawSpecialBar = function() {
 	var screenWidth = ScreenHandler.getWidth();
@@ -71,16 +75,15 @@ HUD.drawSpecialBar = function() {
 		segmentColor = "#fff";
 	}
 	
-	ctx.translate(screenWidth-barWidth-3+shakeX, -barHeight-3+shakeY);
-	ctx.fillStyle = "#654600";
-	ctx.fillRect(0, 0, barWidth, barHeight);
-	ctx.fillStyle = "#000";
+	ctx.translate(shakeX, shakeY);
+	ctx.drawImage(this.meshSpecialBar, this.image, 0, 36, 100, 14);
+	/*ctx.fillStyle = "#000";
 	ctx.fillRect(1, 1, barWidth-2, barHeight-2);
 	ctx.fillStyle = segmentColor;
 	var abilityFillup = Player.player.abilityFillup*segments;
 	for(let i = 0; i < segments; i++) {
 		if(i > abilityFillup) ctx.fillStyle = "#2a2a2a";
 		ctx.fillRect(padding+1+i*(padding+segmentWidth), padding+1, segmentWidth, segmentHeight);
-	}
+	}*/
 	ctx.restore();
-}
+};

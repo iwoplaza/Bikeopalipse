@@ -6,7 +6,10 @@ function Powerup() {
 }
 
 Powerup.prototype.drawHUD = function(_stage) {
-	ctx.drawImage(Powerups.image, this.hudTextureCoords.x, this.hudTextureCoords.y + (this.enabled ? 16 : 0), 16, 16, this.index*16, -17, 16, 16);
+	ctx.save();
+	ctx.translate(this.index*16, -17);
+	ctx.drawImage(Powerups.mesh, Powerups.image, this.hudTextureCoords.x, this.hudTextureCoords.y + (this.enabled ? 16 : 0), 16, 16);
+	ctx.restore();
 }
 
 Powerup.prototype.drawPlayerOverlay = function() {}
@@ -40,6 +43,11 @@ Powerups = {
 
 Powerups.init = function() {
 	this.image = Resources.images['res/img/ui/powerups.png'];
+	this.mesh = Draw.rectangle(0, 0, 0, 16, 16);
+	for(let i = 0; i < this.registry.length; i++) {
+		if(this.registry[i].init)
+			this.registry[i].init();
+	}
 }
 
 Powerups.register = function(_powerup) {
