@@ -35,26 +35,26 @@ ScreenMap.prototype.update = function() {
 }
 
 ScreenMap.prototype.draw = function() {
-    ctx.fillStyle = "#0c284f";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0.046875, 0.15625, 0.30859375, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	ctx.resetToWorldMatrix();
 	
 	ctx.save();
-	ctx.scale(Camera.scale+1, Camera.scale+1);
-	this.map.draw();
+		ctx.scale(3, 3);
+		this.map.draw();
     ctx.restore();
     
-    ctx.save();
 	ctx.scale(Camera.scale, Camera.scale);
-    ctx.fillStyle = "#2c2c2c";
-    ctx.fillRect(0, 0, canvas.width/Camera.scale, 25);
+	
+    //ctx.fillStyle = "#2c2c2c";
+    //ctx.fillRect(0, 0, canvas.width/Camera.scale, 25);
     this.select.drawH();
-	ctx.restore();
 }
 
 ScreenMap.prototype.keyDown = function(e) {
     var keyCode = e.keyCode;
     this.keys[keyCode] = true;
-    console.log("Key code: "+e.keyCode);
+	
     this.keyQueue.unshift(e.keyCode);
     this.keyQueue.pop();
     if(keyCode == 32) {

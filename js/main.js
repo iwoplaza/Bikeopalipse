@@ -40,6 +40,7 @@ function onResourcesLoaded() {
 	Shaders.use('default');
 	
 	Fonts.init();
+	LineRenderer.init();
 	Obstacle.init();
 	Coins.init();
 	Powerups.init();
@@ -48,6 +49,7 @@ function onResourcesLoaded() {
 	Zombies.init();
 	MiddleGroundVariants.init();
 	StructureVariants.init();
+	MapNodes.init();
 	HUD.init();
 	Talkers.init();
 	Stats.fetch();
@@ -62,7 +64,7 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
-	ScreenHandler.open(new ScreenLobby());
+	//ScreenHandler.open(new ScreenMap());
 	tick();
 }
 

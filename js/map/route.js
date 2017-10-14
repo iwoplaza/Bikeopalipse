@@ -5,10 +5,10 @@ function Route(_A, _B){
     _A.routes[_B.id]=this;
     _B.routes[_A.id]=this;
 }
-Route.prototype.List = new Array(0);
+Route.prototype.list = new Array(0);
 Route.prototype.create = function(_A, _B){
-    Route.prototype.List.push(new Route(_A, _B));
+    Route.prototype.list.push(new Route(_A, _B));
 }
 Route.prototype.draw = function(){
-    drawLine(this.nodes[0], this.nodes[1]);
+    LineRenderer.drawLine(this.nodes[0].location, this.nodes[1].location);
 }
