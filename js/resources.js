@@ -19,6 +19,7 @@ var Resources = {
 		'res/img/world/meteor.png',
 		'res/img/world/zombies.png',
 		'res/img/world/coin.png',
+		'res/img/world/particle/fire.png',
 		'res/img/ui/title.png',
 		'res/img/ui/icons.png',
 		'res/img/ui/buttons.png',

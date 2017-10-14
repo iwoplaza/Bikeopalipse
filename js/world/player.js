@@ -15,6 +15,10 @@ function Player() {
 	this.animForward = 0;
 	
 	this.meshStunned = Draw.rectangle(-19, -42, 0, 38, 7);
+	this.particleEmitter = new ParticleEmitter(ParticleFire, new Vector2(20, 20));
+	this.particleEmitter.emit(new Vector2(0,0));
+	this.particleEmitter.emit(new Vector2(5,-5));
+	this.particleEmitter.emit(new Vector2(10,5));
 }
 
 Player.prototype.update = function() {
@@ -89,6 +93,8 @@ Player.prototype.update = function() {
 		}
 	}
 	
+	this.particleEmitter.update();
+	
 	this.location = this.location.addVec(this.velocity.multiply(0.015));
 	
     if(this.location.x < 20)
@@ -104,7 +110,7 @@ Player.prototype.draw = function(_stage) {
 	ctx.translate(Math.floor(this.location.x), Math.floor(this.location.y));
     /*ctx.fillStyle = "#ff1c1c";
     ctx.fillRect(this.collisionBounds.minX, this.collisionBounds.minY, this.collisionBounds.maxX-this.collisionBounds.minX, this.collisionBounds.maxY-this.collisionBounds.minY);*/
-    
+    this.particleEmitter.draw(_stage);
 	
 	if(this.powerup != null)
 		this.powerup.drawPlayerOverlay();

@@ -47,6 +47,7 @@ function onResourcesLoaded() {
 	Characters.init();
 	Explosions.init();
 	Zombies.init();
+	Particle.init();
 	MiddleGroundVariants.init();
 	StructureVariants.init();
 	MapNodes.init();

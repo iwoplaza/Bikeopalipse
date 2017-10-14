@@ -47,7 +47,6 @@ Font.prototype.drawText = function(_text, _x, _y) {
 		var char = this.characters[_text[i]];
 		if(char) {
 			char.mesh.draw(ctx);
-			//ctx.drawImage(this.image, char.pos.x, char.pos.y, char.dims.x, char.dims.y, 0, 0, char.dims.x, char.dims.y);
 			ctx.translate(char.dims.x + this.letterSpacing, 0, 0);
 		}
 	}

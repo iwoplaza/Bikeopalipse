@@ -7,7 +7,7 @@ function Sprite(_image, _loc, _tex, _w, _h, _yo) {
 	this.yOffset = _yo;
 	this.mesh = Draw.rectangle(0, 0, 0, this.width, this.height);
 }
-Sprite.prototype = Object.create(Plane.prototype);
+Sprite.prototype = Object.create(StagePlane.prototype);
 
 Sprite.prototype.draw = function() {
 	//ctx.drawImage(this.image, this.textureCoords.x, this.textureCoords.y, this.width, this.height, Math.floor(this.location.x), Math.floor(this.location.y+this.yOffset), this.width, this.height);

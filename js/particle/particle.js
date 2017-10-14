@@ -1,5 +1,9 @@
-function Particle(_location) {
-	this.location = _location ? _location : new Vector2();
-}
-Particle.prototype.update = function() {};
-Particle.prototype.draw = function(_stage) {};
+Particle = {};
+Particle.registry = [];
+Particle.register = function(_particle) {
+	this.registry.push(_particle);
+};
+Particle.init = function() {
+	for(let i = 0; i < this.registry.length; i++)
+		this.registry[i].init();
+};

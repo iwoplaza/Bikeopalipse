@@ -19,7 +19,7 @@ HUD.init = function() {
 
 HUD.update = function() {
 	if(this.scoreTimer > 0)
-		this.scoreTimer -= Time.delta;
+		this.scoreTimer -= Time.delta*2;
 };
 
 HUD.onScore = function(_score, source) {
