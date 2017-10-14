@@ -7,8 +7,13 @@ function Font(_path, _chars) {
 		this.characters[key] = char;
 	}
 	
-	this.alignment = "left";
-	this.letterSpacing = 1;
+	this.resetStyle();
+}
+
+Font.prototype.resetStyle = function() {
+	this.setAlignment('left');
+	this.setLetterSpacing(1);
+	this.setColor([1, 1, 1, 1]);
 }
 
 Font.prototype.setAlignment = function(_alignment) {
@@ -19,8 +24,13 @@ Font.prototype.setLetterSpacing = function(_value) {
 	this.letterSpacing = _value;
 }
 
+Font.prototype.setColor = function(_color) {
+	this.color = _color;
+}
+
 Font.prototype.drawText = function(_text, _x, _y) {
-	Shaders.use('textured');
+	Shaders.use('font');
+	Shaders.setUniform4f('uColor', this.color[0], this.color[1], this.color[2], this.color[3]);
 	Textures.bind(this.image);
 	
 	ctx.save();
@@ -143,6 +153,10 @@ Fonts.init = function() {
 			':': [30, 8, 2, 7],
 			'?': [33, 8, 5, 7],
 			'!': [39, 8, 1, 7],
+			'+': [41, 8, 5, 7],
+			'-': [47, 8, 5, 7],
+			'=': [53, 8, 5, 7],
+			'*': [59, 8, 5, 7],
 		
 		
 			'0': [0, 19, 5, 7],

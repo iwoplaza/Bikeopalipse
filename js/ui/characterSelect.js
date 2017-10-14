@@ -30,6 +30,9 @@ CharacterSelect.prototype.addOption = function(_option) {
 }
 
 CharacterSelect.prototype.draw = function() {
+	Fonts.regular.resetStyle();
+	Fonts.slim.resetStyle();
+	
 	var selected = this.parentSelect.selectedIndex == this.index;
 	
 	var offset = this.selectedIndex*85;
@@ -53,7 +56,7 @@ CharacterSelect.prototype.draw = function() {
 		ctx.drawSolid(this.meshUnderline);
 
 		ctx.save();
-			ctx.translate(-this.smoothOffset, 0);
+			ctx.translate(-this.smoothOffset, -2);
 			for(let i = 0; i < this.options.length; i++) {
 				this.options[i].draw();
 				ctx.translate(80+this.spacing, 0);
@@ -63,11 +66,12 @@ CharacterSelect.prototype.draw = function() {
 		ctx.save();
 			Fonts.regular.setAlignment("center");
 			if(option.state) {
-				Fonts.regular.drawText(option.label, 0, 108);
+				Fonts.regular.drawText(option.label, 0, 109);
 				for(let i in option.description) {
 					ctx.translate(0, 12);
 					Fonts.slim.setAlignment("center");
-					Fonts.slim.drawText(option.description[i], 0, 114);
+					Fonts.slim.setColor([1, 1, 1, 0.5]);
+					Fonts.slim.drawText(option.description[i], 0, 113);
 				}
 			}else{
 				Fonts.regular.setAlignment("center");

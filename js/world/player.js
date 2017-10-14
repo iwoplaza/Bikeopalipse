@@ -55,7 +55,8 @@ Player.prototype.update = function() {
 			if(collision) {
                 let value = coin.collect();
 				Stats.coins+=value;
-                GameModes.current.onCoinCollected(this, value);
+				if(value != 0)
+                	GameModes.current.onCoinCollected(this, value);
 			}
 		}
 		

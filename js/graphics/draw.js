@@ -27,6 +27,27 @@ Draw.rectangle = function(x, y, z, width, height, tx, ty, tw, th) {
 	return mesh;
 }
 
+Draw.bar_horizontal = function(width, height) {
+	var mesh = new Mesh();
+	mesh.fillOut([
+		0, 0, 0,
+		0+width, 0, 0,
+		0, 0+height, 0,
+		
+		0+width, 0, 0,
+		0, 0+height, 0,
+		0+width, 0+height, 0
+	], undefined, [
+		0, 0,
+		1, 0,
+		0, 1,
+		1, 0,
+		0, 1,
+		1, 1
+	]);
+	return mesh;
+}
+
 Draw.rectangle_solid = function(x, y, z, width, height, color) {
 	var mesh = new Mesh();
 	mesh.fillOut([

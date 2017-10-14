@@ -65,7 +65,7 @@ var Resources = {
 		'res/sfx/Go.ogg'
 	],
 	shadersToLoad: [
-		'default', 'solid', 'textured', 'cutout'
+		'default', 'solid', 'textured', 'cutout', 'font', 'barh'
 	],
 	
 	images: [],

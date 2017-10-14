@@ -24,7 +24,7 @@ PowerupEDrink.prototype.update = function(){
 PowerupEDrink.prototype.onTrip = function(_obstacle) {
 	_obstacle.dead = true;
 	World.spawnExplosion(_obstacle.location.add(0, 0));
-    GameModes.current.addScore(2);
+    GameModes.current.addScore(2, ScoreSource.EXPLOSION);
 	return true;
 };
 PowerupEDrink.prototype.onDieFromObstacle = function(_obstacle) {

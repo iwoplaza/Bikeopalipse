@@ -26,6 +26,7 @@ GameModeTutorial.prototype.update = function() {
 	
 	World.update();
 	
+	HUD.update();
 	this.convUI.update();
 };
 GameModeTutorial.prototype.draw = function() {

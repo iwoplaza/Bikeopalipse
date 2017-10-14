@@ -51,6 +51,8 @@ GameModeEndless.prototype.update = function() {
 	}else{
 		this.continueBlink = (this.continueBlink+1*Time.delta)%1;
 	}
+	
+	HUD.update();
 }
 
 GameModeEndless.prototype.draw = function() {
@@ -109,9 +111,9 @@ GameModeEndless.prototype.spawnObstacle = function() {
 }
 
 GameModeEndless.prototype.handleDistanceScoring = function(){
-    this.scoreInterval += World.getDriveSpeed()/World.stepFrequency*Time.delta;
+    this.scoreInterval += World.getDriveSpeed()*Time.delta;
     while (this.scoreInterval>100){
-        this.addScore(1);
+        this.addScore(1, ScoreSource.DISTANCE);
         this.scoreInterval-=100;
     }
 }

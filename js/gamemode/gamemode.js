@@ -1,3 +1,9 @@
+var ScoreSource = {
+	DISTANCE: 1,
+	COIN: 2,
+	EXPLOSION: 3,
+};
+
 var GameModes = {
 	current: null,
 };
@@ -38,11 +44,13 @@ GameMode.prototype.keyDown = function(e) {
 GameMode.prototype.keyUp = function(e) {
     Player.player.keyUp(e);
 };
-GameMode.prototype.addScore = function(_score) {
+GameMode.prototype.addScore = function(_score, _source) {
+	_source = _source ? _source : ScoreSource.DISTANCE;
 	this.score += _score;
+	HUD.onScore(_score, _source);
 };
 GameMode.prototype.onCoinCollected = function(_player, _value) {
-	this.addScore(_value);
+	this.addScore(1, ScoreSource.COIN);
 };
 GameMode.prototype.onGameOver = function() {
 	this.gameOver = true;

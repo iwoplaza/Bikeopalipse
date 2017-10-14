@@ -92,10 +92,15 @@ Context.prototype.drawImage = function(mesh, image, x, y, w, h) {
 	Textures.bind(image);
 	mesh.draw(this);
 };
-
 Context.prototype.drawSolid = function(mesh) {
 	Shaders.use('solid');
 	mesh.draw(this);
-}
-
+};
 Context.prototype.drawRect = Context.prototype.drawSolid;
+Context.prototype.drawBarHorizontal = function(mesh, image, x, y, w, h, progress) {
+	Shaders.use('barh');
+	Shaders.setUniform4f('uCutoutCoords', x/image.width, y/image.height, w/image.width, h/image.height);
+	Shaders.setUniform1f('uProgress', progress);
+	Textures.bind(image);
+	mesh.draw(this);
+}

@@ -64,7 +64,7 @@ function onResourcesLoaded() {
         }
     };
 	ScreenHandler.open(cont);
-	//ScreenHandler.open(new ScreenMap());
+	ScreenHandler.open(new ScreenLobby());
 	tick();
 }
 
